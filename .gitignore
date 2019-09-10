@@ -37,3 +37,7 @@ rsconnect/
 
 # Emacs
 *~
+
+# Figure renders
+*.pdf
+*.png

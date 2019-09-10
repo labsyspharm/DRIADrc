@@ -45,6 +45,7 @@ panelC <- function()
     ## Get the matching background
     XX <- indexBackground() %>% filter( Dataset != "MAYO", Task == "AC" ) %>% bkFromIndex() %>%
         unnest() %>% nest( AUC, .key="BK" ) %>% retag() %>% select( -Task ) %>% inner_join(X, .) %>%
+        mutate_at( "description", recode, "Tau Neuropathology" = "PSP Tau Neuropathology" ) %>%
         mutate( Name = glue::glue("{id}\n{description}"),
                Label = glue::glue("p={p_value}") ) %>%
         select( -id, -description ) %>%
@@ -54,9 +55,9 @@ panelC <- function()
     ## Generate the ridge plots
     ggplot( BK, aes(x=AUC, y=Name, fill=Dataset) ) +
         theme_ridges(center_axis_labels=TRUE) +
-        geom_density_ridges2(scale=1.25, size=1, alpha=0.5) +
+        geom_density_ridges2(scale=1.25, size=1) +
         geom_segment( aes(x=AUC, xend=AUC, y=as.numeric(Name), yend=as.numeric(Name)+0.9),
-                     data=XX, color="black", lwd=2 ) +
+                     data=XX, color="darkgray", lwd=2 ) +
         geom_text( aes(y=as.numeric(Name)+0.75, label=Label, hjust=0),
                   x=0.87, hjust=0, data=XX, fontface="bold", size=4 ) +
         scale_y_discrete( name=NULL ) + coord_cartesian(clip="off") +
