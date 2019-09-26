@@ -5,7 +5,7 @@
 library( tidyverse )
 
 synapser::synLogin()
-syn <- synExtra::synDownloader( "~/data/AMP-AD", ifcollision="overwrite.local" )
+syn <- synExtra::synDownloader( "~/data/DRIAD", ifcollision="overwrite.local" )
 
 ## Given a differential expression matrix, composes gene sets for each drug that
 ##   consist of [significantly] differentially-expressed genes
