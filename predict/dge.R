@@ -12,22 +12,36 @@ read_gmt <- function( fn, iName=1 )
 
 ## Evaluates a gene set that lives on Synapse
 ## Saves results into a local .RData
-## synid - synapse ID of the gene set in a .gmt format
-## fnData - filename of a wrangled AMP-AD dataset
-## fnOut - filename of the output .RData
-evalSynSet <- function( synid, fnData, fnOut )
+## fnGMT   - filename of gene set in a .gmt format
+## fnData  - filename of a wrangled AMP-AD dataset
+## fnOut   - filename where output will be written
+evalGMTset <- function( fnGMT, fnData, fnOut )
 {
     ## Download the gene sets
-    synapser::synLogin()
-    fn <- synapser::synGet( synid, downloadLocation="." )$path
-    gsiROSMAP <- read_gmt(fn)
+    gsis <- read_gmt( fnGMT )
 
     ## Set up the prediction task
     XY <- prepareTask( fnData, "AC" )
     lP <- preparePairs(XY)
 
     ## Evaluate all gene sets
-    RR <- evalGeneSets( gsiROSMAP, XY, lP, 100 )
+    RR <- evalGeneSets( gsis, XY, lP, 100 )
     save( RR, file=fnOut )
 }
 
+## Runs both DGE experiments on all datasets
+vGS <- c( DGE1 = "genesets/DGE1.gmt",
+         DGE2 = "genesets/DGE2.gmt" )
+vDS <- c( ROSMAP = "~/data/amp-ad/rosmap/rosmap.tsv.gz",
+         MSBB10 = "~/data/amp-ad/msbb/msbb10.tsv.gz",
+         MSBB22 = "~/data/amp-ad/msbb/msbb22.tsv.gz",
+         MSBB36 = "~/data/amp-ad/msbb/msbb36.tsv.gz",
+         MSBB44 = "~/data/amp-ad/msbb/msbb44.tsv.gz" )
+
+X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS) ) %>%
+    dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset],
+                  fnOut=stringr::str_c("results/", DGE, "-", Dataset, ".RData") )
+
+library( purrr )
+future::plan( future::multiprocess )
+R <- furrr::future_pmap( list(X$fnGMT, X$fnData, X$fnOut), evalGMTset )
