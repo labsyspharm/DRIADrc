@@ -7,7 +7,7 @@ library( tidyverse )
 synapser::synLogin()
 
 ## Loaders
-syn <- synExtra::synDownloader( "~/data/AMP-AD/figs" )
+syn <- synExtra::synDownloader( "~/data/DRIAD/figs" )
 syn_csv <- function( synid ) { syn(synid) %>% read_csv(col_types = cols()) }
 
 ## Returns all available results files
