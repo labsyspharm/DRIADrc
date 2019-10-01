@@ -1,4 +1,6 @@
 source("~/projects/DRIAD/R/lpocv.R")
+suppressMessages(library( purrr ))
+future::plan( future::multiprocess )
 
 ## Parses a .gmt file and puts it into the list format
 ## iName - index of the column containing pathway names
@@ -10,23 +12,24 @@ read_gmt <- function( fn, iName=1 )
         purrr::map( ~.x[-2:-1] )
 }
 
-## Evaluates a gene set that lives on Synapse
-## Saves results into a local .RData
-## fnGMT   - filename of gene set in a .gmt format
-## fnData  - filename of a wrangled AMP-AD dataset
-## fnOut   - filename where output will be written
-evalGMTset <- function( fnGMT, fnData, fnOut )
+## Evaluates a gene set from a GMT file
+## fnGMT  - filename of gene set in a .gmt format
+## fnData - filename of a wrangled AMP-AD dataset
+## task   - one of {AB, AC, BC}
+evalGMTset <- function( fnGMT, fnData, task )
 {
+    stopifnot( task %in% c("AB","AC","BC") )
+    
     ## Download the gene sets
     gsis <- read_gmt( fnGMT )
 
     ## Set up the prediction task
-    XY <- prepareTask( fnData, "AC" )
+    XY <- prepareTask( fnData, task )
     lP <- preparePairs(XY)
 
     ## Evaluate all gene sets
     RR <- evalGeneSets( gsis, XY, lP, 100 )
-    save( RR, file=fnOut )
+    RR
 }
 
 ## Runs both DGE experiments on all datasets
@@ -39,9 +42,17 @@ vDS <- c( ROSMAP = "~/data/amp-ad/rosmap/rosmap.tsv.gz",
          MSBB44 = "~/data/amp-ad/msbb/msbb44.tsv.gz" )
 
 X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS) ) %>%
-    dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset],
-                  fnOut=stringr::str_c("results/", DGE, "-", Dataset, ".RData") )
+    dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset] )
 
-library( purrr )
-future::plan( future::multiprocess )
-R <- furrr::future_pmap( list(X$fnGMT, X$fnData, X$fnOut), evalGMTset )
+f <- function( task, .df )
+{
+    .df %>%
+        dplyr::mutate(Results = furrr::future_pmap(list(fnGMT, fnData, task), evalGMTset)) %>%
+        dplyr::select( -fnGMT, -fnData )
+}
+
+allRes <- list( "AB", "BC", "AC" ) %>% set_names() %>% purrr::map(f, X) %>%
+    dplyr::bind_rows( .id = "Task" ) %>% tidyr::unnest() %>%
+    dplyr::rename( Plate=DGE, Drug=Set )
+
+save( allRes, file=stringr::str_c("results/results-",Sys.Date(),".RData") )
