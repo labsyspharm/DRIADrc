@@ -2,16 +2,6 @@ source("~/projects/DRIAD/R/lpocv.R")
 suppressMessages(library( purrr ))
 future::plan( future::multiprocess )
 
-## Parses a .gmt file and puts it into the list format
-## iName - index of the column containing pathway names
-##    (This is typically 1 for Broad MSigDB sets, and 2 for PathwayCommons sets)
-read_gmt <- function( fn, iName=1 )
-{
-    readr::read_lines(fn) %>% stringr::str_split( "\\t" ) %>%
-        set_names( purrr::map_chr(., dplyr::nth, iName) ) %>%
-        purrr::map( ~.x[-2:-1] )
-}
-
 ## Evaluates a gene set from a GMT file
 ## fnGMT  - filename of gene set in a .gmt format
 ## fnData - filename of a wrangled AMP-AD dataset
@@ -46,6 +36,7 @@ X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS) ) %>%
 
 f <- function( task, .df )
 {
+    cat( "Running on task", task, "\n" )
     .df %>%
         dplyr::mutate(Results = furrr::future_pmap(list(fnGMT, fnData, task), evalGMTset)) %>%
         dplyr::select( -fnGMT, -fnData )
