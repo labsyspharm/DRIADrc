@@ -9,6 +9,7 @@ future::plan( future::multiprocess )
 evalGMTset <- function( fnGMT, fnData, task )
 {
     stopifnot( task %in% c("AB","AC","BC") )
+    cat( "Evaluating", fnGMT, "on", fnData, "for", task, "\n" )
     
     ## Download the gene sets
     gsis <- read_gmt( fnGMT )
@@ -31,19 +32,10 @@ vDS <- c( ROSMAP = "~/data/amp-ad/rosmap/rosmap.tsv.gz",
          MSBB36 = "~/data/amp-ad/msbb/msbb36.tsv.gz",
          MSBB44 = "~/data/amp-ad/msbb/msbb44.tsv.gz" )
 
-X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS) ) %>%
+X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS), Task=c("AB","BC","AC") ) %>%
     dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset] )
 
-f <- function( task, .df )
-{
-    cat( "Running on task", task, "\n" )
-    .df %>%
-        dplyr::mutate(Results = furrr::future_pmap(list(fnGMT, fnData, task), evalGMTset)) %>%
-        dplyr::select( -fnGMT, -fnData )
-}
-
-allRes <- list( "AB", "BC", "AC" ) %>% set_names() %>% purrr::map(f, X) %>%
-    dplyr::bind_rows( .id = "Task" ) %>% tidyr::unnest() %>%
-    dplyr::rename( Plate=DGE, Drug=Set )
+allRes <- X %>% dplyr::mutate( Results=purrr::pmap(list(fnGMT, fnData, Task), evalGMTset) ) %>%
+    dplyr::select( -fnGMT, -fnData ) %>% tidyr::unnest() %>% dplyr::rename( Plate=DGE, Drug=Set )
 
 save( allRes, file=stringr::str_c("results/results-",Sys.Date(),".RData") )
