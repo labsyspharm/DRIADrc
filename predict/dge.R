@@ -1,32 +1,26 @@
 source("~/projects/DRIAD/R/lpocv.R")
+suppressMessages(library( purrr ))
+future::plan( future::multiprocess )
 
-## Parses a .gmt file and puts it into the list format
-## iName - index of the column containing pathway names
-##    (This is typically 1 for Broad MSigDB sets, and 2 for PathwayCommons sets)
-read_gmt <- function( fn, iName=1 )
+## Evaluates a gene set from a GMT file
+## fnGMT  - filename of gene set in a .gmt format
+## fnData - filename of a wrangled AMP-AD dataset
+## task   - one of {AB, AC, BC}
+evalGMTset <- function( fnGMT, fnData, task )
 {
-    readr::read_lines(fn) %>% stringr::str_split( "\\t" ) %>%
-        set_names( purrr::map_chr(., dplyr::nth, iName) ) %>%
-        purrr::map( ~.x[-2:-1] )
-}
-
-## Evaluates a gene set that lives on Synapse
-## Saves results into a local .RData
-## fnGMT   - filename of gene set in a .gmt format
-## fnData  - filename of a wrangled AMP-AD dataset
-## fnOut   - filename where output will be written
-evalGMTset <- function( fnGMT, fnData, fnOut )
-{
+    stopifnot( task %in% c("AB","AC","BC") )
+    cat( "Evaluating", fnGMT, "on", fnData, "for", task, "\n" )
+    
     ## Download the gene sets
     gsis <- read_gmt( fnGMT )
 
     ## Set up the prediction task
-    XY <- prepareTask( fnData, "AC" )
+    XY <- prepareTask( fnData, task )
     lP <- preparePairs(XY)
 
     ## Evaluate all gene sets
-    RR <- evalGeneSets( gsis, XY, lP, 100 )
-    save( RR, file=fnOut )
+    RR <- evalGeneSets( gsis, XY, lP, 1000 )
+    RR
 }
 
 ## Runs both DGE experiments on all datasets
@@ -38,10 +32,10 @@ vDS <- c( ROSMAP = "~/data/amp-ad/rosmap/rosmap.tsv.gz",
          MSBB36 = "~/data/amp-ad/msbb/msbb36.tsv.gz",
          MSBB44 = "~/data/amp-ad/msbb/msbb44.tsv.gz" )
 
-X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS) ) %>%
-    dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset],
-                  fnOut=stringr::str_c("results/", DGE, "-", Dataset, ".RData") )
+X <- tidyr::crossing( DGE=names(vGS), Dataset=names(vDS), Task=c("AB","BC","AC") ) %>%
+    dplyr::mutate( fnGMT=vGS[DGE], fnData=vDS[Dataset] )
 
-library( purrr )
-future::plan( future::multiprocess )
-R <- furrr::future_pmap( list(X$fnGMT, X$fnData, X$fnOut), evalGMTset )
+allRes <- X %>% dplyr::mutate( Results=purrr::pmap(list(fnGMT, fnData, Task), evalGMTset) ) %>%
+    dplyr::select( -fnGMT, -fnData ) %>% tidyr::unnest() %>% dplyr::rename( Plate=DGE, Drug=Set )
+
+save( allRes, file=stringr::str_c("results/results-",Sys.Date(),".RData") )
