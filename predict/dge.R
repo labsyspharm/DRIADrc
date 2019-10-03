@@ -19,7 +19,7 @@ evalGMTset <- function( fnGMT, fnData, task )
     lP <- preparePairs(XY)
 
     ## Evaluate all gene sets
-    RR <- evalGeneSets( gsis, XY, lP, 100 )
+    RR <- evalGeneSets( gsis, XY, lP, 1000 )
     RR
 }
 
