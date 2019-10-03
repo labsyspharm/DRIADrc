@@ -29,7 +29,9 @@ theme_bold <- function()
 ## Define the dataset palette
 dsPal <- function()
 {
-    c( ROSMAP = "#882256", MAYO = "#cc6677", `MSBB10` = "#89cced",
-      `MSBB44` = "#332f85", `MSBB36` = "#13783d", `MSBB22` = "#ddcb76" )
+##    c( ROSMAP = "#882256", MAYO = "#cc6677", `MSBB10` = "#89cced",
+##      `MSBB44` = "#332f85", `MSBB36` = "#13783d", `MSBB22` = "#ddcb76" )
+    c( ROSMAP = "#872756", MAYO = "#CA6676", `MSBB10` = "#87CAEC",
+      `MSBB44` = "#363283", `MSBB36` = "#46A898", `MSBB22` = "#DBCA75" )
 }
 
