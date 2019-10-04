@@ -23,6 +23,7 @@ panelB <- function()
     X1 <- allRes %>% filter(Task == "AC") %>% mutate(nFeats = map_int(Feats, length), Feats=NULL)
     X2 <- mayoRes %>% filter(Task == "AC")
     XX <- bind_rows( X1, X2 ) %>% rename( LINCSID=Drug ) %>% inner_join(R, by="LINCSID") %>%
+        mutate_at( "Target", recode, JAK1 = "JAK1/2" ) %>%
         filter( (Drug == "ruxolitinib" & Plate=="DGE2") | Drug == "nvp-tae684" ) %>%
         select( -Task, -LINCSID, -Plate, -nFeats ) %>%
         mutate( Name = glue::glue("{Drug} ({Target})"), Drug=NULL, Target=NULL,
