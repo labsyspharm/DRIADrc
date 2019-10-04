@@ -31,7 +31,7 @@ panelC <- function()
         arrange( AUC ) %>% mutate_at( "Name", as_factor )
 
     ## Unroll the background information
-    BK <- R %>% select( Name, Dataset, BK ) %>% unnest() %>% rename( AUC=BK )
+    BK <- R %>% select( Name, Dataset, AUC=BK ) %>% unnest()
 
     ## Generate the ridge plots
     ggplot( BK, aes(x=AUC, y=Name, fill=Dataset) ) +

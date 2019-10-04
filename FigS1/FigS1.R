@@ -5,9 +5,14 @@
 source( "../results.R" )
 source( "../plot.R" )
 
-FigS2 <- function()
+FigS1 <- function()
 {
-    BK <- indexBackground() %>% bkFromIndex() %>% retag() %>% unnest()
+    load( syn("syn20827214") )
+
+    v <- c( AB = "A-vs-B", AC = "A-vs-C", BC = "B-vs-C" )
+    BK <- allRes %>% mutate_at( "Task", recode, !!!v ) %>%
+        mutate( nFeats = map_int(Feats, length) ) %>%
+        select( -Plate, -Drug, -Feats, -AUC, -pval, AUC=BK ) %>% unnest()
     TXT <- BK %>% select(Task) %>% distinct
 
     ggplot( BK, aes(x=Size, y=AUC, color=Dataset) ) + theme_bw() + theme_bold() +
