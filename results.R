@@ -6,7 +6,7 @@ library( tidyverse )
 synapser::synLogin()
 
 ## Loaders
-syn <- synExtra::synDownloader( "~/data/DRIAD/figs" )
+syn <- synExtra::synDownloader( "~/data/DRIAD/figs", ifcollision="overwrite.local" )
 syn_csv <- function( synid ) { syn(synid) %>% read_csv(col_types = cols()) }
 
 ## The composite score is defined as the harmonic mean p value
