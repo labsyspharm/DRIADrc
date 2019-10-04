@@ -21,7 +21,7 @@ legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
 
 ## Helper function that prepares a data frame for heatmap plotting
 fprep <- function( .df ) {
-    .df %>% select( Drug:HMP ) %>%
+    .df %>% select( Drug, MSBB10, MSBB22, MSBB36, MSBB44, ROSMAP, HMP ) %>%
         as.data.frame() %>% column_to_rownames( "Drug" ) %>% as.matrix()
 }
 
@@ -63,6 +63,7 @@ Fig3 <- function()
 {
     ## Fetch the composite score matrix and separate drugs in FDA-approved and non-approved
     XX <- DGEcompositePre() %>% select( -LINCSID ) %>%
+        mutate( Target = ifelse(is.na(Target), "Other", Target) ) %>%
         mutate( IsApproved = ifelse( Approval %in% c("approved","vet_approved"),
                                     "FDA-Approved", "Non-Approved" ) ) %>%
         mutate_at( "IsToxic", recode, `0` = "Non-Toxic", `1` = "Toxic" ) %>%
