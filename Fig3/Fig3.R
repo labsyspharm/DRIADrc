@@ -122,13 +122,13 @@ Fig3 <- function()
                                    widths=c(4,2,3) )
     ly <- matrix( c(1,3,2,3), 2, 2 )
     gg <- gridExtra::arrangeGrob( grobs = c(ggh,list(Legend=gleg)), layout_matrix=ly,
-                                 heights=c(0.9,0.1), widths=c(1.3,1) )
+                                 heights=c(0.9,0.1), widths=c(1.1,1) )
 
     ## Add custom annotations
     cowplot::ggdraw(gg) +
         cowplot::draw_text( "Drug (FDA-proposed MoA) [Plate Index]",
-                          0.4, 0.93, fontface="bold", size=11 ) +
-            cowplot::draw_text( "Drug (Vendor Target) [Plate Idx]",
+                          0.37, 0.93, fontface="bold", size=11 ) +
+            cowplot::draw_text( "Drug (Vendor Target) [Plate Index]",
                                0.87, 0.93, fontface="bold", size=11 )
-    cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=10.4, height=7.1 )
+    cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=11, height=7.1 )
 }
