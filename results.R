@@ -52,5 +52,5 @@ DGEcomposite <- function( task="AC" )
 }
 
 ## Pulls pre-computed DGEcomposite() output from Synapse
-DGEcompositePre <- function( synID = "syn20821922" ) { syn_csv(synID) }
+DGEcompositePre <- function( synID = "syn20928503" ) { syn_csv(synID) }
 
