@@ -11,7 +11,7 @@ panelB <- function()
 {
     library( ggridges )
 
-    R <- syn_csv( "syn20928503" ) %>% select( LINCSID, Drug, Target ) %>% distinct
+    R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
     
     ## Load all the results
     load( syn("syn20928450") )
