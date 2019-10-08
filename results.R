@@ -12,12 +12,12 @@ syn_csv <- function( synid ) { syn(synid) %>% read_csv(col_types = cols()) }
 ## The composite score is defined as the harmonic mean p value
 ##   p-values below 0.01 are thresholded at 0.005 to avoid "zero" issues
 ## Annotates a results data frame with drug, target and toxicity information
-DGEcomposite <- function()
+DGEcomposite <- function( task="AC" )
 {
     ## Harmonic mean
     hmean <- function(v) {length(v)/sum(1/v)}
     
-    load( syn("syn20821835") )
+    load( syn("syn20928450") )
     
     ## Load the associated LINCS metadata (drug names)
     M <- syn_csv( "syn11801537" ) %>% mutate_at( "name", str_to_lower ) %>%
@@ -37,14 +37,15 @@ DGEcomposite <- function()
         select( Drug, IsToxic )
 
     ## Combine everything into a single dataframe
-    R <- allRes %>% select( Plate, Dataset, LINCSID=Drug, pval ) %>%
+    R <- allRes %>% filter( Task == task ) %>%
+        select( Plate, Dataset, LINCSID=Drug, pval ) %>%
         inner_join( M, by="LINCSID" ) %>% 
         left_join( DBA, by="Drug" ) %>%
         mutate_at( "Approval", replace_na, "experimental" ) %>%
         left_join( TOX, by="Drug" )
 
     ## Compute the composite score
-    R %>% mutate_at( "pval", pmax, 0.005 ) %>%
+    R %>% mutate_at( "pval", pmax, 0.0005 ) %>%
         spread( Dataset, pval ) %>%
         mutate( HMP = pmap_dbl(list(MSBB10, MSBB22, MSBB36, MSBB44, ROSMAP), lift_vd(hmean)) ) %>%
         arrange( HMP )
