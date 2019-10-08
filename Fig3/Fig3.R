@@ -13,7 +13,7 @@ legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
     gcb <- guide_colorbar(title.vjust = .85, barwidth=unit(4,"cm"))
     gg <- ggplot( X, aes(x=x, y=y, color=HMP) ) + geom_bar(stat="identity") +
         scale_color_gradientn( colors=pal(100), guide=gcb, trans="log",
-                              breaks=c(0.01,0.05,0.3) ) +
+                              breaks=c(0.005,0.04,0.3) ) +
         theme( legend.title = etxt(12), legend.text = etxt(10),
               legend.position="bottom", legend.margin=mar )
     cowplot::get_legend( gg )
