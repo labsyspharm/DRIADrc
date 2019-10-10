@@ -6,9 +6,19 @@ library( tidyverse )
 
 synapser::synLogin()
 
-## Loader
-syn <- synExtra::synDownloader( "~/data/DRIAD/BTR", ifcollision="overwrite.local" )
-syn_csv <- function( synid ) { syn(synid) %>% read_csv(col_types = cols()) }
+synParent <- function( synid )
+{
+    s <- synapser::synGet(synid, downloadFile=FALSE)
+    s$properties$parentId
+}
+
+syn_csv <- function( synid )
+{
+    gp <- synParent( synid ) %>% synParent() %>% synExtra::synName()
+    p <- file.path( "~/data/DRIAD/BTR", gp )
+    syn <- synExtra::synDownloader(p)
+    syn(synid) %>% read_csv(col_types = cols())
+}
 
 indexDGE <- function()
 {
