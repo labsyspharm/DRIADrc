@@ -1,4 +1,4 @@
-## FigS2: Performance on background gene sets
+## Performance on background gene sets
 ##
 ## by Artem Sokolov
 
