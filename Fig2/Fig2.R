@@ -1,4 +1,6 @@
-## Performance on background gene sets
+## DGE gene sets
+## A - Schematic explaining DGE experiment
+## B - Exemplar on two drugs
 ##
 ## by Artem Sokolov
 
@@ -9,41 +11,45 @@ panelB <- function()
 {
     library( ggridges )
 
-    ## A closer look some of the following drugs (#non-MAYO datasets where p < 0.05):
-    ##  lapatinib (3), baricitinib (MAYO+2), nvp-tae684 (4), torin1 (3)
+    R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
+    
+    ## Load all the results
+    load( syn("syn20928450") )
+    load( syn("syn20835686") )
 
-    ## Identify performance for the drugs of interest
-    vDrugs <- c("lapatinib", "nvp-tae684")
-    X <- indexDGE() %>% filter( Task == "AC" ) %>% resFromIndex() %>%
-        retag() %>% unnest() %>% filter( Drug %in% vDrugs ) %>%
-        mutate( Label = ifelse(p_value == 0, " p<0.01", str_c(" p=",p_value)),
-               Size = round(Size/10)*10, Highlight=ifelse(p_value <= 0.05, "yes", "no") ) %>%
-        select( -Task, -Plate, -Approval, -IsToxic, -LINCSID, -p_value )
-
-    ## Get the matching background
-    XX <- indexBackground() %>% filter( Task == "AC" ) %>% bkFromIndex() %>%
-        unnest() %>% nest( AUC, .key="BK" ) %>% retag() %>% select( -Task ) %>%
-        inner_join(X, ., by=c("Dataset","Size")) %>%
-        mutate( Name = glue::glue("{Drug} ({Target})") ) %>%
-        select( -Drug, -Target, -Size ) %>%
+    ## Isolate the slice corresponding to:
+    ##   1. NVP-TAE684 (DGE1) - HMSL10024
+    ##   2. Ruxolitinib (DGE2) - HMSL10138
+    X1 <- allRes %>% filter(Task == "AC") %>% mutate(nFeats = map_int(Feats, length), Feats=NULL)
+    X2 <- mayoRes %>% filter(Task == "AC")
+    XX <- bind_rows( X1, X2 ) %>% rename( LINCSID=Drug ) %>% inner_join(R, by="LINCSID") %>%
+        mutate_at( "Target", recode, JAK1 = "JAK1/2" ) %>%
+        filter( (Drug == "ruxolitinib" & Plate=="DGE2") | Drug == "nvp-tae684" ) %>%
+        select( -Task, -LINCSID, -Plate, -nFeats ) %>%
+        mutate( Name = glue::glue("{Drug} ({Target})"), Drug=NULL, Target=NULL,
+               Label = ifelse(pval == 0, " p<0.001", str_c(" p=",pval)),
+               Highlight=ifelse(pval <= 0.05, "yes", "no"), pval=NULL ) %>%
         arrange( Dataset ) %>% mutate_at( "Dataset", as_factor )
-    BK <- XX %>% select( Name, Dataset, BK ) %>% unnest
+
+    ## Unroll the background information
+    BK <- XX %>% select( Name, Dataset, AUC=BK ) %>% unnest()
 
     ## Generate the ridge plots
     ggplot( BK, aes(x=AUC, y=Dataset, fill=Dataset) ) +
         facet_wrap( ~Name, nrow=1 ) +
         theme_ridges(center_axis_labels=TRUE) +
+        geom_vline( xintercept=seq(0.5, 0.9, by=0.1), color="gray90" ) +
         geom_density_ridges2(scale=1.25, size=1, alpha=0.5) +
         geom_segment( aes(x=AUC, xend=AUC, y=as.numeric(Dataset),
                           yend=as.numeric(Dataset)+0.9),
                      data=XX, color="black", lwd=2 ) +
         geom_text( aes(y=as.numeric(Dataset)+0.7, label=Label, color=Highlight),
-                  x=0.95, hjust=0, data=XX, fontface="bold", size=4 ) +
-        coord_cartesian(clip="off") + xlim(0.6, 1.05) +
+                  x=0.94, hjust=0, data=XX, fontface="bold", size=4 ) +
+        coord_cartesian(clip="off") + xlim(0.5, 0.99) +
         scale_fill_manual( values=dsPal(), guide=FALSE ) +
         scale_color_manual( values=c("yes"="red","no"="black"), guide=FALSE ) +
         theme( strip.text.x = element_text(margin=margin(b=5,t=5), face="bold"),
-              strip.background = element_blank() )
+              strip.background = element_blank(), panel.grid.major.x=element_blank() )
 ##        ggsave( str_c("Fig2B-",Sys.Date(),".pdf"), width=8, height=5 ) +
 ##        ggsave( str_c("Fig2B-",Sys.Date(),".png"), width=8, height=5 )
 }

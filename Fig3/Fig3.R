@@ -13,7 +13,7 @@ legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
     gcb <- guide_colorbar(title.vjust = .85, barwidth=unit(4,"cm"))
     gg <- ggplot( X, aes(x=x, y=y, color=HMP) ) + geom_bar(stat="identity") +
         scale_color_gradientn( colors=pal(100), guide=gcb, trans="log",
-                              breaks=c(0.01,0.05,0.3) ) +
+                              breaks=c(0.005,0.04,0.3) ) +
         theme( legend.title = etxt(12), legend.text = etxt(10),
               legend.position="bottom", legend.margin=mar )
     cowplot::get_legend( gg )
@@ -21,7 +21,7 @@ legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
 
 ## Helper function that prepares a data frame for heatmap plotting
 fprep <- function( .df ) {
-    .df %>% select( Drug:HMP ) %>%
+    .df %>% select( Drug, MSBB10, MSBB22, MSBB36, MSBB44, ROSMAP, HMP ) %>%
         as.data.frame() %>% column_to_rownames( "Drug" ) %>% as.matrix()
 }
 
@@ -63,6 +63,7 @@ Fig3 <- function()
 {
     ## Fetch the composite score matrix and separate drugs in FDA-approved and non-approved
     XX <- DGEcompositePre() %>% select( -LINCSID ) %>%
+        mutate( Target = ifelse(is.na(Target), "Other", Target) ) %>%
         mutate( IsApproved = ifelse( Approval %in% c("approved","vet_approved"),
                                     "FDA-Approved", "Non-Approved" ) ) %>%
         mutate_at( "IsToxic", recode, `0` = "Non-Toxic", `1` = "Toxic" ) %>%
@@ -121,13 +122,13 @@ Fig3 <- function()
                                    widths=c(4,2,3) )
     ly <- matrix( c(1,3,2,3), 2, 2 )
     gg <- gridExtra::arrangeGrob( grobs = c(ggh,list(Legend=gleg)), layout_matrix=ly,
-                                 heights=c(0.9,0.1), widths=c(1.3,1) )
+                                 heights=c(0.9,0.1), widths=c(1.1,1) )
 
     ## Add custom annotations
     cowplot::ggdraw(gg) +
         cowplot::draw_text( "Drug (FDA-proposed MoA) [Plate Index]",
-                          0.4, 0.93, fontface="bold", size=11 ) +
-            cowplot::draw_text( "Drug (Vendor Target) [Plate Idx]",
+                          0.37, 0.93, fontface="bold", size=11 ) +
+            cowplot::draw_text( "Drug (Vendor Target) [Plate Index]",
                                0.87, 0.93, fontface="bold", size=11 )
-    cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=10.4, height=7.1 )
+    cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=11, height=7.1 )
 }

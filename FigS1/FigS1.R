@@ -1,4 +1,4 @@
-## Performance on cell-type specific gene sets
+## Performance on background gene sets
 ##
 ## by Artem Sokolov
 
@@ -7,31 +7,41 @@ source( "../plot.R" )
 
 FigS1 <- function()
 {
-    load(syn( "syn18565498" ))
+    load( syn("syn20948620") )
+    load( syn("syn20928450") )
 
     v <- c( AB = "A-vs-B", AC = "A-vs-C", BC = "B-vs-C" )
-    RS <- RS %>% mutate_at( "Task", recode, !!!v )
-    RBK <- RBK %>% mutate_at( "Task", recode, !!!v )
-    
-    SBK <- RBK %>% group_by( Task ) %>% summarize_at( "AUC", list(BK=list) ) %>%
-        inner_join( RS, ., by="Task" ) %>% mutate( pval = map2_dbl(AUC, BK, ~mean(.x < .y)) ) %>%
-        mutate( sig = ifelse( pval < 0.05, "Yes", "No" ) ) %>% arrange( pval ) 
-   
-    ## Additional plotting elements
-    xrng <- bind_rows(RBK, SBK) %>% pull( AUC ) %>% range
-    
-    ## Plot everything together
-    ggplot() + theme_bw() + facet_wrap( ~Task, ncol=1 ) + guides( color=FALSE ) +
-        ggthemes::scale_fill_few() + theme_bold() + ylab( "Density" ) +
-        scale_x_continuous( limits = c(1,1.1) * xrng ) + ylim( c(0,15) ) +
-        ggrepel::geom_text_repel( aes(x=AUC, label=Name, color=sig), SBK, y=3,
-                                 nudge_y=100, fontface="bold" ) +
-        geom_density( aes(x=AUC, fill=Task), RBK, alpha=0.65, lwd=1 ) +
-        geom_segment( aes(x=AUC, xend=AUC, color=sig), SBK, y=0, yend=3, lwd=1 ) +
-        scale_color_manual( values=c("Yes" = "red", "No" = "black") ) +
-        theme( strip.background = element_blank(), strip.text.x = element_blank(),
-              legend.position=c(0.98,0.98), legend.justification=c(1,1),
-              legend.background=element_rect(fill=NA), legend.title.align=0.75 ) +
-        ggsave( str_c("FigS1-",Sys.Date(),".pdf"), width=8, height=5 )
-}
+    BK0 <- allRes %>% mutate( nFeats = map_int(Feats, length), Feats=NULL ) %>%
+        bind_rows( mayoRes ) %>% mutate_at( "Task", recode, !!!v ) %>%
+        select( -Plate, -Drug, -AUC, -pval, Vals=BK ) %>%
+        arrange( nFeats ) %>% unnest() %>%
+        group_by( Dataset, Task, nFeats ) %>% summarize_at( "Vals", list ) %>% ungroup()
+    TXT <- BK0 %>% select(Task) %>% distinct
 
+    BK <- BK0 %>% mutate( AUC=map_dbl(Vals,mean), s=map_dbl(Vals,sd) )
+
+    f <- function( p, k, a, step=0.5 )
+    {
+        p + geom_ribbon( aes(ymin=AUC+k*s, ymax=AUC+(k+step)*s, fill=Dataset), alpha=a ) +
+            geom_ribbon( aes(ymin=AUC-k*s, ymax=AUC-(k+step)*s, fill=Dataset), alpha=a )
+    }
+    
+    pl <- ggplot( BK, aes(x=nFeats) ) + theme_bw() + theme_bold() +
+        facet_wrap( ~Task ) +
+        geom_line( aes(y=AUC, color=Dataset), lwd=1.5 ) +
+##        geom_smooth( aes(y=AUC, color=Dataset), se=FALSE ) +
+        geom_text( aes(label=Task), data=TXT, color="black", fontface="bold",
+                  size=5, x=log10(15), y=0.9, hjust=0.25, vjust=0.5 ) +
+        scale_color_manual( values=dsPal() ) +
+        scale_fill_manual( values=dsPal(), guide=FALSE ) +
+        theme( strip.background = element_blank(), strip.text = element_blank() ) +
+        scale_x_log10(name="Number of genes in set")
+
+    ## Uncomment this if reviewers complain about lack of confidence regions
+    ## nSD <- seq(0,.5,by=0.5)
+    ## va <- c(0.1, 0.0.5)
+    ## reduce2( nSD, va, f, .init=pl )
+
+    pl + ggsave( str_c("FigS1-",Sys.Date(),".pdf"), width=9, height=3 ) +
+        ggsave( str_c("FigS1-",Sys.Date(),".png"), width=9, height=3 )
+}
