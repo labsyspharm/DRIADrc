@@ -1,4 +1,4 @@
-source("~/projects/DRIAD/R/lpocv.R")
+library(DRIAD)
 suppressMessages(library( purrr ))
 future::plan( future::multiprocess )
 

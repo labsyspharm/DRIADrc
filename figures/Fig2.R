@@ -4,8 +4,8 @@
 ##
 ## by Artem Sokolov
 
-source( "../results.R" )
-source( "../plot.R" )
+source( "results.R" )
+source( "plot.R" )
 
 panelB <- function()
 {
@@ -15,7 +15,7 @@ panelB <- function()
     
     ## Load all the results
     load( syn("syn20928450") )
-    load( syn("syn20835686") )
+    load( syn("syn20948620") )
 
     ## Isolate the slice corresponding to:
     ##   1. NVP-TAE684 (DGE1) - HMSL10024
@@ -32,7 +32,7 @@ panelB <- function()
         arrange( Dataset ) %>% mutate_at( "Dataset", as_factor )
 
     ## Unroll the background information
-    BK <- XX %>% select( Name, Dataset, AUC=BK ) %>% unnest()
+    BK <- XX %>% select( Name, Dataset, AUC=BK ) %>% unnest(AUC)
 
     ## Generate the ridge plots
     ggplot( BK, aes(x=AUC, y=Dataset, fill=Dataset) ) +
@@ -50,20 +50,13 @@ panelB <- function()
         scale_color_manual( values=c("yes"="red","no"="black"), guide=FALSE ) +
         theme( strip.text.x = element_text(margin=margin(b=5,t=5), face="bold"),
               strip.background = element_blank(), panel.grid.major.x=element_blank() )
-##        ggsave( str_c("Fig2B-",Sys.Date(),".pdf"), width=8, height=5 ) +
-##        ggsave( str_c("Fig2B-",Sys.Date(),".png"), width=8, height=5 )
 }
 
-Fig2 <- function()
-{
-    ## Plot individual panels
-    pA <- pdfGrob("syn20540118")
-    pB <- panelB()
+## Plot individual panels
+pA <- pdfGrob("syn20540118")
+pB <- panelB()
 
-    ## Place everything onto the same figure
-    ff <- cowplot::plot_grid( pA, pB, ncol=1, rel_heights=c(0.65,1),
-                             labels=c("A","B"), label_size=24 )
-    ggsave( str_c("Fig2-",Sys.Date(),".pdf"), ff, width=10, height=7.5 )
-    ggsave( str_c("Fig2-",Sys.Date(),".png"), ff, width=10, height=7.5 )
-}
-
+## Place everything onto the same figure
+ff <- cowplot::plot_grid( pA, pB, ncol=1, rel_heights=c(0.65,1),
+                         labels=c("A","B"), label_size=24 )
+ggsave( str_c("Fig2-",Sys.Date(),".pdf"), ff, width=10, height=7.5 )
