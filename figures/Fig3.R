@@ -2,8 +2,8 @@
 ##
 ## by Artem Sokolov
 
-source( "../results.R" )
-source( "../plot.R" )
+source( "results.R" )
+source( "plot.R" )
 
 ## Returns a score legend grob
 legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
@@ -132,3 +132,5 @@ Fig3 <- function()
                                0.87, 0.93, fontface="bold", size=11 )
     cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=11, height=7.1 )
 }
+
+Fig3()

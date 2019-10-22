@@ -2,8 +2,8 @@
 ##
 ## by Artem Sokolov
 
-source( "../results.R" )
-source( "../plot.R" )
+source( "results.R" )
+source( "plot.R" )
 
 panelC <- function()
 {
@@ -31,7 +31,7 @@ panelC <- function()
         arrange( AUC ) %>% mutate_at( "Name", as_factor )
 
     ## Unroll the background information
-    BK <- R %>% select( Name, Dataset, AUC=BK ) %>% unnest()
+    BK <- R %>% select( Name, Dataset, AUC=BK ) %>% unnest(AUC)
 
     ## Generate the ridge plots
     ggplot( BK, aes(x=AUC, y=Name, fill=Dataset) ) +
@@ -46,18 +46,15 @@ panelC <- function()
     ##        theme( axis.text=etxt(12), axis.title=etxt(14) )
 }
 
-Fig1 <- function()
-{
-    ## Identify individual panels
-    pA <- pdfGrob("syn20506948")
-    pB <- pdfGrob("syn20506949")
-    pC <- panelC()
+## Identify individual panels
+pA <- pdfGrob("syn20506948")
+pB <- pdfGrob("syn20506949")
+pC <- panelC()
 
-    ## Put everything together
-    fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("A","","B",""),
-                              rel_widths=c(0.02,1), rel_heights=c(1,0.8), label_size=24 )
-    ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
-                             rel_widths=c(1.5,0.02,1), label_size=24 )
+## Put everything together
+fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("A","","B",""),
+                          rel_widths=c(0.02,1), rel_heights=c(1,0.8), label_size=24 )
+ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
+                         rel_widths=c(1.5,0.02,1), label_size=24 )
     
-    cowplot::ggsave( str_c("Fig1-", Sys.Date(), ".pdf"), ff, width=14, height=7 )
-}
+cowplot::ggsave( str_c("Fig1-", Sys.Date(), ".pdf"), ff, width=14, height=7 )
