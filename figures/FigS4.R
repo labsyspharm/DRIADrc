@@ -30,7 +30,7 @@ main <- function()
     f <- function(v){rep("    ", length(v))}
     gg1 <- ggplot( TXm, aes(x=`Nuclei counts`) ) + theme_bw() + theme_bold() +
         geom_density() + geom_vline( xintercept=2400, lty="dashed" ) +
-        xlim( c(0, 5000) ) + ylab( "Density" ) +
+        xlim( c(0, 5000) ) + ylab( "" ) +
         scale_y_continuous( labels=f ) +
         theme( axis.title.x=element_blank(), axis.text.x=element_blank(),
               axis.ticks=element_blank() )
@@ -43,8 +43,8 @@ main <- function()
         geom_vline( xintercept=2400, lty="dashed" ) +
         scale_color_manual( values=c(toxic="tomato",no="black"), guide=FALSE )
 
-    gg <- egg::ggarrange( gg1, gg2 )
-    ggsave( str_c("FigS4-",Sys.Date(),".pdf"), gg, width=8.5, height=5.5 )
+    gg <- egg::ggarrange( gg1, gg2, heights=c(1,2) )
+    ggsave( str_c("FigS4-",Sys.Date(),".pdf"), gg, width=7.25, height=3.7 )
 }
 
 main()
