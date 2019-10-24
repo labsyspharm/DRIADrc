@@ -26,7 +26,7 @@ main <- function()
         geom_abline( slope=1, intercept=0, lty="dashed" ) +
         geom_text( aes(label=Lbl), data=CR, x=Inf, y=-Inf, hjust=1, vjust=0.5,
                   size=5 ) +
-        xlab( "log(Fold Change) on Plate1" ) +
-        ylab( "log(Fold Change) on Plate2" ) +
-        ggsave( "draft.pdf", width=7.25, height=5.5 )
+        xlab( "log(Fold Change) in Experiment 1" ) +
+        ylab( "log(Fold Change) in Experiment 2" ) +
+        ggsave( str_c("FigS3-",Sys.Date(),".pdf"), width=7.25, height=5.5 )
 }
