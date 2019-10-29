@@ -5,6 +5,10 @@
 source( "results.R" )
 source( "plot.R" )
 
+theme_noaxes <- function() {
+    theme(axis.title=element_blank(), axis.text=element_blank(),
+          axis.ticks=element_blank()) }
+
 main <- function()
 {
     ## Download the nuclei count data and compute summary statistics
@@ -26,25 +30,25 @@ main <- function()
         inner_join( TXm, by="Drug" ) %>%
         mutate( Highlight = ifelse(`Nuclei counts` < 2400, "toxic", "no") )
     
-    ## Plot the bi-modal distribution
-    f <- function(v){rep("    ", length(v))}
+    ## Plot the bi-modal distribution of nuclei counts
     gg1 <- ggplot( TXm, aes(x=`Nuclei counts`) ) + theme_bw() + theme_bold() +
         geom_density() + geom_vline( xintercept=2400, lty="dashed" ) +
-        xlim( c(0, 5000) ) + ylab( "" ) +
-        scale_y_continuous( labels=f ) +
-        theme( axis.title.x=element_blank(), axis.text.x=element_blank(),
-              axis.ticks=element_blank() )
+        xlim( c(0, 5000) ) + theme_noaxes()
 
     ## Plot the correspondence between DGE transcript counts and Deep-Dye-Drop assay
     gg2 <- ggplot( DGE, aes(y=DGEcount, x=`Nuclei counts`, color=Highlight) ) +
         geom_point() + theme_bw() + theme_bold() +
-        scale_y_log10(labels=numform::f_denom) + 
+        scale_y_log10(labels=numform::f_denom, limits=c(1000, 1e6)) + 
         xlim( c(0, 5000) ) + ylab( "DGE Transcript Count" ) +
         geom_vline( xintercept=2400, lty="dashed" ) +
         scale_color_manual( values=c(toxic="tomato",no="black"), guide=FALSE )
 
-    gg <- egg::ggarrange( gg1, gg2, heights=c(1,2) )
-    ggsave( str_c("FigS4-",Sys.Date(),".pdf"), gg, width=7.25, height=3.7 )
+    ## Plot the bi-modal distribution of DGE transcript counts
+    gg3 <- ggplot( DGE, aes(x=DGEcount) ) + theme_bw() + theme_bold() + theme_noaxes() +
+        geom_density() + coord_flip() + scale_x_log10(limits=c(1000, 1e6))
+
+    gg <- egg::ggarrange( gg1, cowplot::ggdraw(), gg2, gg3, ncol=2, heights=c(1,2), widths=c(3,1) )
+    ggsave( str_c("FigS4-",Sys.Date(),".pdf"), gg, width=8.25, height=4.75 )
 }
 
 main()
