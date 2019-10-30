@@ -3,7 +3,9 @@
 .Rapp.history
 
 # Session Data files
-.RData
+*.RData
+*.rds
+*.xlsx
 
 # Example code in package build process
 *-Ex.R
