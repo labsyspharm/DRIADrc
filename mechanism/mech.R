@@ -70,5 +70,5 @@ ECDF <- P %>% calculate_ecdf( Target, TAS ) %>%
     mutate( AUC = map_dbl(ECDF, calculate_auc) )
 
 ## Combine everything into a common results data frame
-TAS_ECDF <- inner_join( ECDF, PAC, by="Target" )
-save( TAS_ECDF, file="TAS-ecdfs.RData" )
+TAS_ECDF <- inner_join( ECDF, PAC, by="Target" ) %>% unnest( ECDF )
+write_csv( TAS_ECDF, "TAS-ecdf.csv" )
