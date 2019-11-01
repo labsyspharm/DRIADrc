@@ -1,40 +1,10 @@
-source( "../figures/results.R" )
+library( tidyverse )
+
+## Synapse interface
+synapser::synLogin()
+syn <- synExtra::synDownloader("~/data/DRIAD/mech")
 
 gmean <- function(x) {exp(mean(log(x)))}
-
-cor_func <- function(x, y) {
-  tests <- expand.grid(
-    method = c("pearson", "kendall", "spearman"),
-    alternative = c("greater", "less"),
-    stringsAsFactors = FALSE
-  )
-  test_func <- function (method, alternative) {
-    suppressWarnings(
-      cor.test(x, y, method = method, alternative = alternative) %>%
-        broom::tidy() %>%
-        select(-method, -alternative)
-    )
-  }
-  tests %>%
-    dplyr::mutate(
-      res = purrr::pmap(
-        .,
-        test_func
-      )
-    ) %>%
-    tidyr::unnest(res)
-}
-
-calculate_auc <- function(ecdf_df) {
-    ecdf_df %>%
-        arrange(Rank) %>%
-        mutate(
-            pos = scales::rescale(Rank, to = c(0, 1), from = c(min(Rank), max(Rank))),
-            diff_pos = pos - lag(pos, 1),
-            area = diff_pos*CumProb
-        ) %>%
-        with( sum(area, na.rm=TRUE) )
-}
 
 calculate_ecdf <- function( drug_ranking, ...) {
     max_rank <- max( drug_ranking$Rank )
@@ -49,9 +19,20 @@ calculate_ecdf <- function( drug_ranking, ...) {
         ungroup()
 }
 
+calculate_auc <- function(ecdf_df) {
+    ecdf_df %>%
+        arrange(Rank) %>%
+        mutate(
+            pos = scales::rescale(Rank, to = c(0, 1), from = c(min(Rank), max(Rank))),
+            diff_pos = pos - lag(pos, 1),
+            area = diff_pos*CumProb
+        ) %>%
+        with( sum(area, na.rm=TRUE) )
+}
+
 ## Load composite scores for each drug / plate combination
 ## Combine scores for each drug from the two plates
-S <- DGEcomposite() %>%
+S <- syn("syn20928503") %>% read_csv( col_types=cols() ) %>%
     select( Drug, LINCSID, HMP ) %>%
     group_by( Drug ) %>%
     summarize( LINCSID=unique(LINCSID), HMP=gmean(HMP) ) %>%
@@ -68,25 +49,17 @@ P <- syn("syn20830941") %>% read_rds() %>%
 ## Compute correlations between performance ranking and binding affinities
 ## Some independent filtering may be in order to remove hopeless cases and improve
 ## FDR. Require three data points in all three binding TAS scores
+cor.test2 <- function(...) {suppressWarnings( cor.test(...) )}
 PAC <- P %>% filter( binding ) %>%
     group_by(Target) %>%
     filter(all(table(TAS)[c("1", "2", "3")] >= 3)) %>%
-    summarize( n_binding = n(), COR = list(cor_func(log10(HMP), TAS)) ) %>%
-    unnest(COR) %>%
-    group_by(method, alternative) %>%
-    mutate(
-        p.adj = IHW::ihw(p.value, n_binding, alpha = 0.1,
-                         covariate_type = "ordinal", seed = 42) %>%
-            IHW::adj_pvalues()
-    ) %>%
-    ungroup()
-
-## Compare to old results
-Old2 <- syn("syn20736828") %>%
-    read_csv( col_types=cols(n_binding=col_integer(), parameter=col_integer()) ) %>%
-    filter( gene_set == "dge", composite_method == "hmean", method != "coin_pearson" ) %>%
-    select( -gene_set, -composite_method ) %>%
-    rename( Target=entrez_symbol )
+    summarize_at( c("HMP", "TAS"), list ) %>%
+    transmute( Target=Target,
+              COR = map2( HMP, TAS, cor.test2,
+                         method="kendall", alternative="greater"),
+              n_binding=map_int(HMP, length) ) %>%
+    mutate_at( "COR", map, broom::tidy ) %>%
+    mutate( p.value = map_dbl(COR, pull, "p.value"), COR=NULL )
 
 ## Compute ecdfs and areas under ecdfs for each target / tas combination
 ECDF <- P %>% calculate_ecdf( Target, TAS ) %>%
@@ -96,3 +69,6 @@ ECDF <- P %>% calculate_ecdf( Target, TAS ) %>%
     nest( ECDF = c(Rank, CumProb) ) %>%
     mutate( AUC = map_dbl(ECDF, calculate_auc) )
 
+## Combine everything into a common results data frame
+TAS_ECDF <- inner_join( ECDF, PAC, by="Target" )
+save( TAS_ECDF, file="TAS-ecdfs.RData" )
