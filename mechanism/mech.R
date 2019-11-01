@@ -63,7 +63,6 @@ PAC <- P %>% filter( binding ) %>%
 
 ## Compute ecdfs and areas under ecdfs for each target / tas combination
 ECDF <- P %>% calculate_ecdf( Target, TAS ) %>%
-    filter(TAS != "10") %>%
     mutate_at( "TAS", factor, levels = c("1", "2", "3", "10"),
               labels = c("1 (<100 nM)", "2 (100-999 nM)", "3 (1-10 uM)", "10 (>10 uM)")) %>%
     nest( ECDF = c(Rank, CumProb) ) %>%
