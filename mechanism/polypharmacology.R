@@ -1,5 +1,4 @@
 library(tidyverse)
-library(data.table)
 library(here)
 library(broom)
 library(furrr)
@@ -28,6 +27,8 @@ P <- syn("syn20830941") %>% read_rds() %>%
   left_join( S, ., by="LINCSID" ) %>%
   mutate(binding = (TAS!=10))
 
+tas_binding_threshold <- 10L
+
 generate_combos <- function(df, key) {
   ix_combs <- t(combn(nrow(df), 2))
   tibble(
@@ -38,10 +39,10 @@ generate_combos <- function(df, key) {
   ) %>%
     mutate(
       binding_class = case_when(
-        TAS_1 < 10 & TAS_2 < 10 ~ "T1_AND_T2",
-        TAS_1 < 10 & TAS_2 == 10 ~ "T1_AND_NOT_T2",
-        TAS_1 == 10 & TAS_2 < 10 ~ "T2_AND_NOT_T1",
-        TAS_1 == 10 & TAS_2 == 10 ~ "NOT_T1_AND_NOT_T2",
+        TAS_1 < tas_binding_threshold & TAS_2 < tas_binding_threshold ~ "T1_AND_T2",
+        TAS_1 < tas_binding_threshold & TAS_2 >= tas_binding_threshold ~ "T1_AND_NOT_T2",
+        TAS_1 >= tas_binding_threshold & TAS_2 < tas_binding_threshold ~ "T2_AND_NOT_T1",
+        TAS_1 >= tas_binding_threshold & TAS_2 >= tas_binding_threshold ~ "NOT_T1_AND_NOT_T2",
         TRUE ~ "UNKNOWN"
       )
     )
@@ -66,6 +67,7 @@ target_combinations <- P %>%
 compare_drug_sets <- function(set_1, set_2) {
   n_1 <- nrow(set_1)
   n_2 <- nrow(set_2)
+  # Require at least 3 drugs in both sets
   if (is.null(set_1) || is.null(set_2) || n_1 < 3 || n_2 < 3)
     return(NULL)
   wilcox.test(set_1$HMP, set_2$HMP, alternative = "two.sided", exact = TRUE, conf.int = TRUE, conf.level = 0.8) %>%
@@ -84,32 +86,39 @@ compare_drug_sets <- function(set_1, set_2) {
 process_target_pair <- function(Target_1, Target_2, data) {
   library(tidyverse)
   library(broom)
-  res <- list(
-    list(
-      "Target_1" = Target_1,
-      "Target_2" = Target_2,
-      "Comparison" = "AND_NOT",
-      "Result" = list(compare_drug_sets(data[["T1_AND_NOT_T2"]], data[["T1_AND_T2"]]))
-    ),
-    # Flipping targets here so that the one that's not bound is always target 2
+  res_and_not_1 <- list(
+    "Target_1" = Target_1,
+    "Target_2" = Target_2,
+    "Comparison" = "AND_NOT",
+    "Result" = list(compare_drug_sets(data[["T1_AND_NOT_T2"]], data[["T1_AND_T2"]]))
+  )
+  # Flipping targets here so that the one that's not bound is always target 2
+  res_and_not_2 <- if(!is.null(data[["T2_AND_NOT_T1"]]))
     list(
       "Target_1" = Target_2,
       "Target_2" = Target_1,
       "Comparison" = "AND_NOT",
-      "Result" = list(compare_drug_sets(data[["T2_AND_NOT_T1"]], data[["T1_AND_T2"]]))
-    ),
-    list(
-      "Target_1" = Target_1,
-      "Target_2" = Target_2,
-      "Comparison" = "XOR",
       "Result" = list(
-          compare_drug_sets(
-          bind_rows(data[["T1_AND_NOT_T2"]], data[["T2_AND_NOT_T1"]]),
+        compare_drug_sets(
+          select(data[["T2_AND_NOT_T1"]], LINCSID, HMP, TAS_1 = TAS_2, TAS_2 = TAS_1, binding_class),
           data[["T1_AND_T2"]]
         )
       )
     )
-  ) %>%
+  else
+    NULL
+  res_xor <- list(
+    "Target_1" = Target_1,
+    "Target_2" = Target_2,
+    "Comparison" = "XOR",
+    "Result" = list(
+        compare_drug_sets(
+        bind_rows(data[["T1_AND_NOT_T2"]], data[["T2_AND_NOT_T1"]]),
+        data[["T1_AND_T2"]]
+      )
+    )
+  )
+  res <- list(res_and_not_1, res_and_not_2, res_xor) %>%
     discard(~is.null(.x[["Result"]][[1]])) %>%
     bind_rows()
   if (nrow(res) > 0)
@@ -117,7 +126,7 @@ process_target_pair <- function(Target_1, Target_2, data) {
   NULL
 }
 
-process_target_pair(target_combinations$Target_1[[2]], target_combinations$Target_2[[2]], target_combinations$data[[2]])
+# process_target_pair(target_combinations$Target_1[[2]], target_combinations$Target_2[[2]], target_combinations$data[[2]])
 
 plan(multisession(workers = 8))
 target_combo_significance_raw <- future_pmap(
@@ -129,7 +138,8 @@ target_combo_significance <- bind_rows(target_combo_significance_raw) %>%
   mutate(
     padj = ihw(p.value, n, alpha = 0.1, covariate_type = "ordinal") %>%
       adj_pvalues()
-  )
+  ) %>%
+  ungroup()
 
 write_rds(
   target_combo_significance,
