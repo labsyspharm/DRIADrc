@@ -2,6 +2,7 @@ library(tidyverse)
 library(here)
 library(broom)
 library(furrr)
+library(IHW)
 
 wd <- here("mechanism", "polypharmacology")
 dir.create(wd, showWarnings = FALSE)
@@ -62,6 +63,11 @@ target_combinations <- P %>%
     data = map(data, ~split(.x, .x$binding_class))
   )
 
+write_rds(
+  target_combinations,
+  file.path(wd, "target_combos.rds")
+)
+
 ## Compare the composite score for two drug sets
 ## using the Wilcoxon rank-sum test
 compare_drug_sets <- function(set_1, set_2) {
@@ -89,28 +95,19 @@ process_target_pair <- function(Target_1, Target_2, data) {
   res_and_not_1 <- list(
     "Target_1" = Target_1,
     "Target_2" = Target_2,
-    "Comparison" = "AND_NOT",
+    "Comparison" = "T1_AND_NOT_T2",
     "Result" = list(compare_drug_sets(data[["T1_AND_NOT_T2"]], data[["T1_AND_T2"]]))
   )
-  # Flipping targets here so that the one that's not bound is always target 2
-  res_and_not_2 <- if(!is.null(data[["T2_AND_NOT_T1"]]))
-    list(
-      "Target_1" = Target_2,
-      "Target_2" = Target_1,
-      "Comparison" = "AND_NOT",
-      "Result" = list(
-        compare_drug_sets(
-          select(data[["T2_AND_NOT_T1"]], LINCSID, HMP, TAS_1 = TAS_2, TAS_2 = TAS_1, binding_class),
-          data[["T1_AND_T2"]]
-        )
-      )
-    )
-  else
-    NULL
+  res_and_not_2 <- list(
+    "Target_1" = Target_1,
+    "Target_2" = Target_2,
+    "Comparison" = "T2_AND_NOT_T1",
+    "Result" = list(compare_drug_sets(data[["T2_AND_NOT_T1"]], data[["T1_AND_T2"]]))
+  )
   res_xor <- list(
     "Target_1" = Target_1,
     "Target_2" = Target_2,
-    "Comparison" = "XOR",
+    "Comparison" = "T1_XOR_T2",
     "Result" = list(
         compare_drug_sets(
         bind_rows(data[["T1_AND_NOT_T2"]], data[["T2_AND_NOT_T1"]]),
@@ -134,12 +131,10 @@ target_combo_significance_raw <- future_pmap(
 )
 
 target_combo_significance <- bind_rows(target_combo_significance_raw) %>%
-  group_by(Comparison) %>%
   mutate(
     padj = ihw(p.value, n, alpha = 0.1, covariate_type = "ordinal") %>%
       adj_pvalues()
-  ) %>%
-  ungroup()
+  )
 
 write_rds(
   target_combo_significance,
