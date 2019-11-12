@@ -53,7 +53,7 @@ panelB <- function()
 }
 
 ## Plot individual panels
-pA <- pdfGrob("syn20540118")
+pA <- pdfGrob("syn21213293")
 pB <- panelB()
 
 ## Place everything onto the same figure

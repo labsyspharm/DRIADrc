@@ -12,7 +12,7 @@ pdfGrob <- function( synid )
 
     ## Import the resulting .svg and construct the grob
     grImport2::readPicture(fnSvg) %>%
-        grImport2::pictureGrob()
+        grImport2::pictureGrob(ext="gridSVG")
 }
 
 ## Short-hand for bold element_text of desired size
