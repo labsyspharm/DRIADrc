@@ -40,21 +40,26 @@ panelC <- function()
         geom_segment( aes(x=AUC, xend=AUC, y=as.numeric(Name), yend=as.numeric(Name)+0.9),
                      data=R, color="darkgray", lwd=2 ) +
         geom_text( aes(y=as.numeric(Name)+0.75, label=Label, hjust=0),
-                  x=0.85, hjust=0, data=R, fontface="bold", size=4 ) +
+                  x=0.85, hjust=0, data=R, size=4 ) +
         scale_y_discrete( name=NULL ) + coord_cartesian(clip="off") +
         scale_fill_manual( values=dsPal(), guide=FALSE ) 
     ##        theme( axis.text=etxt(12), axis.title=etxt(14) )
 }
 
 ## Identify individual panels
-pA <- pdfGrob("syn20506948")
+pA <- pdfGrob("syn21212910")
 pB <- pdfGrob("syn20506949")
 pC <- panelC()
 
 ## Put everything together
 fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("A","","B",""),
                           rel_widths=c(0.02,1), rel_heights=c(1,0.8), label_size=24 )
+
 ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
                          rel_widths=c(1.5,0.02,1), label_size=24 )
-    
+
 cowplot::ggsave( str_c("Fig1-", Sys.Date(), ".pdf"), ff, width=14, height=7 )
+##gridSVG::gridsvg( str_c("Fig1-", Sys.Date(), ".svg"), width=14, height=7 )
+##cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
+##                   rel_widths=c(1.5,0.02,1), label_size=24 )
+##gridSVG::dev.off()
