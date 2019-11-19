@@ -53,7 +53,7 @@ generate_combos <- function(df, key) {
 ## and then aggregage this info per target combination
 target_combinations <- P %>%
   arrange(LINCSID, Target) %>%
-  group_by(LINCSID, HMP) %>%
+  group_by(LINCSID, HMP, Rank) %>%
   # Filter drugs with less than 2 annotated targets
   filter(n() >= 2) %>%
   group_modify(generate_combos) %>%
