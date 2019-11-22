@@ -1,6 +1,7 @@
 library(tidyverse)
 library(grid)
 library(gridExtra)
+library(cowplot)
 library(here)
 
 
@@ -249,8 +250,8 @@ plot_grid_drug_combo_density <- function(
     scale_fill_discrete(name = "Drug set") +
     # scale_fill_brewer(type = "qual", palette = "Set2") +
     theme(
-      text = element_text(size = 10),
-      strip.text = element_text(color = "black", size = 8),
+      # text = element_text(size = 10),
+      strip.text = element_text(color = "black"),
       strip.text.y = element_text(angle = 180),
       strip.background = element_rect(fill = NA),
       strip.switch.pad.wrap = unit(0, "pt"),
@@ -279,12 +280,12 @@ plot_grid_drug_combo_density <- function(
     )
 
   # Venn diagrams
-  drug_set_labels <- drug_set_venns()[1:3] %>%
-    set_names(c("AND", "XOR", "AND NOT")) %>%
+  drug_set_labels <- drug_set_venns()[c(1L, 3L, 4L)] %>%
+    set_names(c("A AND B", "A AND NOT B", "B AND NOT A")) %>%
     imap(
       function(venn, name) {
         list(
-          textGrob(paste("A", name, "B", sep = " "), just = "left"),
+          textGrob(name, just = "left"),
           textGrob("A", just = "center"),
           venn,
           textGrob("B", just = "center")
@@ -295,9 +296,9 @@ plot_grid_drug_combo_density <- function(
       arrangeGrob(
         grobs = flatten(unname(.)),
         nrow = 3,
-        widths = unit(c(4, .1, .8, .1), "cm"),
+        widths = unit(c(5.5, .1, .8, .1), "cm"),
         heights = unit(rep(.45, 3), "cm"),
-        vp = viewport(gp = gpar(fontsize = 8)),
+        vp = viewport(gp = gpar(fontsize = 10)),
         padding = unit(0, "cm")
       )
     }
@@ -366,6 +367,16 @@ plot_grid_drug_combo_density <- function(
   density_plot_grob
 }
 
+make_top_targets_table <- function(targets) {
+  tableGrob(
+    targets %>%
+      select(symbol = Symbol, direction = Class, n, p, padj) %>%
+      slice(1:10) %>%
+      mutate_at(vars(starts_with("p")), ~sprintf("%.2E", .x)),
+    theme = ttheme_default(base_size = 10)
+  )
+}
+
 panelA <- function() {
   plot_single_drug_combo_density(target_combos, c("RPS6KA1", "TYK2"))
 }
@@ -375,12 +386,23 @@ panelB <- function() {
 }
 
 panelC <- function() {
-
+  make_top_targets_table(
+    cotarget_significance %>%
+      arrange(padj) %>%
+      filter(Target_Class == "cotarget")
+  )
 }
 
 
-Fig4 <- function() {
-
+Fig5 <- function() {
+  # AB <- align_plots(panelA(), panelB(), align = "v", axis = "l")
+  plot_grid(
+    plot_grid(panelA(), panelC(), labels = c("A", "C")),
+    panelB(),
+    labels = c("", "B"),
+    ncol = 1,
+    rel_heights = c(1, 2)
+  )
 }
 
 
@@ -423,3 +445,14 @@ target_combos <- read_rds(file.path(wd, "target_combos.rds")) %>%
       }
     )
   )
+
+cotarget_significance <- read_rds(file.path(wd, "cotarget_significance.rds"))
+
+set.seed(42)
+fig5_plot <- Fig5()
+
+ggsave2(
+  here(paste0("Fig5-", Sys.Date(), ".pdf")),
+  fig5_plot,
+  width = 9, height = 9
+)
