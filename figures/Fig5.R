@@ -63,38 +63,13 @@ plot_drug_set_densities <- function(drug_sets, targets = NULL) {
         Drug_Set = factor(drug_set_names[Drug_Set], levels = unname(drug_set_names))
       )
   }
-
-  # drug_peformance_filtered <- drug_performance %>%
-  #   filter(LINCSID %in% drug_sets$LINCSID) %>%
-  #   left_join(distinct(drug_sets, LINCSID, Drug_Set), by = "LINCSID")
-
   ggplot(drug_sets, aes(Rank)) +
     geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
-    geom_tile(aes(y = -0.05, x = Rank, fill = Drug_Set), data = ~filter(.x, Drug_Set != "T1_XOR_T2"), width = 0.80, height = 0.07) +
+    geom_tile(aes(y = -0.03, x = Rank, fill = Drug_Set), data = ~filter(.x, Drug_Set != "T1_XOR_T2"), width = 0.80, height = 0.06) +
     scale_y_continuous(limits = c(-.1, 1), breaks = NULL, minor_breaks = NULL) +
     scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
     labs(x = "Drug rank", y = "Density estimate") +
-    coord_cartesian(ylim = c(-.1, 1), xlim = c(0, 77), expand = FALSE)
-    # theme_bw() +
-    # theme_bold() +
-    # theme(
-    #   text = element_text(size = 10),
-    #   strip.text = element_text(color = "black", size = 8),
-    #   strip.text.y = element_text(angle = 180),
-    #   strip.background = element_rect(color = NA, fill = NA),
-    #   strip.switch.pad.wrap = unit(0, "pt"),
-    #   panel.spacing.x = unit(0, "pt"),
-    #   # Put more space between rows with different effects
-    #   # panel.spacing.y = unit(c(1, 4, 4, 1), "pt"),
-    #   panel.background = element_blank(),
-    #   panel.grid = element_blank(),
-    #   legend.position = "bottom",
-    #   legend.margin = margin(0, 0, 0, 0),
-    #   legend.spacing = unit(0, "pt"),
-    #   legend.box = "vertical",
-    #   legend.box.margin = margin(2, 2, 2, 2, "pt"),
-    #   legend.box.spacing = unit(0, "pt")
-    # )
+    coord_cartesian(ylim = c(-.06, 1), xlim = c(0, 77), expand = FALSE)
 }
 
 plot_single_drug_combo_density <- function(target_combos, targets) {
@@ -208,20 +183,7 @@ plot_grid_drug_combo_density <- function(
       vars(Combination),
       strip.position = "left"
     ) +
-    # geom_rect(
-    #   aes(fill = effect),
-    #   data = target_combo_ecdf_all_top_plot_data %>%
-    #     distinct(label, effect),
-    #   xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf,
-    #   inherit.aes = FALSE
-    # ) +
-    # scale_fill_manual(
-    #   values = effect_color_map,
-    #   # guide = guide_legend(nrow = 1),
-    #   name = "Interaction"
-  # ) +
-  # new_scale_fill() +
-  geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
+    geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
     geom_text(
       aes(label = Combined_Text),
       data = function(data) {
@@ -243,14 +205,12 @@ plot_grid_drug_combo_density <- function(
       },
       x = 3, y = .05, hjust = 0, vjust = 0, size = 8 / .pt
     ) +
-    # ggthemes::scale_fill_few(
-    #   palette = "Medium",
-    #   name = "Drug set"
-    # ) +
+    geom_tile(
+      aes(y = -.05, fill = Drug_Set),
+      width = 0.80, height = 0.1
+    ) +
     scale_fill_discrete(name = "Drug set") +
-    # scale_fill_brewer(type = "qual", palette = "Set2") +
     theme(
-      # text = element_text(size = 10),
       strip.text = element_text(color = "black"),
       strip.text.y = element_text(angle = 180),
       strip.background = element_rect(fill = NA),
@@ -270,7 +230,7 @@ plot_grid_drug_combo_density <- function(
     scale_y_continuous(
       breaks = NULL,
       minor_breaks = NULL,
-      limits = c(0, 1)
+      limits = c(-0.1, 1)
     ) +
     scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
     coord_cartesian(xlim = c(1, 77), expand = FALSE) +
@@ -302,7 +262,6 @@ plot_grid_drug_combo_density <- function(
         padding = unit(0, "cm")
       )
     }
-
 
   # Add shaded background
   density_plot_grob <- density_plot %>%
@@ -353,14 +312,6 @@ plot_grid_drug_combo_density <- function(
     } %>%
     # Add venn diagram labels
     {
-      # Add directly to the legend
-      # .$grobs[[156]]$grobs[[1]]$grobs[[9]] <- drug_set_labels[[1]]
-      # .$grobs[[156]]$grobs[[1]]$grobs[[10]] <- drug_set_labels[[2]]
-      # .$grobs[[156]]$grobs[[1]]$grobs[[11]] <- drug_set_labels[[3]]
-      # .$grobs[[156]]$grobs[[1]]$widths[c(6, 10, 14)] <- unit(1.2, "cm")
-
-      # Instead, add as a separate table on bottom left
-      # set_table <- arrangeGrob(grobs = drug_set_labels, ncol = 1, heights = unit(rep(.5, 3), "cm"))
       gtable::gtable_add_grob(., drug_set_labels, 27, 5, 27, 8)
     }
 
@@ -385,6 +336,15 @@ panelB <- function() {
   plot_grid_drug_combo_density(target_combo_significance_aggregated, target_combos)
 }
 
+panelB_JAK_only <- function() {
+  plot_grid_drug_combo_density(
+    target_combo_significance_aggregated %>%
+      semi_join(jak_combo_significance, by = c("Target_1", "Target_2")),
+    target_combos
+  )
+}
+
+
 panelC <- function() {
   make_top_targets_table(
     cotarget_significance %>%
@@ -395,13 +355,22 @@ panelC <- function() {
 
 
 Fig5 <- function() {
-  # AB <- align_plots(panelA(), panelB(), align = "v", axis = "l")
   plot_grid(
     plot_grid(panelA(), panelC(), labels = c("A", "C")),
     panelB(),
     labels = c("", "B"),
     ncol = 1,
-    rel_heights = c(1, 2)
+    rel_heights = c(1.5, 2)
+  )
+}
+
+Fig5_JAK_only <- function() {
+  plot_grid(
+    plot_grid(panelA(), panelC(), labels = c("A", "C")),
+    panelB_JAK_only(),
+    labels = c("", "B"),
+    ncol = 1,
+    rel_heights = c(1.5, 2)
   )
 }
 
@@ -450,9 +419,16 @@ cotarget_significance <- read_rds(file.path(wd, "cotarget_significance.rds"))
 
 set.seed(42)
 fig5_plot <- Fig5()
-
 ggsave2(
   here(paste0("Fig5-", Sys.Date(), ".pdf")),
   fig5_plot,
-  width = 9, height = 9
+  width = 9, height = 7
+)
+
+set.seed(42)
+fig5_plot_jak_only <- Fig5_JAK_only()
+ggsave2(
+  here(paste0("Fig5_jak_only-", Sys.Date(), ".pdf")),
+  fig5_plot_jak_only,
+  width = 9, height = 7
 )
