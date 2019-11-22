@@ -1,5 +1,8 @@
 library(tidyverse)
 library(data.table)
+library(philentropy)
+library(magrittr)
+library(furrr)
 library(here)
 
 wd <- here("mechanism", "polypharmacology")
@@ -79,4 +82,81 @@ write_rds(
 write_rds(
   jak_combo_significance,
   file.path(wd, "jak_combo_significance.rds")
+)
+
+calculate_jaccard <- function(df) {
+  # browser()
+  mat <- df %>%
+    mutate(
+      Dummy = 1L,
+      Drugs = map2(
+        set_1, set_2,
+        ~union(.x$LINCSID, .y$LINCSID)
+      )
+    ) %>%
+    unnest_longer(Drugs, values_to = "LINCSID") %>%
+    select(LINCSID, Target_Combo, Dummy) %>%
+    spread(LINCSID, Dummy, fill = 0L) %>%
+    column_to_rownames("Target_Combo") %>%
+    as.matrix() %>%
+    is_greater_than(0L)
+  jaccard = suppressMessages(distance(mat, method = "jaccard")) %>%
+    set_rownames(rownames(mat)) %>%
+    set_colnames(rownames(mat))
+  # Return jaccard distance, instead of similarity
+  1 - jaccard
+}
+
+# Aggregating the p-values of individual target-cotarget associations
+# with a modification of Fisher's method called Brown's method, implemented in the
+# R package [poolR](https://github.com/ozancinar/poolR/). As input, a covariance
+# matrix between the pairwise comparisons is needed. Using the jaccard distance
+# matrix measuring the overlap between drug sets for this purpose. Can use function
+# mvnconv to convert it to covariance matrix.
+calculate_pooled_p <- function(df, jaccard) {
+  data("mvnlookup", package = "poolR")
+  padj <- poolR::fisher(
+     df$p.value,
+     adjust = "generalized",
+     seed = 1,
+     type = 2,
+     R = jaccard
+  )
+  p <- poolR::fisher(df$p.value, adjust = "none")
+  tibble(
+    n = nrow(df),
+    padj = padj$p,
+    p = p$p
+  )
+}
+
+## Finding most significant co-targets
+plan(multisession(workers = 8))
+cotarget_significance <- target_combo_significance %>%
+  mutate(Class = ifelse(estimate > 0, "synergistic", "antagonistic")) %>%
+  ## Only include those that passed filters and only consider AND NOT tests here
+  filter(Comparison != "T1_XOR_T2") %>%
+  semi_join(combo_combined, by = c("Target_1", "Target_2")) %>%
+  ## Make Target_1 always the included one and Target_2 the omitted one
+  mutate(
+    target = if_else(Comparison == "T2_AND_NOT_T1", Target_2, Target_1),
+    cotarget = if_else(Comparison == "T2_AND_NOT_T1", Target_1, Target_2),
+    Target_Combo = paste(target, cotarget, sep = "|")
+    # Drugs = map2(
+    #   set_1, set_2,
+    #   ~union(.x$LINCSID, .y$LINCSID)
+    # )
+  ) %>%
+  gather("Target_Class", "Symbol", target, cotarget) %>%
+  group_nest(Class, Target_Class, Symbol, .key = "target_combinations", keep = TRUE) %>%
+  filter(map_lgl(target_combinations, ~nrow(.x) >= 3)) %>%
+  mutate(
+    jaccard = future_map(target_combinations, calculate_jaccard, .progress = TRUE),
+    pooled = map2(target_combinations, jaccard, calculate_pooled_p)
+  ) %>%
+  unnest(pooled)
+
+write_rds(
+  cotarget_significance,
+  file.path(wd, "cotarget_significance.rds")
 )
