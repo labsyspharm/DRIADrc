@@ -4,7 +4,6 @@ library(gridExtra)
 library(cowplot)
 library(here)
 
-
 synapser::synLogin()
 syn <- synExtra::synDownloader("~/data/DRIAD/mech")
 
@@ -47,39 +46,37 @@ plot_drug_set_ecdfs <- function(drug_sets, drug_performance, max_rank = NULL) {
       theme_bold()
 }
 
-plot_drug_set_densities <- function(drug_sets, targets = NULL) {
-  drug_sets <- if (is.list(drug_sets))
-    bind_rows(drug_sets, .id = "Drug_Set")
-  else
-    drug_sets
-  if (!is.null(targets)) {
-    drug_set_names <- c(
-      T1_AND_T2 = paste0(targets[1], " AND ", targets[2]),
-      T1_AND_NOT_T2 = paste0(targets[1], " AND NOT ", targets[2]),
-      T2_AND_NOT_T1 = paste0(targets[2], " AND NOT ", targets[1])
-    )
-    drug_sets <- drug_sets %>%
-      mutate(
-        Drug_Set = factor(drug_set_names[Drug_Set], levels = unname(drug_set_names))
-      )
-  }
-  ggplot(drug_sets, aes(Rank)) +
-    geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
-    geom_tile(aes(y = -0.03, x = Rank, fill = Drug_Set), data = ~filter(.x, Drug_Set != "T1_XOR_T2"), width = 0.80, height = 0.06) +
-    scale_y_continuous(limits = c(-.1, 1), breaks = NULL, minor_breaks = NULL) +
-    scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
-    labs(x = "Drug rank", y = "Density estimate") +
-    coord_cartesian(ylim = c(-.06, 1), xlim = c(0, 77), expand = FALSE)
-}
-
 plot_single_drug_combo_density <- function(target_combos, targets) {
-  target_combos %>%
-    filter(Target_1 == targets[[1]], Target_2 == targets[[2]]) %>%
-    chuck("data", 1) %>%
-    {.[names(.) != "T1_XOR_T2"]} %>%
-    plot_drug_set_densities(targets) +
-      facet_wrap(vars(Drug_Set)) +
-      scale_fill_discrete(guide = FALSE)
+    ## Mapping T1/T2 to actual target names
+    tgtmap <- c(T1_AND_T2 = paste0(targets[1], " AND\n", targets[2]),
+                T1_AND_NOT_T2 = paste0(targets[1], " AND\nNOT ", targets[2]),
+                T2_AND_NOT_T1 = paste0(targets[2], " AND\nNOT ", targets[1]))
+
+    ## Pull out the relevant slice of results data frame
+    drug_sets <- target_combos %>%
+        filter(Target_1 == targets[[1]], Target_2 == targets[[2]]) %>%
+        chuck("data", 1) %>%
+        bind_rows( .id="Drug_Set" ) %>%
+        filter( Drug_Set != "T1_XOR_T2" ) %>%
+        mutate_at( "Drug_Set", recode, !!!tgtmap ) %>%
+        mutate_at( "Drug_Set", factor, levels=tgtmap )
+
+    ## Compose text labels for each facet
+    TXT <- drug_sets %>% select( Drug_Set ) %>%
+        distinct() %>% mutate( Lbl = as.character(Drug_Set) ) %>%
+        mutate_at( "Lbl", map_chr, gsub, pattern=" AND ", replacement=" AND\n" )
+    
+    ggplot(drug_sets, aes(Rank)) + theme_bw() +
+        geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
+        geom_tile(aes(y = -0.03, x = Rank, fill = Drug_Set), width = 0.80, height = 0.06) +
+        ##        geom_text(aes(y = Inf, x = 40, label=Lbl), data=TXT, vjust=1.25, hjust=0.5, fontface="bold") +
+        scale_y_continuous(limits = c(-.1, 1), breaks = NULL, minor_breaks = NULL) +
+        scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
+        labs(x = "Drug rank", y = "Density estimate") +
+        coord_cartesian(ylim = c(-.06, 1), xlim = c(0, 77), expand = FALSE) +
+        facet_wrap(~Drug_Set) +
+        scale_fill_discrete(guide = FALSE) +
+        theme( strip.background=element_blank() )
 }
 
 drug_set_venns <- function() {
@@ -329,7 +326,12 @@ make_top_targets_table <- function(targets) {
 }
 
 panelA <- function() {
-  plot_single_drug_combo_density(target_combos, c("RPS6KA1", "TYK2"))
+    gg <- plot_single_drug_combo_density(target_combos, c("RPS6KA1", "TYK2"))
+    gt <- ggplotGrob(gg)
+    hj <- c(0, 0.5, 0.5, 0.7, 0.7)
+    for( j in grep("axis-b", gt$layout$name) )
+        pluck( gt, "grobs", j, "children", 2, "grobs", 2, "children", 1, "hjust" ) <- hj
+    gt
 }
 
 panelB <- function() {
@@ -373,7 +375,6 @@ Fig5_JAK_only <- function() {
     rel_heights = c(1.5, 2)
   )
 }
-
 
 ## Load composite scores for each drug / plate combination
 ## Combine scores for each drug from the two plates
@@ -425,10 +426,10 @@ ggsave2(
   width = 9, height = 7
 )
 
-set.seed(42)
-fig5_plot_jak_only <- Fig5_JAK_only()
-ggsave2(
-  here(paste0("Fig5_jak_only-", Sys.Date(), ".pdf")),
-  fig5_plot_jak_only,
-  width = 9, height = 7
-)
+##set.seed(42)
+##fig5_plot_jak_only <- Fig5_JAK_only()
+##ggsave2(
+##  here(paste0("Fig5_jak_only-", Sys.Date(), ".pdf")),
+##  fig5_plot_jak_only,
+##  width = 9, height = 7
+##)

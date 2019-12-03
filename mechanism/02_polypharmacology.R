@@ -50,7 +50,7 @@ generate_combos <- function(df, key) {
 }
 
 ## Find all pairwise combinations of targets for each drug
-## and then aggregage this info per target combination
+## and then aggregate this info per target combination
 target_combinations <- P %>%
   arrange(LINCSID, Target) %>%
   group_by(LINCSID, HMP, Rank) %>%
