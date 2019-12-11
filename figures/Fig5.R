@@ -27,25 +27,6 @@ calculate_ecdf <- function( drug_ranking, ..., max_rank = NULL) {
 
 hmean <- function(v) {length(v)/sum(1/v)}
 
-plot_drug_set_ecdfs <- function(drug_sets, drug_performance, max_rank = NULL) {
-  drug_sets <- if (is.list(drug_sets))
-    bind_rows(drug_sets, .id = "Drug_Set")
-  else
-    drug_sets
-  drug_peformance_filtered <- drug_performance %>%
-    filter(LINCSID %in% drug_sets$LINCSID) %>%
-    left_join(distinct(drug_sets, LINCSID, Drug_Set), by = "LINCSID")
-
-  calculate_ecdf(drug_sets, Drug_Set, max_rank = max_rank) %>%
-    ggplot(aes(Rank, CumProb)) +
-      geom_step() +
-      geom_tile(aes(y = -0.05, x = Rank), data = drug_peformance_filtered, width = 0.80, height = 0.05) +
-      facet_wrap(vars(Drug_Set), ncol = 2) +
-      scale_y_continuous(limits = c(-.1, 1), breaks = c(0, .5, 1)) +
-      labs(x = "Drug rank", y = "Cumulative probability") +
-      theme_bold()
-}
-
 plot_single_drug_combo_density <- function(target_combos, targets) {
     ## Mapping T1/T2 to actual target names
     tgtmap <- c(T1_AND_T2 = paste0(targets[1], " AND\n", targets[2]),
@@ -67,7 +48,7 @@ plot_single_drug_combo_density <- function(target_combos, targets) {
         mutate_at( "Lbl", map_chr, gsub, pattern=" AND ", replacement=" AND\n" )
     
     ggplot(drug_sets, aes(Rank)) + theme_bw() +
-        geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
+        geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .8) +
         geom_tile(aes(y = -0.03, x = Rank, fill = Drug_Set), width = 0.80, height = 0.06) +
         ##        geom_text(aes(y = Inf, x = 40, label=Lbl), data=TXT, vjust=1.25, hjust=0.5, fontface="bold") +
         scale_y_continuous(limits = c(-.1, 1), breaks = NULL, minor_breaks = NULL) +
@@ -75,7 +56,7 @@ plot_single_drug_combo_density <- function(target_combos, targets) {
         labs(x = "Drug rank", y = "Density estimate") +
         coord_cartesian(ylim = c(-.06, 1), xlim = c(0, 77), expand = FALSE) +
         facet_wrap(~Drug_Set) +
-        scale_fill_discrete(guide = FALSE) +
+        ggthemes::scale_fill_few(guide = FALSE) +
         theme( strip.background=element_blank() )
 }
 
@@ -180,7 +161,7 @@ plot_grid_drug_combo_density <- function(
       vars(Combination),
       strip.position = "left"
     ) +
-    geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .6) +
+    geom_density(aes(y = stat(scaled), color = Drug_Set), fill = "lightgray", alpha = .6) +
     geom_text(
       aes(label = Combined_Text),
       data = function(data) {
@@ -206,7 +187,8 @@ plot_grid_drug_combo_density <- function(
       aes(y = -.05, fill = Drug_Set),
       width = 0.80, height = 0.1
     ) +
-    scale_fill_discrete(name = "Drug set") +
+      ggthemes::scale_color_few(guide = FALSE) +
+    ggthemes::scale_fill_few(name="Drug Set") +
     theme(
       strip.text = element_text(color = "black"),
       strip.text.y = element_text(angle = 180),
