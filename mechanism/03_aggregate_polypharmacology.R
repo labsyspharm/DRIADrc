@@ -114,15 +114,14 @@ calculate_jaccard <- function(df) {
 # matrix measuring the overlap between drug sets for this purpose. Can use function
 # mvnconv to convert it to covariance matrix.
 calculate_pooled_p <- function(df, jaccard) {
-  data("mvnlookup", package = "poolR")
-  padj <- poolR::fisher(
+  padj <- poolr::fisher(
      df$p.value,
      adjust = "generalized",
      seed = 1,
      type = 2,
      R = jaccard
   )
-  p <- poolR::fisher(df$p.value, adjust = "none")
+  p <- poolr::fisher(df$p.value, adjust = "none")
   tibble(
     n = nrow(df),
     padj = padj$p,

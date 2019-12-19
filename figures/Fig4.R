@@ -46,13 +46,13 @@ panelB <- function()
     gg1 <- ggplot( ECDF, aes(x=Rank, y=CumProb) ) +
         theme_bw() + theme_bold() + crd() +
         geom_step( aes(color=TAS), size=1.1 ) +
-        xlab("Drug Rank") + ylab("Cumulative fraction of drugs") +
+        xlab("Drug Rank") + ylab("Cum. frac. of drugs") +
         scale_color_manual( values=cpal ) +
         scale_x_continuous(
             breaks = c(1,20,40,60,80),
             minor_breaks = c(10,30,50,70) ) +
-        theme( legend.position="bottom", legend.direction="horizontal",
-              panel.border=elbl )
+        theme(  panel.border=elbl )
+#            legend.position="bottom", legend.direction="horizontal",
 
     ## TAS plot
     gg2 <- ggplot( X, aes(x=Rank, y=Target, fill=TAS) ) +
@@ -96,8 +96,8 @@ panelC <- function()
         geom_text( aes(label=p.value), data=ECDFp, fontface="bold",
                   x=max_rank, y=0, vjust="inward", hjust="inward" ) +
         xlab( "Drug Rank" ) + ylab( "Cumulative Probability" ) +
-        scale_color_manual( values = cpal ) +
-        scale_linetype_manual( values = ltpal ) +
+        scale_color_manual( values = cpal, guide=FALSE ) +
+        scale_linetype_manual( values = ltpal, guide=FALSE ) +
         theme( panel.grid.major=element_blank(),
               panel.grid.minor=element_blank() )
 
@@ -105,12 +105,18 @@ panelC <- function()
 ##    lemon::reposition_legend( gg, "center", panel= "panel-5-3" )
 }
 
+pA <- pdfGrob("syn21426613")
 pB <- panelB()
 pC <- panelC()
 
-fAB <- cowplot::plot_grid( NULL, NULL, pB, nrow=1, labels=c("","B",""),
-                          rel_widths=c(1,0.02,1), label_size=24 )
-ff <- cowplot::plot_grid( NULL, fAB, NULL, pC, ncol=2, labels=c("A","","C",""),
-                         rel_widths=c(0.05,1), rel_heights=c(1,0.65), label_size=24)
+##fAB <- cowplot::plot_grid( pA, NULL, pB, nrow=1, labels=c("","B",""),
+##                          rel_widths=c(1,0.02,0.8), label_size=24 )
+##ff <- cowplot::plot_grid( NULL, fAB, NULL, pC, ncol=2, labels=c("A","","C",""),
+##                         rel_widths=c(0.05,1), rel_heights=c(1,0.85), label_size=24)
 
-cowplot::ggsave( str_c("Fig4-", Sys.Date(), ".pdf"), ff, width=14, height=10 )
+ff <- cowplot::plot_grid( NULL, pA, NULL, pB, NULL, pC, ncol=1,
+                         labels=c("A","","B","","C",""),
+                         rel_heights=c(0.001,1, 0.05,1.1, 0.1,0.75),
+                         label_size=24 )
+
+ggsave( str_c("Fig4-", Sys.Date(), ".pdf"), ff, width=9, height=13 )
