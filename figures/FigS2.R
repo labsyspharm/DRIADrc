@@ -1,34 +1,28 @@
-## Performance on cell-type specific gene sets
+## Correspondence of replicates across DGE plates
 ##
 ## by Artem Sokolov
 
 source( "results.R" )
 source( "plot.R" )
 
-load(syn( "syn18565498" ))
+f <- function( synid, colid )
+{
+    syn_csv( synid ) %>% mutate_at( "Drug", str_to_lower ) %>%
+        filter( FDR <= 0.05 ) %>%
+        select( Drug, Gene, !!rlang::ensym(colid) := logFC )
+}
 
-v <- c( AB = "A-vs-B", AC = "A-vs-C", BC = "B-vs-C" )
-RS <- RS %>% mutate_at( "Task", recode, !!!v )
-RBK <- RBK %>% mutate_at( "Task", recode, !!!v )
+DFX1 <- f( "syn18145776", logFC1 ) 
+DFX2 <- f( "syn17167348", logFC2 )
+DFX <- inner_join(DFX1, DFX2, by=c("Drug","Gene"))
+CR <- DFX %>% group_by( Drug ) %>% summarize( R=cor(logFC1, logFC2, method="sp") ) %>%
+    mutate( Lbl=str_c(round(R,3), "  \n") )
 
-SBK <- RBK %>% group_by( Task ) %>% summarize_at( "AUC", list(BK=list) ) %>%
-    inner_join( RS, ., by="Task" ) %>% mutate( pval = map2_dbl(AUC, BK, ~mean(.x < .y)) ) %>%
-    mutate( sig = ifelse( pval < 0.05, "Yes", "No" ) ) %>% arrange( pval ) 
-
-## Additional plotting elements
-xrng <- bind_rows(RBK, SBK) %>% pull( AUC ) %>% range
-
-## Plot everything together
-ggplot() + theme_bw() + facet_wrap( ~Task, ncol=1 ) + guides( color=FALSE ) +
-    ggthemes::scale_fill_few() + theme_bold() + ylab( "Density" ) +
-    scale_x_continuous( limits = c(1,1.1) * xrng ) + ylim( c(0,15) ) +
-    ggrepel::geom_text_repel( aes(x=AUC, label=Name, color=sig), SBK, y=3,
-                             nudge_y=100, fontface="bold" ) +
-    geom_density( aes(x=AUC, fill=Task), RBK, alpha=0.65, lwd=1 ) +
-    geom_segment( aes(x=AUC, xend=AUC, color=sig), SBK, y=0, yend=3, lwd=1 ) +
-    scale_color_manual( values=c("Yes" = "red", "No" = "black") ) +
-    theme( strip.background = element_blank(), strip.text.x = element_blank(),
-          legend.position=c(0.98,0.98), legend.justification=c(1,1),
-          legend.background=element_rect(fill=NA), legend.title.align=0.75 ) +
-    ggsave( str_c("FigS2-",Sys.Date(),".pdf"), width=8, height=5 )
-
+ggplot(DFX, aes(x=logFC1, y=logFC2)) + theme_bw() + theme_bold() +
+    geom_point(alpha=0.5, color="steelblue") +
+    facet_wrap( ~Drug, nrow=2 ) +
+    geom_abline( slope=1, intercept=0, lty="dashed" ) +
+    geom_text( aes(label=Lbl), data=CR, x=Inf, y=-Inf, hjust=1, vjust=0.5, size=5 ) +
+    xlab( "log(Fold Change) in Experiment 1" ) +
+    ylab( "log(Fold Change) in Experiment 2" ) +
+    ggsave( str_c("FigS3-",Sys.Date(),".pdf"), width=7.25, height=5.5 )
