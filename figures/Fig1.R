@@ -52,10 +52,10 @@ pB <- pdfGrob("syn20506949")
 pC <- panelC()
 
 ## Put everything together
-fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("A","","B",""),
+fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("a","","b",""),
                           rel_widths=c(0.02,1), rel_heights=c(1,0.8), label_size=24 )
 
-ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
+ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","c",""),
                          rel_widths=c(1.5,0.02,1), label_size=24 )
 
 ggsave( str_c("Fig1-", Sys.Date(), ".pdf"), ff, width=14, height=7 )

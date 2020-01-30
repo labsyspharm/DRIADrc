@@ -58,5 +58,5 @@ pB <- panelB()
 
 ## Place everything onto the same figure
 ff <- cowplot::plot_grid( pA, pB, ncol=1, rel_heights=c(0.65,1),
-                         labels=c("A","B"), label_size=24 )
+                         labels=c("a","b"), label_size=24 )
 ggsave( str_c("Fig2-",Sys.Date(),".pdf"), ff, width=10, height=7.5 )

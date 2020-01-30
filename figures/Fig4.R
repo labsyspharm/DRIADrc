@@ -115,7 +115,7 @@ pC <- panelC()
 ##                         rel_widths=c(0.05,1), rel_heights=c(1,0.85), label_size=24)
 
 ff <- cowplot::plot_grid( NULL, pA, NULL, pB, NULL, pC, ncol=1,
-                         labels=c("A","","B","","C",""),
+                         labels=c("a","","b","","c",""),
                          rel_heights=c(0.001,1, 0.05,1.1, 0.1,0.75),
                          label_size=24 )
 
