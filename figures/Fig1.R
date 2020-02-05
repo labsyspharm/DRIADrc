@@ -12,13 +12,13 @@ panelC <- function()
     library( ggridges )
     
     ## Load all results associated with previous AMP-AD gene sets
-    load( syn("syn20834625") )
+    load( here("results","lit-2019-10-03.RData") )
 
     ## Changes set names from PMID-S# to PMID (S#)
     f <- function(id) { str_split(id, "-") %>% map_chr(~str_c(.x[1], " (",.x[2],")")) }
     
     ## Look in the original set definitions for keywords
-    V <- syn( "syn19032178" ) %>% read_lines() %>% str_split( "\t" ) %>%
+    V <- here("predict","genesets","prev-ampad.gmt" ) %>% read_lines() %>% str_split( "\t" ) %>%
         map( ~set_names(.x[2], .x[1]) ) %>% unlist %>% enframe( "Set", "Description" )
 
     ## Compose a joint results frame
