@@ -23,6 +23,7 @@ figures/Fig4.pdf : figures/Fig4.R schematics/Fig4A.pdf $(common)
 
 figures/Fig5.pdf : figures/Fig5.R $(common)
 	Rscript $< $@
+	rm Rplots.pdf
 
 clean :
 	rm *.pdf figures/*.pdf

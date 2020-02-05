@@ -64,7 +64,7 @@ FDA_MOA <- function()
 Fig3 <- function( fnOut )
 {
     ## Fetch the composite score matrix and separate drugs in FDA-approved and non-approved
-    XX <- DGEcompositePre() %>% select( -LINCSID ) %>%
+    XX <- DGEcomposite() %>% select( -LINCSID ) %>%
         mutate( Target = ifelse(is.na(Target), "Other", Target) ) %>%
         mutate( IsApproved = ifelse( Approval %in% c("approved","vet_approved"),
                                     "FDA-Approved", "Non-Approved" ) ) %>%
