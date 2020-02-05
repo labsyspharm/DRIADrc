@@ -55,7 +55,7 @@ panelB <- function()
 }
 
 ## Plot individual panels
-pA <- pdfGrob("syn21213293")
+pA <- pdfGrob(here("schematics","Fig2A.pdf"))
 pB <- panelB()
 
 ## Place everything onto the same figure

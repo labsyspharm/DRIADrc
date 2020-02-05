@@ -107,7 +107,7 @@ panelC <- function()
 ##    lemon::reposition_legend( gg, "center", panel= "panel-5-3" )
 }
 
-pA <- pdfGrob("syn21426613")
+pA <- pdfGrob(here("schematics","Fig4A.pdf"))
 pB <- panelB()
 pC <- panelC()
 

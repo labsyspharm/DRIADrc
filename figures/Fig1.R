@@ -49,8 +49,8 @@ panelC <- function()
 }
 
 ## Identify individual panels
-pA <- pdfGrob("syn21212910")
-pB <- pdfGrob("syn20506949")
+pA <- pdfGrob(here("schematics","Fig1A.pdf"))
+pB <- pdfGrob(here("schematics","Fig1B.pdf"))
 pC <- panelC()
 
 ## Put everything together

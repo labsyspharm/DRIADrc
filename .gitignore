@@ -44,6 +44,7 @@ rsconnect/
 # Figure renders
 *.pdf
 *.png
+*.svg
 figures.aux
 figures.log
 
