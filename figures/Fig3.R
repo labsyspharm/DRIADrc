@@ -2,8 +2,10 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 ## Returns a score legend grob
 legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))

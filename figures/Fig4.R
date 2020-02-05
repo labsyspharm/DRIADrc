@@ -1,5 +1,7 @@
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 panelB <- function()
 {
