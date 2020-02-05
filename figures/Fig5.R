@@ -304,9 +304,10 @@ target_combos <- read_rds(file.path(wd, "target_combos.rds")) %>%
 
 set.seed(42)
 fig5_plot <- Fig5()
-ggsave2(
-  here(paste0("Fig5-", Sys.Date(), ".pdf")),
-  fig5_plot,
-  width = 9, height = 7
-)
+
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig5-", Sys.Date(), ".pdf") )
+
+ggsave2( fnOut, fig5_plot, width = 9, height = 7 )
 

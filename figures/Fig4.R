@@ -109,14 +109,12 @@ pA <- pdfGrob("syn21426613")
 pB <- panelB()
 pC <- panelC()
 
-##fAB <- cowplot::plot_grid( pA, NULL, pB, nrow=1, labels=c("","B",""),
-##                          rel_widths=c(1,0.02,0.8), label_size=24 )
-##ff <- cowplot::plot_grid( NULL, fAB, NULL, pC, ncol=2, labels=c("A","","C",""),
-##                         rel_widths=c(0.05,1), rel_heights=c(1,0.85), label_size=24)
-
 ff <- cowplot::plot_grid( NULL, pA, NULL, pB, NULL, pC, ncol=1,
                          labels=c("a","","b","","c",""),
                          rel_heights=c(0.001,1, 0.05,1.1, 0.1,0.75),
                          label_size=24 )
 
-ggsave( str_c("Fig4-", Sys.Date(), ".pdf"), ff, width=9, height=13 )
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig4-", Sys.Date(), ".pdf") )
+ggsave( fnOut, ff, width=9, height=13 )
