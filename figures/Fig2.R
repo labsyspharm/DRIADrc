@@ -59,4 +59,8 @@ pB <- panelB()
 ## Place everything onto the same figure
 ff <- cowplot::plot_grid( pA, pB, ncol=1, rel_heights=c(0.65,1),
                          labels=c("a","b"), label_size=24 )
-ggsave( str_c("Fig2-",Sys.Date(),".pdf"), ff, width=10, height=7.5 )
+
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig2-", Sys.Date(), ".pdf") )
+ggsave( fnOut, ff, width=10, height=7.5 )
