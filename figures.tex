@@ -3,6 +3,7 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage{graphicx}
 \usepackage{pdflscape}
+\usepackage[labelformat=empty]{caption}
 
 \pagenumbering{gobble}
 
@@ -38,5 +39,29 @@
     \caption*{\textbf{Fig. 3: Top 15 FDA-approved (left) and experimental/investigational (right) drugs, sorted by harmonic mean p-value.} Each heatmap shows p-values associated with a drug’s predictive performance across two AMP-AD datasets, ROSMAP and MSBB. The MSBB analysis is further subdivided by the brain region, specified as Brodmann Area. The last column in each heatmap shows the harmonic mean p-value (HMP). The rows are annotated with the name of the drug/compound, its nominal target, and the index of the corresponding DGE experiment. Additional annotations include information about each compound’s approval status (approved / investigational / experimental) and whether compounds were found to be toxic in neuronal cell cultures.}
 \end{figure}
 \end{landscape}
+
+%% Figure 4
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7in]{figures/Fig4.pdf}
+\end{figure}
+
+\begin{figure}
+  \caption{\textbf{Fig. 4: (a) Overview of Target Affinity Spectrum score computation from raw drug binding data.} Three types of drug binding data were sourced from ChEMBL and from the internal Laboratory Systems of Pharmacology dataset that have not yet been incorporated into ChEMBL. Empirically derived thresholds for the different data types where used to assign TAS scores to each drug-target pair. Multiple measurements for the same drug-target combination were aggregated along the first quartile. \textbf{(b) Binding affinity of compounds in the ranked list to every member of the Janus Kinase family.} The compounds are sorted in increasing order by the harmonic mean p-value (as defined in Figure 3) along the x-axis. The top facet shows binding affinity of each compound to the corresponding target, explicitly naming FDA-approved drugs. Colored and gray tiles denote confirmed binders and non-binders, respectively; missing entries correspond to unknown affinity values. The combined affinity is defined as the strongest binding (lowest TAS score) among all four JAK targets. The bottom facet shows the breakdown of the combined affinity values by TAS-specific empirical cumulative distribution functions (ecdfs). \textbf{(c) Top targets whose binding affinity correlates most strongly with the compound ranking.} Each facet shows ecdfs for all drugs that bind the corresponding target with a TAS score of 1 (dark orange), 2 (orange) and 3 (light orange). The ecdfs of confirmed non-binders (TAS = 10) are shown as gray dashed lines for reference. Area under ecdf can be interpreted as a summary statistic that captures the position of drugs binding to that target with the corresponding affinity in the ranked list. Correlation between the drug ranking and TAS values was computed using Kendall’s Tau test, with the associated p value displayed in the bottom right corner of each facet.}
+\end{figure}
+
+%% Figure 5
+
+\begin{landscape}
+  \begin{figure}
+    \centering
+    \includegraphics[width=9.5in]{figures/Fig5.pdf}
+  \end{figure}
+\end{landscape}
+
+\begin{figure}
+  \caption{\textbf{Fig. 5: (a) An example polypharmacology test with a focus on RPS6KA1 and TYK2.} The drugs are ranked by the harmonic mean p-value (as in Figures 3 and 4), and the distributions of drugs bindings to both RPS6KA1 and TYK2 (left facet), those binding to RPS6KA1 but not TYK2 (middle facet) and, conversely, TYK2 but not RPS6KA1 (right facet) are shown along this ranking. The location of individual drugs is further annotated by vertical tick marks directly below the corresponding distribution. \textbf{(b) Top 10 synergistic and top 10 antagonistic relationships between pairs of targets.} Each facet displays three distributions of compounds along the ranked list (x axis). The blue distribution shows the location of compounds that bind both targets of interest, while the other two distributions are computed over compound sets with explicit confirmed non-binding links to the first (orange) and second (green) target in the pair. The distributions are compared using Wilcoxon Rank Sum test, with the resulting p value presented in the bottom right corner of the corresponding facet. If compounds that bind both targets appear significantly closer to the top of the ranked list (left side of the x axis), we define the target pair to be synergistic. Conversely, a pair of targets with an explicit non-binding interaction observed among the top-ranking compounds is defined to be antagonistic. A set of five neutral target pairs (i.e., no significant synergistic or antagonistic effect) is included for reference. }
+\end{figure}
 
 \end{document}

@@ -44,6 +44,8 @@ rsconnect/
 # Figure renders
 *.pdf
 *.png
+figures.aux
+figures.log
 
 # Gene sets
 *.gmt
