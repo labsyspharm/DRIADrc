@@ -2,7 +2,7 @@
 ##
 ## by Artem Sokolov
 
-library( tidyverse )
+suppressMessages(library( tidyverse ))
 synapser::synLogin()
 
 ## Loaders

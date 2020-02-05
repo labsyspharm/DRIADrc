@@ -19,6 +19,7 @@ figures/Fig3.pdf : figures/Fig3.R $(common)
 
 figures/Fig4.pdf : figures/Fig4.R schematics/Fig4A.pdf $(common)
 	Rscript $< $@
+	rm Rplots.pdf
 
 figures/Fig5.pdf : figures/Fig5.R $(common)
 	Rscript $< $@
