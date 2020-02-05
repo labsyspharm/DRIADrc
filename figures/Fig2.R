@@ -16,8 +16,8 @@ panelB <- function()
     R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
     
     ## Load all the results
-    load( syn("syn20928450") )
-    load( syn("syn20948620") )
+    load( here("results","results-2019-10-06.RData") )
+    load( here("results","MAYO-2019-10-10.RData") )
 
     ## Isolate the slice corresponding to:
     ##   1. NVP-TAE684 (DGE1) - HMSL10024
