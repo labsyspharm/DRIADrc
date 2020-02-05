@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+%% Figure 1
+
+\begin{landscape}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=10in]{figures/Fig1.pdf}
+    \end{center}
+    \caption*{\textbf{Fig. 1: (a) Overview of the machine learning framework used to establish potential associations between gene sets and Alzheimer’s Disease.} (i) The framework accepts as input gene sets derived from experimental data or extracted from database resources or literature. (ii) Given a gene expression matrix, the framework subsamples it to a particular gene set of interest, and (iii) subsequently trains and evaluates through cross-validation a predictor of disease stage. (iv) The process is repeated for randomly-selected gene sets of equal sizes to determine whether predictor performance associated with the gene set of interest is significantly higher than what’s expected by chance. \textbf{(b) AMP-AD datasets used by the machine learning framework.} The three datasets used to evaluate the predictive power of gene sets are provided by The Religious Orders Study and Memory and Aging Project (ROSMAP), The Mayo Clinic Brain Bank (MAYO) and The Mount Sinai/JJ Peters VA Medical Center Brain Bank (MSBB). The schematic highlights regions of the brain that are represented in each dataset. The MSBB dataset spans four distinct regions, which are designated using Brodmann (BM) area codes. \textbf{(c) Performance of predictors trained on gene sets reported in previous studies of AMP-AD datasets.} The predictors are evaluated for their ability to distinguish early-vs-late disease stages with performance reported as area under the ROC curve (AUC). The vertical line on each row denotes predictor performance associated with a gene set reported in the literature, while the background distribution is constructed over randomly-selected sets of matching cardinalities. Each row is annotated with the pubmed ID of the study, the supplemental resource that contained the gene set, and a short keyphrase providing functional context.}
+  \end{figure}
+\end{landscape}
+
+\newpage
+
+%% Figure 2
+
+\begin{figure}
+  \includegraphics[width=7.5in]{figures/Fig2.pdf}
+  \caption*{\textbf{Fig. 2: (a) Overview of the 3’ DGE experimental protocol used to derive drug-associated gene expression signatures.} ReNcell VM human neural progenitor cell lines were plated and cultured in a differentiation medium for a period of 10 days, resulting in a mixed cell population of neurons, glia and oligodendrocytes. The mixed culture was subsequently treated with a panel of drugs (Table 1) and frozen in a lysis buffer until library preparation. RNA was extracted and reverse transcribed into cDNA in each well of the plate, followed by pooling and preparation of mRNA libraries. After sequencing, mRNA reads were demultiplexed according to well barcodes, and the resulting gene expression profiles were processed by a standard differential expression method to derive drug-associated gene sets. \textbf{(b) A highlight of two compounds whose gene sets consistently yield improved performance over the randomly-selected sets of equal size}. Shown is performance associated with predicting early-vs-late disease stages in several AMP-AD datasets. Each row corresponds to an evaluation of gene sets in a single dataset; MSBB evaluation is subdivided into four brain regions, specified as Brodmann Area. The vertical line denotes performance of the drug-associated set, while the background distribution shows performance of gene sets randomly selected from the same dataset. The drugs are annotated with their nominal targets. Lapatinib is FDA-approved, while NVP-TAE684 did not receive approval due to toxicity issues.}
+\end{figure}
+
+%% Figure 3
+
+\begin{landscape}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=9.5in]{figures/Fig3.pdf}
+    \end{center}
+    \caption*{\textbf{Fig. 3: Top 15 FDA-approved (left) and experimental/investigational (right) drugs, sorted by harmonic mean p-value.} Each heatmap shows p-values associated with a drug’s predictive performance across two AMP-AD datasets, ROSMAP and MSBB. The MSBB analysis is further subdivided by the brain region, specified as Brodmann Area. The last column in each heatmap shows the harmonic mean p-value (HMP). The rows are annotated with the name of the drug/compound, its nominal target, and the index of the corresponding DGE experiment. Additional annotations include information about each compound’s approval status (approved / investigational / experimental) and whether compounds were found to be toxic in neuronal cell cultures.}
+\end{figure}
+\end{landscape}
+
+\end{document}
