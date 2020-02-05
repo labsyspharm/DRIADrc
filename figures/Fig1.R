@@ -58,8 +58,7 @@ fAB <- cowplot::plot_grid( NULL, pA, NULL, pB, ncol=2, labels=c("a","","b",""),
 ff <- cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","c",""),
                          rel_widths=c(1.5,0.02,1), label_size=24 )
 
-ggsave( str_c("Fig1-", Sys.Date(), ".pdf"), ff, width=14, height=7 )
-##gridSVG::gridsvg( str_c("Fig1-", Sys.Date(), ".svg"), width=14, height=7 )
-##cowplot::plot_grid( fAB, NULL, pC, nrow=1, labels=c("","C",""),
-##                   rel_widths=c(1.5,0.02,1), label_size=24 )
-##gridSVG::dev.off()
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig1-", Sys.Date(), ".pdf") )
+ggsave( fnOut, ff, width=14, height=7 )
