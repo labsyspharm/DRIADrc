@@ -15,14 +15,14 @@ jak_members <- c(paste0("JAK", 1:3), "TYK2")
 target_combo_significance <- read_rds(file.path(wd, "target_combo_significance.rds"))
 target_combos <- read_rds(file.path(wd, "target_combos.rds"))
 
-jak_combo_significance <- target_combo_significance %>%
-  filter(Target_1 %in% jak_members | Target_2 %in% jak_members) %>%
-  mutate(
-    jak_member = map2(Target_1, Target_2, ~intersect(c(.x, .y), jak_members)),
-    non_jak_member = map2(Target_1, Target_2, ~setdiff(c(.x, .y), jak_members))
-  ) %>%
-  filter(map_lgl(jak_member, ~length(.x) == 1)) %>%
-  mutate_at(vars(jak_member, non_jak_member), as.character)
+## jak_combo_significance <- target_combo_significance %>%
+##   filter(Target_1 %in% jak_members | Target_2 %in% jak_members) %>%
+##   mutate(
+##     jak_member = map2(Target_1, Target_2, ~intersect(c(.x, .y), jak_members)),
+##     non_jak_member = map2(Target_1, Target_2, ~setdiff(c(.x, .y), jak_members))
+##   ) %>%
+##   filter(map_lgl(jak_member, ~length(.x) == 1)) %>%
+##   mutate_at(vars(jak_member, non_jak_member), as.character)
 
 combo_direction_classes <- target_combo_significance %>%
   mutate(
@@ -79,10 +79,11 @@ write_rds(
   combo_combined,
   file.path(wd, "target_combo_significance_aggregated.rds")
 )
-write_rds(
-  jak_combo_significance,
-  file.path(wd, "jak_combo_significance.rds")
-)
+
+## write_rds(
+##   jak_combo_significance,
+##   file.path(wd, "jak_combo_significance.rds")
+## )
 
 calculate_jaccard <- function(df) {
   # browser()
