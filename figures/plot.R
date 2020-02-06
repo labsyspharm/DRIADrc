@@ -2,7 +2,7 @@
 ##
 ## by Artem Sokolov
 
-## Composes a grob from an imported .pdf that is hosted on synapse
+## Composes a grob from an imported .pdf
 pdfGrob <- function( fnPdf )
 {
     ## Fetch the .pdf source and convert it to .svg format
