@@ -2,11 +2,10 @@
 
 This repository is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
 
-To reproduce figures from the manuscript, descend into the `figures` subdirectory and run `Rscript` on the corresponding `.R` file(s). For example, to reproduce Figure 1, use the following commands:
+Ensure that you have LaTeX, R and the following R packages installed: `tidyverse`, `ggridges`, `cowplot`, `ggrepel`, `ggthemes`, `grConvert`, `grImport2`, `pheatmap`, `synapser` and [`synExtra`](https://github.com/ArtemSokolov/synExtra). To reproduce figures from the manuscript, run the following from the command line:
 
 ``` sh
-cd figures
-Rscript Fig1.R
+make figures.pdf
 ```
 
 ## Funding
