@@ -30,5 +30,5 @@ ggplot() + theme_bw() + facet_wrap( ~Task, ncol=1 ) + guides( color=FALSE ) +
     theme( strip.background = element_blank(), strip.text.x = element_blank(),
           legend.position=c(0.98,0.98), legend.justification=c(1,1),
           legend.background=element_rect(fill=NA), legend.title.align=0.75 ) +
-    ggsave( str_c("FigS2-",Sys.Date(),".pdf"), width=8, height=5 )
+    ggsave( str_c("FigSX-",Sys.Date(),".pdf"), width=8, height=5 )
 

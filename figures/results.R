@@ -17,7 +17,7 @@ DGEcomposite <- function( task="AC" )
     ## Harmonic mean
     hmean <- function(v) {length(v)/sum(1/v)}
     
-    load( syn("syn20928450") )
+    load( here("results","results-2019-10-06.RData") )
     
     ## Load the associated LINCS metadata (drug names)
     M <- syn_csv( "syn11801537" ) %>% mutate_at( "name", str_to_lower ) %>%
