@@ -4,7 +4,7 @@ library(broom)
 library(furrr)
 library(IHW)
 
-wd <- here("mechanism", "polypharmacology")
+wd <- here("analyses", "mechanism", "polypharmacology")
 dir.create(wd, showWarnings = FALSE)
 
 source( here("figures","results.R") )
@@ -64,7 +64,8 @@ target_combinations <- P %>%
 
 write_rds(
   target_combinations,
-  file.path(wd, "target_combos.rds")
+  file.path(wd, paste0("target_combos-",Sys.Date(),".rds")),
+  compress="gz"
 )
 
 ## Compare the composite score for two drug sets
