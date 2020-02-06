@@ -2,11 +2,10 @@
 ##
 ## by Artem Sokolov
 
-## Composes a grob from an imported .pdf that is hosted on synapse
-pdfGrob <- function( synid )
+## Composes a grob from an imported .pdf
+pdfGrob <- function( fnPdf )
 {
     ## Fetch the .pdf source and convert it to .svg format
-    fnPdf <- syn( synid )
     fnSvg <- gsub( "pdf", "svg", fnPdf )
     grConvert::convertPicture(fnPdf, fnSvg)
 

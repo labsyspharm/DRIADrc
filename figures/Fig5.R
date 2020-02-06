@@ -1,11 +1,8 @@
-library(tidyverse)
+suppressMessages(library(tidyverse))
 library(grid)
 library(gridExtra)
 library(cowplot)
 library(here)
-
-synapser::synLogin()
-syn <- synExtra::synDownloader("~/data/DRIAD/mech")
 
 wd <- here("mechanism", "polypharmacology")
 source(here("figures", "plot.R"))
@@ -26,39 +23,6 @@ calculate_ecdf <- function( drug_ranking, ..., max_rank = NULL) {
 }
 
 hmean <- function(v) {length(v)/sum(1/v)}
-
-plot_single_drug_combo_density <- function(target_combos, targets) {
-    ## Mapping T1/T2 to actual target names
-    tgtmap <- c(T1_AND_T2 = paste0(targets[1], " AND\n", targets[2]),
-                T1_AND_NOT_T2 = paste0(targets[1], " AND\nNOT ", targets[2]),
-                T2_AND_NOT_T1 = paste0(targets[2], " AND\nNOT ", targets[1]))
-
-    ## Pull out the relevant slice of results data frame
-    drug_sets <- target_combos %>%
-        filter(Target_1 == targets[[1]], Target_2 == targets[[2]]) %>%
-        chuck("data", 1) %>%
-        bind_rows( .id="Drug_Set" ) %>%
-        filter( Drug_Set != "T1_XOR_T2" ) %>%
-        mutate_at( "Drug_Set", recode, !!!tgtmap ) %>%
-        mutate_at( "Drug_Set", factor, levels=tgtmap )
-
-    ## Compose text labels for each facet
-    TXT <- drug_sets %>% select( Drug_Set ) %>%
-        distinct() %>% mutate( Lbl = as.character(Drug_Set) ) %>%
-        mutate_at( "Lbl", map_chr, gsub, pattern=" AND ", replacement=" AND\n" )
-    
-    ggplot(drug_sets, aes(Rank)) + theme_bw() +
-        geom_density(aes(y = stat(scaled), fill = Drug_Set), color = NA, alpha = .8) +
-        geom_tile(aes(y = -0.03, x = Rank, fill = Drug_Set), width = 0.80, height = 0.06) +
-        ##        geom_text(aes(y = Inf, x = 40, label=Lbl), data=TXT, vjust=1.25, hjust=0.5, fontface="bold") +
-        scale_y_continuous(limits = c(-.1, 1), breaks = NULL, minor_breaks = NULL) +
-        scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
-        labs(x = "Drug rank", y = "Density estimate") +
-        coord_cartesian(ylim = c(-.06, 1), xlim = c(0, 77), expand = FALSE) +
-        facet_wrap(~Drug_Set) +
-        ggthemes::scale_fill_few(guide = FALSE) +
-        theme( strip.background=element_blank() )
-}
 
 drug_set_venns <- function() {
   vp <- viewport(x = .5, y = .5, width = unit(1, "snpc"), height = unit(1, "snpc"), name = "venn_diagram")
@@ -93,11 +57,13 @@ drug_set_venns <- function() {
   )
   combined <- gTree(children = gList(c1, c2, m), name = "venn")
 
+  pal <- ggthemes::few_pal()(3)
+  
   venn_configs <- list(
-    "s1_and_s2" = c(circle_1 = "white", circle_2 = "white", intersection = "red"),
+    "s1_and_s2" = c(circle_1 = "white", circle_2 = "white", intersection = pal[1]),
     "s1_xor_s2" = c(circle_1 = "red", circle_2 = "red", intersection = "white"),
-    "s1_not_s2" = c(circle_1 = "red", circle_2 = "white", intersection = "white"),
-    "s2_not_s1" = c(circle_1 = "white", circle_2 = "red", intersection = "white")
+    "s1_not_s2" = c(circle_1 = pal[2], circle_2 = "white", intersection = "white"),
+    "s2_not_s1" = c(circle_1 = "white", circle_2 = pal[3], intersection = "white")
   )
 
   venns <- imap(
@@ -116,10 +82,61 @@ drug_set_venns <- function() {
   venns
 }
 
-plot_grid_drug_combo_density <- function(
-  target_combo_significance_aggregated, target_combos,
-  ns = c(synergistic = 10, antagonistic = 10, neutral = 5)
-) {
+plot_single_drug_combo_density <- function(target_combos, targets) {
+    ## Mapping T1/T2 to actual target names
+    tgtmap <- c(T1_AND_T2 = paste0(targets[1], " AND\n", targets[2]),
+                T1_AND_NOT_T2 = paste0(targets[1], " AND\nNOT ", targets[2]),
+                T2_AND_NOT_T1 = paste0(targets[2], " AND\nNOT ", targets[1]))
+
+    ## Pull out the relevant slice of results data frame
+    drug_sets <- target_combos %>%
+        filter(Target_1 == targets[[1]], Target_2 == targets[[2]]) %>%
+        chuck("data", 1) %>%
+        bind_rows( .id="Drug_Set" ) %>%
+        filter( Drug_Set != "T1_XOR_T2" ) %>%
+        mutate_at( "Drug_Set", recode, !!!tgtmap ) %>%
+        mutate_at( "Drug_Set", factor, levels=tgtmap )
+
+    ## Compose text labels for each facet
+    TXT <- drug_sets %>% select( Drug_Set ) %>%
+        distinct() %>% mutate( Lbl = as.character(Drug_Set) ) %>%
+        mutate_at( "Lbl", map_chr, gsub, pattern=" AND ", replacement=" AND\n" )
+    
+    ggplot(drug_sets, aes(Rank)) + theme_bw() +
+        geom_density(aes(y = stat(scaled), color = Drug_Set, fill = Drug_Set), alpha = .8) +
+        geom_tile(aes(y = -0.05, x = Rank, fill = Drug_Set), width = 0.80, height = 0.1) +
+        scale_y_continuous(breaks = NULL, minor_breaks = NULL) +
+        scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
+        labs(x = "Drug rank", y = "Density estimate") +
+        coord_cartesian(ylim = c(-.1, 1.05), xlim = c(0, 77), expand = FALSE) +
+        facet_wrap(~Drug_Set) +
+        ggthemes::scale_color_few(guide = FALSE) +
+        ggthemes::scale_fill_few(name = "Drug Set", labels=c("A AND B", "A AND NOT B", "B AND NOT A")) +
+        theme( strip.background=element_blank(), panel.grid=element_blank(),
+              legend.key.size=unit(2,"lines") )
+}
+
+panelA <- function() {
+    gg <- plot_single_drug_combo_density(target_combos, c("RPS6KA1", "TYK2"))
+    gt <- ggplotGrob(gg)
+    hj <- c(0, 0.5, 0.5, 0.7, 0.7)
+    for( j in grep("axis-b", gt$layout$name) )
+        pluck( gt, "grobs", j, "children", 2, "grobs", 2, "children", 1, "hjust" ) <- hj
+
+    
+    ## Add venn diagrams
+    vns <- drug_set_venns()[c(1L, 3L, 4L)]
+    gtl <- gtable::gtable_filter( gt$grobs[[24]]$grobs[[1]], "key", invert=TRUE ) %>%
+        gtable::gtable_add_grob( vns[[1]], 4, 2 ) %>%
+        gtable::gtable_add_grob( vns[[2]], 5, 2 ) %>%
+        gtable::gtable_add_grob( vns[[3]], 6, 2 )
+    gt$grobs[[24]]$grobs[[1]] <- gtl
+
+    gt
+}
+
+panelB <- function( target_combo_significance_aggregated, target_combos,
+                   ns = c(synergistic = 10, antagonistic = 10, neutral = 5) ) {
   plot_data <- target_combo_significance_aggregated %>%
     mutate(
       Class = factor(Class, levels = c("synergistic", "NS", "antagonistic"))
@@ -138,22 +155,21 @@ plot_grid_drug_combo_density <- function(
     left_join(target_combos, by = c("Target_1", "Target_2")) %>%
     unnest_longer(data, indices_to = "Drug_Set") %>%
     filter(Drug_Set != "T1_XOR_T2") %>%
-    mutate(
-      Drug_Set = recode(Drug_Set, T1_AND_T2 = "A AND B", T1_AND_NOT_T2 = "A AND NOT B", T2_AND_NOT_T1 = "B AND NOT A") %>%
-        factor(levels = c("A AND B", "A AND NOT B", "B AND NOT A")),
-      Combination = paste(Target_1, Target_2, sep = "\n") %>%
-        fct_inorder()
-    ) %>%
+      mutate(
+          Drug_Set = recode(Drug_Set, T1_AND_T2 = "A AND B",
+                            T1_AND_NOT_T2 = "A AND NOT B", T2_AND_NOT_T1 = "B AND NOT A") %>%
+              factor(levels = c("A AND B", "A AND NOT B", "B AND NOT A")),
+          Combination = paste(Target_1, Target_2, sep = "\n") %>%
+              fct_inorder() ) %>%
     unnest(data)
 
   # browser()
 
   effect_color_map <- c(
-    "synergistic" = "#e6f6e2",
-    "antagonistic" = "#fcf7e7",
-    "neutral" = "#f6f9fc"
-  ) %>%
-    map_chr(colorspace::lighten, .3)
+    "synergistic" = "#f6f9fc",
+    "antagonistic" = "#fcf9f6",
+    "neutral" = "#f9f9f9"
+  )
 
   density_plot <- plot_data %>%
     ggplot(aes(Rank)) +
@@ -161,7 +177,8 @@ plot_grid_drug_combo_density <- function(
       vars(Combination),
       strip.position = "left"
     ) +
-    geom_density(aes(y = stat(scaled), color = Drug_Set), fill = "lightgray", alpha = .6) +
+#    geom_density(aes(y = stat(scaled), color = Drug_Set), fill = "gray90", alpha = .6) +
+    geom_density(aes(y = stat(scaled), color = Drug_Set, fill = Drug_Set), alpha = .6) +
     geom_text(
       aes(label = Combined_Text),
       data = function(data) {
@@ -184,11 +201,11 @@ plot_grid_drug_combo_density <- function(
       x = 3, y = .05, hjust = 0, vjust = 0, size = 8 / .pt
     ) +
     geom_tile(
-      aes(y = -.05, fill = Drug_Set),
-      width = 0.80, height = 0.1
+      aes(y = -.1, fill = Drug_Set),
+      width = 0.80, height = 0.2
     ) +
       ggthemes::scale_color_few(guide = FALSE) +
-    ggthemes::scale_fill_few(name="Drug Set") +
+    ggthemes::scale_fill_few(guide=FALSE) +
     theme(
       strip.text = element_text(color = "black"),
       strip.text.y = element_text(angle = 180),
@@ -209,38 +226,14 @@ plot_grid_drug_combo_density <- function(
     scale_y_continuous(
       breaks = NULL,
       minor_breaks = NULL,
-      limits = c(-0.1, 1)
+      limits = c(-0.2, 1.1)
     ) +
     scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
     coord_cartesian(xlim = c(1, 77), expand = FALSE) +
     labs(
       x = "Drug rank",
-      y = "Scaled density"
+      y = ""
     )
-
-  # Venn diagrams
-  drug_set_labels <- drug_set_venns()[c(1L, 3L, 4L)] %>%
-    set_names(c("A AND B", "A AND NOT B", "B AND NOT A")) %>%
-    imap(
-      function(venn, name) {
-        list(
-          textGrob(name, just = "left"),
-          textGrob("A", just = "center"),
-          venn,
-          textGrob("B", just = "center")
-        )
-      }
-    ) %>%
-    {
-      arrangeGrob(
-        grobs = flatten(unname(.)),
-        nrow = 3,
-        widths = unit(c(5.5, .1, .8, .1), "cm"),
-        heights = unit(rep(.45, 3), "cm"),
-        vp = viewport(gp = gpar(fontsize = 10)),
-        padding = unit(0, "cm")
-      )
-    }
 
   # Add shaded background
   density_plot_grob <- density_plot %>%
@@ -262,156 +255,56 @@ plot_grid_drug_combo_density <- function(
     ) %>%
     # Add effect labels on y-axis
     {
-      labels <- list(
-        grid::textGrob("synergistic", rot = 270, gp = gpar(fontsize = 10)),
-        grid::textGrob("neutral", rot = 270, gp = gpar(fontsize = 10)),
-        grid::textGrob("antagonistic", rot = 270, gp = gpar(fontsize = 10))
-      ) %>%
-        map(
-          ~ggplot2:::add_margins(
-            gList(.x),
-            height = grobHeight(.x), width = grobWidth(.x),
-            margin = margin(0, 0, 0, 5, "pt"), margin_x = TRUE, margin_y = FALSE
-          )
-        )
-      .$widths[28] <- exec(max, !!!map(labels, grobWidth))
-      gtable::gtable_add_grob(
-        .,
-        labels[[1]],
-        7, 28, 11, 28, z = 0.5
-      ) %>%
-        gtable::gtable_add_grob(
-          labels[[2]],
-          15, 28, 15, 28, z = 0.5
+        labels <- list(
+            grid::textGrob("synergistic", rot = 90, gp = gpar(fontsize = 12)),
+            grid::textGrob("neutral", rot = 90, gp = gpar(fontsize = 12)),
+            grid::textGrob("antagonistic", rot = 90, gp = gpar(fontsize = 12))
         ) %>%
-        gtable::gtable_add_grob(
-          labels[[3]],
-          19, 28, 23, 28, z = 0.5
-        )
-    } %>%
-    # Add venn diagram labels
-    {
-      gtable::gtable_add_grob(., drug_set_labels, 27, 5, 27, 8)
+            map(
+                ~ggplot2:::add_margins(
+                               gList(.x),
+                               height = grobHeight(.x), width = grobWidth(.x),
+                               margin = margin(0, 5, 0, 5, "pt"), margin_x = TRUE, margin_y = FALSE
+                           )
+            )
+        i <- 3
+        .$widths[i] <- exec(max, !!!map(labels, grobWidth))
+        gtable::gtable_add_grob( ., labels[[1]],  7, i, 11, z = 0.5 ) %>%
+        gtable::gtable_add_grob(    labels[[2]], 15, i, 15, z = 0.5 ) %>%
+        gtable::gtable_add_grob(    labels[[3]], 19, i, 23, z = 0.5 )
     }
 
   density_plot_grob
 }
 
-make_top_targets_table <- function(targets) {
-  tableGrob(
-    targets %>%
-      select(symbol = Symbol, direction = Class, n, p, padj) %>%
-      slice(1:10) %>%
-      mutate_at(vars(starts_with("p")), ~sprintf("%.2E", .x)),
-    theme = ttheme_default(base_size = 10)
-  )
-}
-
-panelA <- function() {
-    gg <- plot_single_drug_combo_density(target_combos, c("RPS6KA1", "TYK2"))
-    gt <- ggplotGrob(gg)
-    hj <- c(0, 0.5, 0.5, 0.7, 0.7)
-    for( j in grep("axis-b", gt$layout$name) )
-        pluck( gt, "grobs", j, "children", 2, "grobs", 2, "children", 1, "hjust" ) <- hj
-    gt
-}
-
-panelB <- function() {
-  plot_grid_drug_combo_density(target_combo_significance_aggregated, target_combos)
-}
-
-panelB_JAK_only <- function() {
-  plot_grid_drug_combo_density(
-    target_combo_significance_aggregated %>%
-      semi_join(jak_combo_significance, by = c("Target_1", "Target_2")),
-    target_combos
-  )
-}
-
-
-panelC <- function() {
-  make_top_targets_table(
-    cotarget_significance %>%
-      arrange(padj) %>%
-      filter(Target_Class == "cotarget")
-  )
-}
-
-
 Fig5 <- function() {
-  plot_grid(
-    plot_grid(panelA(), panelC(), labels = c("A", "C")),
-    panelB(),
-    labels = c("", "B"),
-    ncol = 1,
-    rel_heights = c(1.5, 2)
-  )
+    pB <- panelB( target_combo_significance_aggregated, target_combos )
+    plot_grid( plot_grid( panelA(), cowplot::ggdraw(), rel_widths=c(3,1) ),
+              pB, labels = c("a", "b"), ncol = 1, rel_heights = c(1, 2) )
 }
-
-Fig5_JAK_only <- function() {
-  plot_grid(
-    plot_grid(panelA(), panelC(), labels = c("A", "C")),
-    panelB_JAK_only(),
-    labels = c("", "B"),
-    ncol = 1,
-    rel_heights = c(1.5, 2)
-  )
-}
-
-## Load composite scores for each drug / plate combination
-## Combine scores for each drug from the two plates
-S <- syn("syn20928503") %>% read_csv( col_types=cols() ) %>%
-  select( Drug, LINCSID, HMP ) %>%
-  group_by( Drug ) %>%
-  summarize( LINCSID=unique(LINCSID), HMP=gmean(HMP) ) %>%
-  arrange( HMP ) %>%
-  mutate( Rank = 1:n() )
 
 ## Load significance of target combinations for each evaluated target pair
 target_combo_significance <- read_rds(file.path(wd, "target_combo_significance.rds"))
-
-jak_combo_significance <- read_rds(
-  file.path(wd, "jak_combo_significance.rds")
-)
 
 ## Load significance aggregated across all drug set tests for each target pair
 target_combo_significance_aggregated <- read_rds(
   file.path(wd, "target_combo_significance_aggregated.rds")
 )
 
-jak_combo_significance_aggregated <- target_combo_significance_aggregated %>%
-  inner_join(
-    distinct(jak_combo_significance, Target_1, Target_2, jak_member, non_jak_member),
-    by = c("Target_1", "Target_2")
-  )
-
 ## Load drug sets for each target pair
 target_combos <- read_rds(file.path(wd, "target_combos.rds")) %>%
-  mutate(
-    data = map(
-      data,
-      function(x) {
-        x[["T1_XOR_T2"]] <- bind_rows(x[["T1_AND_NOT_T2"]], x[["T2_AND_NOT_T1"]])
-        x[["NOT_T1_AND_NOT_T2"]] <- NULL
-        x
-      }
-    )
-  )
-
-cotarget_significance <- read_rds(file.path(wd, "cotarget_significance.rds"))
+  mutate_at( "data", map, function(x) {
+      x[["T1_XOR_T2"]] <- bind_rows(x[["T1_AND_NOT_T2"]], x[["T2_AND_NOT_T1"]])
+      x[["NOT_T1_AND_NOT_T2"]] <- NULL
+      x
+  } )
 
 set.seed(42)
 fig5_plot <- Fig5()
-ggsave2(
-  here(paste0("Fig5-", Sys.Date(), ".pdf")),
-  fig5_plot,
-  width = 9, height = 7
-)
 
-##set.seed(42)
-##fig5_plot_jak_only <- Fig5_JAK_only()
-##ggsave2(
-##  here(paste0("Fig5_jak_only-", Sys.Date(), ".pdf")),
-##  fig5_plot_jak_only,
-##  width = 9, height = 7
-##)
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig5-", Sys.Date(), ".pdf") )
+
+ggsave2( fnOut, fig5_plot, width = 9, height = 7 )
+

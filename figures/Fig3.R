@@ -2,8 +2,10 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 ## Returns a score legend grob
 legendGrobScore <- function( cbr, mar = margin(b=0.5, l=0.5, unit="cm"))
@@ -59,10 +61,10 @@ FDA_MOA <- function()
 }
 
 ## Plots the top FDA-approved candidates ranked by composite score
-Fig3 <- function()
+Fig3 <- function( fnOut )
 {
     ## Fetch the composite score matrix and separate drugs in FDA-approved and non-approved
-    XX <- DGEcompositePre() %>% select( -LINCSID ) %>%
+    XX <- DGEcomposite() %>% select( -LINCSID ) %>%
         mutate( Target = ifelse(is.na(Target), "Other", Target) ) %>%
         mutate( IsApproved = ifelse( Approval %in% c("approved","vet_approved"),
                                     "FDA-Approved", "Non-Approved" ) ) %>%
@@ -125,12 +127,15 @@ Fig3 <- function()
                                  heights=c(0.9,0.1), widths=c(1.1,1) )
 
     ## Add custom annotations
-    cowplot::ggdraw(gg) +
+    ggf <- cowplot::ggdraw(gg) +
         cowplot::draw_text( "Drug (FDA-proposed MoA) [Plate Index]",
-                          0.37, 0.93, fontface="bold", size=11 ) +
-            cowplot::draw_text( "Drug (Vendor Target) [Plate Index]",
-                               0.87, 0.93, fontface="bold", size=11 )
-    cowplot::ggsave( str_c("Fig3-", Sys.Date(), ".pdf"), width=11, height=7.1 )
+                           0.37, 0.93, fontface="bold", size=11 ) +
+        cowplot::draw_text( "Drug (Vendor Target) [Plate Index]",
+                           0.87, 0.93, fontface="bold", size=11 )
+    ggsave( fnOut, ggf, width=11, height=7.1 )
 }
 
-Fig3()
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig3-", Sys.Date(), ".pdf") )
+Fig3(fnOut)

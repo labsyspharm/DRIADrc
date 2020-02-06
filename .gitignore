@@ -3,7 +3,6 @@
 .Rapp.history
 
 # Data files
-*.RData
 *.rds
 *.csv
 *.xlsx
@@ -44,6 +43,9 @@ rsconnect/
 # Figure renders
 *.pdf
 *.png
+*.svg
+figures.aux
+figures.log
 
 # Gene sets
 *.gmt

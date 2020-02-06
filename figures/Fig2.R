@@ -4,8 +4,10 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 panelB <- function()
 {
@@ -14,8 +16,8 @@ panelB <- function()
     R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
     
     ## Load all the results
-    load( syn("syn20928450") )
-    load( syn("syn20948620") )
+    load( here("results","results-2019-10-06.RData") )
+    load( here("results","MAYO-2019-10-10.RData") )
 
     ## Isolate the slice corresponding to:
     ##   1. NVP-TAE684 (DGE1) - HMSL10024
@@ -53,10 +55,14 @@ panelB <- function()
 }
 
 ## Plot individual panels
-pA <- pdfGrob("syn21213293")
+pA <- pdfGrob(here("schematics","Fig2A.pdf"))
 pB <- panelB()
 
 ## Place everything onto the same figure
 ff <- cowplot::plot_grid( pA, pB, ncol=1, rel_heights=c(0.65,1),
-                         labels=c("A","B"), label_size=24 )
-ggsave( str_c("Fig2-",Sys.Date(),".pdf"), ff, width=10, height=7.5 )
+                         labels=c("a","b"), label_size=24 )
+
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig2-", Sys.Date(), ".pdf") )
+ggsave( fnOut, ff, width=10, height=7.5 )

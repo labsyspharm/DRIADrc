@@ -1,8 +1,6 @@
-library( tidyverse )
+library( here )
 
-## Synapse interface
-synapser::synLogin()
-syn <- synExtra::synDownloader("~/data/DRIAD/mech")
+source( here("figures","results.R") )
 
 gmean <- function(x) {exp(mean(log(x)))}
 
@@ -32,7 +30,7 @@ calculate_auc <- function(ecdf_df) {
 
 ## Load composite scores for each drug / plate combination
 ## Combine scores for each drug from the two plates
-S <- syn("syn20928503") %>% read_csv( col_types=cols() ) %>%
+S <- DGEcomposite() %>%
     select( Drug, LINCSID, HMP ) %>%
     group_by( Drug ) %>%
     summarize( LINCSID=unique(LINCSID), HMP=gmean(HMP) ) %>%
@@ -40,7 +38,7 @@ S <- syn("syn20928503") %>% read_csv( col_types=cols() ) %>%
     mutate( Rank = 1:n() )
 
 ## Combine with the TAS information
-P <- syn("syn20830941") %>% read_rds() %>%
+P <- read_rds( here("external", "tas_vector_annotated_long.rds") ) %>%
     chuck("data", 2) %>%
     select(LINCSID = compound_id, Target=entrez_symbol, TAS=tas) %>%
     left_join( S, ., by="LINCSID" ) %>%

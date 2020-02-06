@@ -2,11 +2,13 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
-source( "plot.R" )
+library( here )
 
-load( syn("syn20948620") )
-load( syn("syn20928450") )
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
+
+load( here("results","MAYO-2019-10-10.RData") )
+load( here("results","results-2019-10-06.RData") )
 
 v <- c( AB = "A-vs-B", AC = "A-vs-C", BC = "B-vs-C" )
 BK0 <- allRes %>% mutate( nFeats = map_int(Feats, length), Feats=NULL ) %>%

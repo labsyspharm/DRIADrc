@@ -1,17 +1,19 @@
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 panelB <- function()
 {
     ## Load drug ranking combining scores across plates
-    R <- syn_csv("syn20928503") %>% group_by( Drug, LINCSID, Approval ) %>%
+    R <- DGEcomposite() %>% group_by( Drug, LINCSID, Approval ) %>%
         summarize( HMP=exp(mean(log(HMP))) ) %>% ungroup() %>%
         arrange( HMP ) %>% mutate( Rank=1:n() )
     max_rank = max(R$Rank)
 
     ## Load TAS information
-    TAS <- syn("syn20830941") %>% read_rds() %>% chuck("data", 2) %>%
-        select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
+    TAS <- read_rds(here("external", "tas_vector_annotated_long.rds")) %>%
+        chuck("data", 2) %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
 
     ## Combine with TAS data and isolate JAK targets
     vJAK <- c("JAK1", "JAK2", "JAK3", "TYK2")
@@ -76,8 +78,9 @@ panelB <- function()
 panelC <- function()
 {
     ## All ECDF data for p < 0.05, sorted by p value
-    ECDF <- syn_csv( "syn21094322" ) %>% filter( p.value < 0.05 ) %>%
-        arrange( p.value ) %>% mutate_at( c("Target", "TAS"), as_factor )
+    ECDF <- read_csv( here("results","TAS-ecdf.csv"), col_types=cols() ) %>%
+        filter( p.value < 0.05 ) %>% arrange( p.value ) %>%
+        mutate_at( c("Target", "TAS"), as_factor )
 
     ## A single p value entry for each facet
     ECDFp  <- ECDF %>% mutate_at( "p.value", ~as.character(round(.x,3)) ) %>%
@@ -105,18 +108,16 @@ panelC <- function()
 ##    lemon::reposition_legend( gg, "center", panel= "panel-5-3" )
 }
 
-pA <- pdfGrob("syn21426613")
+pA <- pdfGrob(here("schematics","Fig4A.pdf"))
 pB <- panelB()
 pC <- panelC()
 
-##fAB <- cowplot::plot_grid( pA, NULL, pB, nrow=1, labels=c("","B",""),
-##                          rel_widths=c(1,0.02,0.8), label_size=24 )
-##ff <- cowplot::plot_grid( NULL, fAB, NULL, pC, ncol=2, labels=c("A","","C",""),
-##                         rel_widths=c(0.05,1), rel_heights=c(1,0.85), label_size=24)
-
 ff <- cowplot::plot_grid( NULL, pA, NULL, pB, NULL, pC, ncol=1,
-                         labels=c("A","","B","","C",""),
+                         labels=c("a","","b","","c",""),
                          rel_heights=c(0.001,1, 0.05,1.1, 0.1,0.75),
                          label_size=24 )
 
-ggsave( str_c("Fig4-", Sys.Date(), ".pdf"), ff, width=9, height=13 )
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Fig4-", Sys.Date(), ".pdf") )
+ggsave( fnOut, ff, width=9, height=13 )
