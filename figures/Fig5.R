@@ -1,11 +1,8 @@
-library(tidyverse)
+suppressMessages(library(tidyverse))
 library(grid)
 library(gridExtra)
 library(cowplot)
 library(here)
-
-synapser::synLogin()
-syn <- synExtra::synDownloader("~/data/DRIAD/mech")
 
 wd <- here("mechanism", "polypharmacology")
 source(here("figures", "plot.R"))

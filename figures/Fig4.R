@@ -6,14 +6,14 @@ source( here("figures","plot.R") )
 panelB <- function()
 {
     ## Load drug ranking combining scores across plates
-    R <- syn_csv("syn20928503") %>% group_by( Drug, LINCSID, Approval ) %>%
+    R <- DGEcomposite() %>% group_by( Drug, LINCSID, Approval ) %>%
         summarize( HMP=exp(mean(log(HMP))) ) %>% ungroup() %>%
         arrange( HMP ) %>% mutate( Rank=1:n() )
     max_rank = max(R$Rank)
 
     ## Load TAS information
-    TAS <- syn("syn20830941") %>% read_rds() %>% chuck("data", 2) %>%
-        select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
+    TAS <- read_rds(here("external", "tas_vector_annotated_long.rds")) %>%
+        chuck("data", 2) %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
 
     ## Combine with TAS data and isolate JAK targets
     vJAK <- c("JAK1", "JAK2", "JAK3", "TYK2")
@@ -78,8 +78,9 @@ panelB <- function()
 panelC <- function()
 {
     ## All ECDF data for p < 0.05, sorted by p value
-    ECDF <- syn_csv( "syn21094322" ) %>% filter( p.value < 0.05 ) %>%
-        arrange( p.value ) %>% mutate_at( c("Target", "TAS"), as_factor )
+    ECDF <- read_csv( here("results","TAS-ecdf.csv"), col_types=cols() ) %>%
+        filter( p.value < 0.05 ) %>% arrange( p.value ) %>%
+        mutate_at( c("Target", "TAS"), as_factor )
 
     ## A single p value entry for each facet
     ECDFp  <- ECDF %>% mutate_at( "p.value", ~as.character(round(.x,3)) ) %>%
