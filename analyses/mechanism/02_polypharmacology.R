@@ -20,8 +20,7 @@ S <- DGEcomposite() %>%
   mutate( Rank = 1:n() )
 
 ## Combine with the TAS information
-P <- read_rds( here("external", "tas_vector_annotated_long.rds") ) %>%
-  chuck("data", 2) %>%
+P <- TASvalues() %>%
   select(LINCSID = compound_id, Target=entrez_symbol, TAS=tas) %>%
   left_join( S, ., by="LINCSID" ) %>%
   mutate(binding = (TAS!=10))
