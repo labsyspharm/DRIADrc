@@ -1,10 +1,9 @@
 suppressMessages(library(tidyverse))
 library(grid)
 library(gridExtra)
-library(cowplot)
+suppressMessages(library(cowplot))
 library(here)
 
-wd <- here("mechanism", "polypharmacology")
 source(here("figures", "plot.R"))
 
 gmean <- function(x) {exp(mean(log(x)))}
@@ -284,15 +283,15 @@ Fig5 <- function() {
 }
 
 ## Load significance of target combinations for each evaluated target pair
-target_combo_significance <- read_rds(file.path(wd, "target_combo_significance.rds"))
+target_combo_significance <- read_rds(here("results", "target_combo_signif-2020-02-07.rds"))
 
 ## Load significance aggregated across all drug set tests for each target pair
 target_combo_significance_aggregated <- read_rds(
-  file.path(wd, "target_combo_significance_aggregated.rds")
+    here("results", "tc_signif_agg-2020-02-07.rds")
 )
 
 ## Load drug sets for each target pair
-target_combos <- read_rds(file.path(wd, "target_combos.rds")) %>%
+target_combos <- read_rds(here("results", "target_combos-2020-02-07.rds")) %>%
   mutate_at( "data", map, function(x) {
       x[["T1_XOR_T2"]] <- bind_rows(x[["T1_AND_NOT_T2"]], x[["T2_AND_NOT_T1"]])
       x[["NOT_T1_AND_NOT_T2"]] <- NULL

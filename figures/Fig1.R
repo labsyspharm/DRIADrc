@@ -9,7 +9,7 @@ source( here("figures","plot.R") )
 
 panelC <- function()
 {
-    library( ggridges )
+    suppressMessages(library( ggridges ))
     
     ## Load all results associated with previous AMP-AD gene sets
     load( here("results","lit-2019-10-03.RData") )
@@ -18,8 +18,9 @@ panelC <- function()
     f <- function(id) { str_split(id, "-") %>% map_chr(~str_c(.x[1], " (",.x[2],")")) }
     
     ## Look in the original set definitions for keywords
-    V <- here("predict","genesets","prev-ampad.gmt" ) %>% read_lines() %>% str_split( "\t" ) %>%
-        map( ~set_names(.x[2], .x[1]) ) %>% unlist %>% enframe( "Set", "Description" )
+    V <- here("analyses","predict","genesets","prev-ampad.gmt" ) %>% read_lines() %>%
+        str_split( "\t" ) %>% map( ~set_names(.x[2], .x[1]) ) %>%
+        unlist %>% enframe( "Set", "Description" )
 
     ## Compose a joint results frame
     R <- litRes %>% select(-Feats) %>% arrange( pval ) %>%
