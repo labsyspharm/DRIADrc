@@ -3,8 +3,6 @@
 .Rapp.history
 
 # Data files
-*.rds
-*.csv
 *.xlsx
 
 # Example code in package build process

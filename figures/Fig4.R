@@ -12,8 +12,7 @@ panelB <- function()
     max_rank = max(R$Rank)
 
     ## Load TAS information
-    TAS <- read_rds(here("external", "tas_vector_annotated_long.rds")) %>%
-        chuck("data", 2) %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
+    TAS <- TASvalues() %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
 
     ## Combine with TAS data and isolate JAK targets
     vJAK <- c("JAK1", "JAK2", "JAK3", "TYK2")

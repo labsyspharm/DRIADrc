@@ -11,7 +11,7 @@ source( here("figures","plot.R") )
 
 panelB <- function()
 {
-    library( ggridges )
+    suppressMessages(library( ggridges ))
 
     R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
     
