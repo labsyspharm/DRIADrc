@@ -5,24 +5,13 @@ library(magrittr)
 library(furrr)
 library(here)
 
-wd <- here("mechanism", "polypharmacology")
-dir.create(wd, showWarnings = FALSE)
-
+wd <- here("results")
 
 hmean <- function(v) {length(v)/sum(1/v)}
 
 jak_members <- c(paste0("JAK", 1:3), "TYK2")
-target_combo_significance <- read_rds(file.path(wd, "target_combo_significance.rds"))
-target_combos <- read_rds(file.path(wd, "target_combos.rds"))
-
-## jak_combo_significance <- target_combo_significance %>%
-##   filter(Target_1 %in% jak_members | Target_2 %in% jak_members) %>%
-##   mutate(
-##     jak_member = map2(Target_1, Target_2, ~intersect(c(.x, .y), jak_members)),
-##     non_jak_member = map2(Target_1, Target_2, ~setdiff(c(.x, .y), jak_members))
-##   ) %>%
-##   filter(map_lgl(jak_member, ~length(.x) == 1)) %>%
-##   mutate_at(vars(jak_member, non_jak_member), as.character)
+target_combo_significance <- read_rds(file.path(wd, "target_combo_signif-2020-02-07.rds"))
+target_combos <- read_rds(file.path(wd, "target_combos-2020-02-07.rds"))
 
 combo_direction_classes <- target_combo_significance %>%
   mutate(
@@ -77,13 +66,9 @@ combo_combined <- combo_direction_classes %>%
 
 write_rds(
   combo_combined,
-  file.path(wd, "target_combo_significance_aggregated.rds")
+  file.path(wd, paste0("tc_signif_agg-",Sys.Date(),".rds")),
+  compress="gz"
 )
-
-## write_rds(
-##   jak_combo_significance,
-##   file.path(wd, "jak_combo_significance.rds")
-## )
 
 calculate_jaccard <- function(df) {
   # browser()
@@ -156,7 +141,9 @@ cotarget_significance <- target_combo_significance %>%
   ) %>%
   unnest(pooled)
 
-write_rds(
-  cotarget_significance,
-  file.path(wd, "cotarget_significance.rds")
-)
+cotarget_significance %>%
+    select( Target_Class, Symbol, Class, n, p, padj ) %>%
+    write_rds(
+        file.path(wd, paste0("cotarget_signif-",Sys.Date(),".rds")),
+        compress="gz"
+    )

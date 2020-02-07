@@ -4,8 +4,7 @@ library(broom)
 library(furrr)
 library(IHW)
 
-wd <- here("analyses", "mechanism", "polypharmacology")
-dir.create(wd, showWarnings = FALSE)
+wd <- here("results")
 
 source( here("figures","results.R") )
 
@@ -138,5 +137,6 @@ target_combo_significance <- bind_rows(target_combo_significance_raw) %>%
 
 write_rds(
   target_combo_significance,
-  file.path(wd, "target_combo_significance.rds")
+  file.path(wd, paste0("target_combo_signif-",Sys.Date(),".rds")),
+  compress="gz"
 )
