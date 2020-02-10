@@ -44,6 +44,6 @@ pl <- ggplot( BK, aes(x=nFeats) ) + theme_bw() + theme_bold() +
 
 ## Compose the filename or extract it from the command line
 cmd <- commandArgs( trailingOnly=TRUE )
-fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("FigS1-", Sys.Date(), ".pdf") )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Suppl1-", Sys.Date(), ".pdf") )
 ggsave( fnOut, pl, width=9, height=3 )
 

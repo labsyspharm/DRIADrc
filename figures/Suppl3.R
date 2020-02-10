@@ -52,6 +52,6 @@ gg <- egg::ggarrange( gg1, cowplot::ggdraw(), gg2, gg3, ncol=2, heights=c(1,2), 
 
 ## Compose the filename or extract it from the command line
 cmd <- commandArgs( trailingOnly=TRUE )
-fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("FigS3-", Sys.Date(), ".pdf") )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Suppl3-", Sys.Date(), ".pdf") )
 ggsave( fnOut, gg, width=8.25, height=4.75 )
 

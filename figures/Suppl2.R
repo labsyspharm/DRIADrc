@@ -30,5 +30,5 @@ gg <- ggplot(DFX, aes(x=logFC1, y=logFC2)) + theme_bw() + theme_bold() +
 
 ## Compose the filename or extract it from the command line
 cmd <- commandArgs( trailingOnly=TRUE )
-fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("FigS2-", Sys.Date(), ".pdf") )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Suppl2-", Sys.Date(), ".pdf") )
 ggsave( fnOut, gg, width=7.25, height=5.5 )
