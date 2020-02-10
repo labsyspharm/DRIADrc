@@ -2,8 +2,10 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
-source( "plot.R" )
+library( here )
+
+source( here("figures","results.R") )
+source( here("figures","plot.R") )
 
 f <- function( synid, colid )
 {
@@ -18,11 +20,15 @@ DFX <- inner_join(DFX1, DFX2, by=c("Drug","Gene"))
 CR <- DFX %>% group_by( Drug ) %>% summarize( R=cor(logFC1, logFC2, method="sp") ) %>%
     mutate( Lbl=str_c(round(R,3), "  \n") )
 
-ggplot(DFX, aes(x=logFC1, y=logFC2)) + theme_bw() + theme_bold() +
+gg <- ggplot(DFX, aes(x=logFC1, y=logFC2)) + theme_bw() + theme_bold() +
     geom_point(alpha=0.5, color="steelblue") +
     facet_wrap( ~Drug, nrow=2 ) +
     geom_abline( slope=1, intercept=0, lty="dashed" ) +
     geom_text( aes(label=Lbl), data=CR, x=Inf, y=-Inf, hjust=1, vjust=0.5, size=5 ) +
     xlab( "log(Fold Change) in Experiment 1" ) +
-    ylab( "log(Fold Change) in Experiment 2" ) +
-    ggsave( str_c("FigS3-",Sys.Date(),".pdf"), width=7.25, height=5.5 )
+    ylab( "log(Fold Change) in Experiment 2" )
+
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("FigS2-", Sys.Date(), ".pdf") )
+ggsave( fnOut, gg, width=7.25, height=5.5 )
