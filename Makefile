@@ -1,29 +1,27 @@
 figures = figures/Fig1.pdf figures/Fig2.pdf figures/Fig3.pdf \
 	figures/Fig4.pdf figures/Fig5.pdf
+
+supplement = figures/Suppl1.pdf figures/Suppl2.pdf figures/Suppl3.pdf
+
 common = figures/results.R figures/plot.R
 
-all : figures.pdf
+all : figures.pdf supplement.pdf
+	rm -f *.aux *.log Rplots.pdf
 
-figures.pdf : $(figures) figures.tex
-	pdflatex figures.tex
-	rm *.aux *.log
+figures.pdf : figures.tex $(figures)
+	pdflatex $<
 
-figures/Fig1.pdf : figures/Fig1.R schematics/Fig1A.pdf schematics/Fig1B.pdf $(common)
+supplement.pdf : supplement.tex $(supplement)
+	pdflatex $<
+
+figures/%.pdf : figures/%.R $(common) schematics/%A.pdf schematics/%B.pdf
 	Rscript $< $@
 
-figures/Fig2.pdf : figures/Fig2.R schematics/Fig2A.pdf $(common)
+figures/%.pdf : figures/%.R $(common) schematics/%A.pdf
 	Rscript $< $@
 
-figures/Fig3.pdf : figures/Fig3.R $(common)
+figures/%.pdf : figures/%.R $(common)
 	Rscript $< $@
-
-figures/Fig4.pdf : figures/Fig4.R schematics/Fig4A.pdf $(common)
-	Rscript $< $@
-	rm Rplots.pdf
-
-figures/Fig5.pdf : figures/Fig5.R $(common)
-	Rscript $< $@
-	rm Rplots.pdf
 
 clean :
-	rm *.pdf figures/*.pdf
+	rm -f *.pdf figures/*.pdf
