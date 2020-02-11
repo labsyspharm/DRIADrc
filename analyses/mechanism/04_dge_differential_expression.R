@@ -2,6 +2,17 @@ library(tidyverse)
 library(here)
 library(callr)
 library(furrr)
+library(synapser)
+library(synExtra)
+
+synLogin()
+syn <- synDownloader("~/data/AMP-AD/DGE")
+
+# Download data ----------------------------------------------------------------
+###############################################################################T
+
+isg <- syn("syn11629935") %>%
+  read_lines()
 
 # Wrangle DGE metadata and counts ----------------------------------------------
 ###############################################################################T
@@ -66,110 +77,10 @@ count_sums <- counts %>%
   gather("sample", "count") %>%
   arrange(count)
 
-# Differential expression per drug using rank-transformed dose -----------------
-###############################################################################T
-
-controls <- meta %>%
-  filter(Drug == "dmso") %>%
-  mutate(Dose = 0)
-
-deseq_input_per_drug <- meta %>%
-  filter(Drug != "dmso", !is.na(Concentration)) %>%
-  group_nest(Drug, .key = "meta", keep = TRUE) %>%
-  mutate(
-    meta = map(
-      meta,
-      ~.x %>%
-        mutate(
-          Dose = factor(
-            Concentration,
-            levels = sort(unique(Concentration))
-          ) %>%
-            as.integer() %>%
-            as.double()
-        ) %>%
-        bind_rows(controls) %>%
-        arrange(Sample) %>%
-        column_to_rownames("Sample")
-    ),
-    counts = map(
-      meta,
-      ~counts %>%
-        select(HUGO, one_of(rownames(.x))) %>%
-        column_to_rownames("HUGO") %>%
-        as.matrix()
-    )
-  )
-
-library(DESeq2)
-
-
-
-deseq_objects_per_drug <- deseq_input_per_drug %>%
-  mutate(
-    data = map2(
-      counts, meta,
-      ~DESeqDataSetFromMatrix(
-        .x, .y,
-        design = ~ Dose + experiment
-      )
-    )
-  )
-
-plan(multisession(workers = 6))
-deseq_de_per_drug <- deseq_objects_per_drug %>%
-  transmute(
-    Drug,
-    data = future_map(
-      data,
-      DESeq,
-      parallel = FALSE,
-      .progress = TRUE
-    )
-  )
-
-write_rds(
-  deseq_de_per_drug,
-  here("results", "deseq_de_per_drug.rds"),
-  compress = "gz"
-)
-
-extract_result <- function(de, name) {
-  res <- results(de, name = name, parallel = FALSE)
-  shrunken <- lfcShrink(de, coef = name, res = res, type = "apeglm", parallel = FALSE)
-  shrunken %>%
-    as.data.frame() %>%
-    rownames_to_column("gene_symbol") %>%
-    as_tibble() %>%
-    left_join(
-      res %>%
-        as.data.frame() %>%
-        rownames_to_column("gene_symbol") %>%
-        select(gene_symbol, log2FoldChange_MLE = log2FoldChange, lfcSE_MLE = lfcSE),
-      by = "gene_symbol"
-    ) %>%
-    select(gene_symbol, everything()) %>%
-    arrange(padj)
-}
-
-deseq_res_per_drug <- deseq_de_per_drug %>%
-  mutate(
-    data = future_map(
-      data,
-      extract_result,
-      name = "Dose",
-      .progress = TRUE
-    )
-  )
-
-write_rds(
-  deseq_res_per_drug,
-  here("results", "deseq_res_per_drug.rds"),
-  compress = "gz"
-)
-
 # Normalizing all compounds together -------------------------------------------
 ###############################################################################T
+
+library(DESeq2)
 
 # Removing samples with <30k counts
 passing_samples <- count_sums %>%
@@ -197,8 +108,18 @@ counts_all <- counts(deseq_all, normalized = TRUE) %>%
   as_tibble() %>%
   gather("sample", "count", -gene_name)
 
-write_rds(
+write_csv(
   counts_all,
   here("results", "normalized_counts.csv.gz")
 )
 
+# Taking only interferon stimulated genes --------------------------------------
+###############################################################################T
+
+counts_isg <- counts_all %>%
+  filter(gene_name %in% isg)
+
+write_csv(
+  counts_isg,
+  here("results", "normalized_counts_isg.csv")
+)
