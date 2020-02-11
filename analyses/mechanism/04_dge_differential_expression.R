@@ -77,6 +77,11 @@ count_sums <- counts %>%
   gather("sample", "count") %>%
   arrange(count)
 
+write_csv(
+  meta,
+  here("results", "deseq_meta.csv")
+)
+
 # Normalizing all compounds together -------------------------------------------
 ###############################################################################T
 
