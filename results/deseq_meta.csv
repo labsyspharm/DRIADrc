@@ -1,0 +1,766 @@
+experiment,Well,Drug,Concentration,Sample,Condition
+dge1,A01,bx-912,0.3,dge1_A01,bx-912_0.3
+dge1,A02,hg-9-91-01,10,dge1_A02,hg-9-91-01_10
+dge1,A03,pha-665752,0.3,dge1_A03,pha-665752_0.3
+dge1,A04,chitosan,1,dge1_A04,chitosan_1
+dge1,A05,bortezomib,1,dge1_A05,bortezomib_1
+dge1,A06,(+)-jq1,0.3,dge1_A06,(+)-jq1_0.3
+dge1,A07,brivanib,1,dge1_A07,brivanib_1
+dge1,A08,mg-132,10,dge1_A08,mg-132_10
+dge1,A09,torin1,0.3,dge1_A09,torin1_0.3
+dge1,A10,bx-912,1,dge1_A10,bx-912_1
+dge1,A11,tofacitinib,10,dge1_A11,tofacitinib_10
+dge1,A12,fedratinib,1,dge1_A12,fedratinib_1
+dge1,A13,kw2449,10,dge1_A13,kw2449_10
+dge1,A14,sb202190,0.3,dge1_A14,sb202190_0.3
+dge1,A15,(+)-jq1,1,dge1_A15,(+)-jq1_1
+dge1,A16,ldn-193189,10,dge1_A16,ldn-193189_10
+dge1,A17,zm-447439,10,dge1_A17,zm-447439_10
+dge1,A18,kw2449,3,dge1_A18,kw2449_3
+dge1,A19,a443654,10,dge1_A19,a443654_10
+dge1,A20,r 59-022,0.3,dge1_A20,r 59-022_0.3
+dge1,A21,pha-665752,10,dge1_A21,pha-665752_10
+dge1,A22,dsrna +lipo,NA,dge1_A22,dsrna +lipo_NA
+dge1,A23,dsrna +lipo,NA,dge1_A23,dsrna +lipo_NA
+dge1,A24,rotenone,1,dge1_A24,rotenone_1
+dge1,B01,gsk1059615,1,dge1_B01,gsk1059615_1
+dge1,B02,tofacitinib,10,dge1_B02,tofacitinib_10
+dge1,B03,fccp,1,dge1_B03,fccp_1
+dge1,B04,cabozantinib,1,dge1_B04,cabozantinib_1
+dge1,B05,brivanib,3,dge1_B05,brivanib_3
+dge1,B06,metformin,0.3,dge1_B06,metformin_0.3
+dge1,B07,gsk1059615,10,dge1_B07,gsk1059615_10
+dge1,B08,tofacitinib,0.3,dge1_B08,tofacitinib_0.3
+dge1,B09,sb202190,10,dge1_B09,sb202190_10
+dge1,B10,pf04217903,10,dge1_B10,pf04217903_10
+dge1,B11,ruxolitinib,1,dge1_B11,ruxolitinib_1
+dge1,B12,ruxolitinib,10,dge1_B12,ruxolitinib_10
+dge1,B13,plx-4720,0.3,dge1_B13,plx-4720_0.3
+dge1,B14,tofacitinib,1,dge1_B14,tofacitinib_1
+dge1,B15,pazopanib,1,dge1_B15,pazopanib_1
+dge1,B16,alisertib,1,dge1_B16,alisertib_1
+dge1,B17,plx-4720,10,dge1_B17,plx-4720_10
+dge1,B18,barasertib,3,dge1_B18,barasertib_3
+dge1,B19,cabozantinib,3,dge1_B19,cabozantinib_3
+dge1,B20,bortezomib,10,dge1_B20,bortezomib_10
+dge1,B21,gsk1070916,3,dge1_B21,gsk1070916_3
+dge1,B22,nvp-tae684,0.3,dge1_B22,nvp-tae684_0.3
+dge1,B23,(+)-jq1,0.3,dge1_B23,(+)-jq1_0.3
+dge1,B24,gsk1059615,3,dge1_B24,gsk1059615_3
+dge1,C01,plx-4720,10,dge1_C01,plx-4720_10
+dge1,C02,gsk1059615,0.3,dge1_C02,gsk1059615_0.3
+dge1,C03,torin1,1,dge1_C03,torin1_1
+dge1,C04,pf04217903,1,dge1_C04,pf04217903_1
+dge1,C05,lps,NA,dge1_C05,lps_NA
+dge1,C06,barasertib,10,dge1_C06,barasertib_10
+dge1,C07,alisertib,0.3,dge1_C07,alisertib_0.3
+dge1,C08,hg-9-91-01,3,dge1_C08,hg-9-91-01_3
+dge1,C09,r 59949,1,dge1_C09,r 59949_1
+dge1,C10,mg-132,10,dge1_C10,mg-132_10
+dge1,C11,ruxolitinib,3,dge1_C11,ruxolitinib_3
+dge1,C12,sb202190,3,dge1_C12,sb202190_3
+dge1,C13,r 59949,0.3,dge1_C13,r 59949_0.3
+dge1,C14,r 59949,10,dge1_C14,r 59949_10
+dge1,C15,r 59949,10,dge1_C15,r 59949_10
+dge1,C16,pf04217903,10,dge1_C16,pf04217903_10
+dge1,C17,ldn-193189,1,dge1_C17,ldn-193189_1
+dge1,C18,lps,NA,dge1_C18,lps_NA
+dge1,C19,r 59949,1,dge1_C19,r 59949_1
+dge1,C20,brivanib,3,dge1_C20,brivanib_3
+dge1,C21,r 59-022,1,dge1_C21,r 59-022_1
+dge1,C22,mg-132,1,dge1_C22,mg-132_1
+dge1,C23,barasertib,3,dge1_C23,barasertib_3
+dge1,C24,pazopanib,3,dge1_C24,pazopanib_3
+dge1,D01,barasertib,10,dge1_D01,barasertib_10
+dge1,D02,rotenone,10,dge1_D02,rotenone_10
+dge1,D03,brivanib,10,dge1_D03,brivanib_10
+dge1,D04,fccp,1,dge1_D04,fccp_1
+dge1,D05,a443654,0.3,dge1_D05,a443654_0.3
+dge1,D06,nvp-tae684,0.3,dge1_D06,nvp-tae684_0.3
+dge1,D07,bx-912,3,dge1_D07,bx-912_3
+dge1,D08,cabozantinib,3,dge1_D08,cabozantinib_3
+dge1,D09,torin1,3,dge1_D09,torin1_3
+dge1,D10,ruxolitinib,10,dge1_D10,ruxolitinib_10
+dge1,D11,a443654,1,dge1_D11,a443654_1
+dge1,D12,metformin,3,dge1_D12,metformin_3
+dge1,D13,barasertib,10,dge1_D13,barasertib_10
+dge1,D14,fedratinib,0.3,dge1_D14,fedratinib_0.3
+dge1,D15,tofacitinib,3,dge1_D15,tofacitinib_3
+dge1,D16,cabozantinib,3,dge1_D16,cabozantinib_3
+dge1,D17,r 59949,1,dge1_D17,r 59949_1
+dge1,D18,kw2449,0.3,dge1_D18,kw2449_0.3
+dge1,D19,pha-665752,3,dge1_D19,pha-665752_3
+dge1,D20,metformin,1,dge1_D20,metformin_1
+dge1,D21,barasertib,3,dge1_D21,barasertib_3
+dge1,D22,brivanib,10,dge1_D22,brivanib_10
+dge1,D23,(+)-jq1,1,dge1_D23,(+)-jq1_1
+dge1,D24,naked dsrna,NA,dge1_D24,naked dsrna_NA
+dge1,E01,metformin,10,dge1_E01,metformin_10
+dge1,E02,pha-665752,1,dge1_E02,pha-665752_1
+dge1,E03,hg-9-91-01,0.3,dge1_E03,hg-9-91-01_0.3
+dge1,E04,(+)-jq1,0.3,dge1_E04,(+)-jq1_0.3
+dge1,E05,plx-4720,0.3,dge1_E05,plx-4720_0.3
+dge1,E06,zm-447439,0.3,dge1_E06,zm-447439_0.3
+dge1,E07,bx-912,10,dge1_E07,bx-912_10
+dge1,E08,bortezomib,1,dge1_E08,bortezomib_1
+dge1,E09,brivanib,1,dge1_E09,brivanib_1
+dge1,E10,fedratinib,1,dge1_E10,fedratinib_1
+dge1,E11,gsk1070916,10,dge1_E11,gsk1070916_10
+dge1,E12,hg-9-91-01,1,dge1_E12,hg-9-91-01_1
+dge1,E13,lps,NA,dge1_E13,lps_NA
+dge1,E14,a443654,0.3,dge1_E14,a443654_0.3
+dge1,E15,tofacitinib,1,dge1_E15,tofacitinib_1
+dge1,E16,r 59-022,1,dge1_E16,r 59-022_1
+dge1,E17,rotenone,10,dge1_E17,rotenone_10
+dge1,E18,entinostat,1,dge1_E18,entinostat_1
+dge1,E19,ruxolitinib,10,dge1_E19,ruxolitinib_10
+dge1,E20,r 59-022,3,dge1_E20,r 59-022_3
+dge1,E21,sb202190,1,dge1_E21,sb202190_1
+dge1,E22,fccp,10,dge1_E22,fccp_10
+dge1,E23,sb202190,10,dge1_E23,sb202190_10
+dge1,E24,a443654,10,dge1_E24,a443654_10
+dge1,F01,ruxolitinib,3,dge1_F01,ruxolitinib_3
+dge1,F02,zm-447439,10,dge1_F02,zm-447439_10
+dge1,F03,pha-665752,0.3,dge1_F03,pha-665752_0.3
+dge1,F04,gsk1059615,1,dge1_F04,gsk1059615_1
+dge1,F05,cabozantinib,0.3,dge1_F05,cabozantinib_0.3
+dge1,F06,kw2449,3,dge1_F06,kw2449_3
+dge1,F07,hg-9-91-01,1,dge1_F07,hg-9-91-01_1
+dge1,F08,(+)-jq1,3,dge1_F08,(+)-jq1_3
+dge1,F09,zm-447439,1,dge1_F09,zm-447439_1
+dge1,F10,ldn-193189,1,dge1_F10,ldn-193189_1
+dge1,F11,dmso,0,dge1_F11,dmso_0
+dge1,F12,r 59949,0.3,dge1_F12,r 59949_0.3
+dge1,F13,r 59949,0.3,dge1_F13,r 59949_0.3
+dge1,F14,rotenone,1,dge1_F14,rotenone_1
+dge1,F15,hg-9-91-01,0.3,dge1_F15,hg-9-91-01_0.3
+dge1,F16,alisertib,10,dge1_F16,alisertib_10
+dge1,F17,(+)-jq1,1,dge1_F17,(+)-jq1_1
+dge1,F18,gsk1070916,1,dge1_F18,gsk1070916_1
+dge1,F19,r 59-022,3,dge1_F19,r 59-022_3
+dge1,F20,fccp,10,dge1_F20,fccp_10
+dge1,F21,r 59-022,0.3,dge1_F21,r 59-022_0.3
+dge1,F22,hg-9-91-01,1,dge1_F22,hg-9-91-01_1
+dge1,F23,pf04217903,0.3,dge1_F23,pf04217903_0.3
+dge1,F24,mg-132,1,dge1_F24,mg-132_1
+dge1,G01,sb202190,1,dge1_G01,sb202190_1
+dge1,G02,bx-912,10,dge1_G02,bx-912_10
+dge1,G03,r 59949,3,dge1_G03,r 59949_3
+dge1,G04,gsk1070916,10,dge1_G04,gsk1070916_10
+dge1,G05,entinostat,1,dge1_G05,entinostat_1
+dge1,G06,r 59-022,10,dge1_G06,r 59-022_10
+dge1,G07,sb202190,0.3,dge1_G07,sb202190_0.3
+dge1,G08,bortezomib,3,dge1_G08,bortezomib_3
+dge1,G09,sb202190,3,dge1_G09,sb202190_3
+dge1,G10,hg-9-91-01,10,dge1_G10,hg-9-91-01_10
+dge1,G11,metformin,1,dge1_G11,metformin_1
+dge1,G12,entinostat,10,dge1_G12,entinostat_10
+dge1,G13,fedratinib,3,dge1_G13,fedratinib_3
+dge1,G14,cabozantinib,10,dge1_G14,cabozantinib_10
+dge1,G15,lipo control,NA,dge1_G15,lipo control_NA
+dge1,G16,a443654,10,dge1_G16,a443654_10
+dge1,G17,gsk1059615,0.3,dge1_G17,gsk1059615_0.3
+dge1,G18,tofacitinib,10,dge1_G18,tofacitinib_10
+dge1,G19,bortezomib,10,dge1_G19,bortezomib_10
+dge1,G20,tofacitinib,3,dge1_G20,tofacitinib_3
+dge1,G21,pf04217903,10,dge1_G21,pf04217903_10
+dge1,G22,pha-665752,3,dge1_G22,pha-665752_3
+dge1,G23,pazopanib,10,dge1_G23,pazopanib_10
+dge1,G24,dmso,0,dge1_G24,dmso_0
+dge1,H01,sb202190,1,dge1_H01,sb202190_1
+dge1,H02,nvp-tae684,1,dge1_H02,nvp-tae684_1
+dge1,H03,fedratinib,10,dge1_H03,fedratinib_10
+dge1,H04,alisertib,3,dge1_H04,alisertib_3
+dge1,H05,a443654,3,dge1_H05,a443654_3
+dge1,H06,metformin,3,dge1_H06,metformin_3
+dge1,H07,pha-665752,3,dge1_H07,pha-665752_3
+dge1,H08,brivanib,0.3,dge1_H08,brivanib_0.3
+dge1,H09,dmso,0,dge1_H09,dmso_0
+dge1,H10,pf04217903,1,dge1_H10,pf04217903_1
+dge1,H11,zm-447439,1,dge1_H11,zm-447439_1
+dge1,H12,ruxolitinib,3,dge1_H12,ruxolitinib_3
+dge1,H13,ruxolitinib,1,dge1_H13,ruxolitinib_1
+dge1,H14,bortezomib,3,dge1_H14,bortezomib_3
+dge1,H15,metformin,10,dge1_H15,metformin_10
+dge1,H16,r 59949,10,dge1_H16,r 59949_10
+dge1,H17,entinostat,0.3,dge1_H17,entinostat_0.3
+dge1,H18,bortezomib,0.3,dge1_H18,bortezomib_0.3
+dge1,H19,gsk1059615,10,dge1_H19,gsk1059615_10
+dge1,H20,ldn-193189,1,dge1_H20,ldn-193189_1
+dge1,H21,cabozantinib,10,dge1_H21,cabozantinib_10
+dge1,H22,fedratinib,3,dge1_H22,fedratinib_3
+dge1,H23,entinostat,0.3,dge1_H23,entinostat_0.3
+dge1,H24,a443654,1,dge1_H24,a443654_1
+dge1,I01,cabozantinib,10,dge1_I01,cabozantinib_10
+dge1,I02,kw2449,1,dge1_I02,kw2449_1
+dge1,I03,brivanib,0.3,dge1_I03,brivanib_0.3
+dge1,I04,nvp-tae684,3,dge1_I04,nvp-tae684_3
+dge1,I05,gsk1070916,3,dge1_I05,gsk1070916_3
+dge1,I06,brivanib,0.3,dge1_I06,brivanib_0.3
+dge1,I07,torin1,0.3,dge1_I07,torin1_0.3
+dge1,I08,pha-665752,0.3,dge1_I08,pha-665752_0.3
+dge1,I09,barasertib,0.3,dge1_I09,barasertib_0.3
+dge1,I10,sb202190,3,dge1_I10,sb202190_3
+dge1,I11,kw2449,1,dge1_I11,kw2449_1
+dge1,I12,fccp,1,dge1_I12,fccp_1
+dge1,I13,ldn-193189,3,dge1_I13,ldn-193189_3
+dge1,I14,ldn-193189,3,dge1_I14,ldn-193189_3
+dge1,I15,(+)-jq1,10,dge1_I15,(+)-jq1_10
+dge1,I16,nvp-tae684,10,dge1_I16,nvp-tae684_10
+dge1,I17,entinostat,3,dge1_I17,entinostat_3
+dge1,I18,nvp-tae684,10,dge1_I18,nvp-tae684_10
+dge1,I19,a443654,3,dge1_I19,a443654_3
+dge1,I20,cabozantinib,1,dge1_I20,cabozantinib_1
+dge1,I21,bortezomib,10,dge1_I21,bortezomib_10
+dge1,I22,ldn-193189,0.3,dge1_I22,ldn-193189_0.3
+dge1,I23,fedratinib,10,dge1_I23,fedratinib_10
+dge1,I24,pazopanib,0.3,dge1_I24,pazopanib_0.3
+dge1,J01,pha-665752,1,dge1_J01,pha-665752_1
+dge1,J02,plx-4720,1,dge1_J02,plx-4720_1
+dge1,J03,dsrna +lipo,NA,dge1_J03,dsrna +lipo_NA
+dge1,J04,hg-9-91-01,3,dge1_J04,hg-9-91-01_3
+dge1,J05,fedratinib,0.3,dge1_J05,fedratinib_0.3
+dge1,J06,kw2449,1,dge1_J06,kw2449_1
+dge1,J07,sb202190,0.3,dge1_J07,sb202190_0.3
+dge1,J08,zm-447439,0.3,dge1_J08,zm-447439_0.3
+dge1,J09,chitosan,1,dge1_J09,chitosan_1
+dge1,J10,gsk1059615,10,dge1_J10,gsk1059615_10
+dge1,J11,chitosan,1,dge1_J11,chitosan_1
+dge1,J12,(+)-jq1,3,dge1_J12,(+)-jq1_3
+dge1,J13,pf04217903,3,dge1_J13,pf04217903_3
+dge1,J14,pha-665752,10,dge1_J14,pha-665752_10
+dge1,J15,pha-665752,10,dge1_J15,pha-665752_10
+dge1,J16,kw2449,10,dge1_J16,kw2449_10
+dge1,J17,pazopanib,10,dge1_J17,pazopanib_10
+dge1,J18,fedratinib,10,dge1_J18,fedratinib_10
+dge1,J19,zm-447439,10,dge1_J19,zm-447439_10
+dge1,J20,pazopanib,1,dge1_J20,pazopanib_1
+dge1,J21,fccp,10,dge1_J21,fccp_10
+dge1,J22,torin1,1,dge1_J22,torin1_1
+dge1,J23,hg-9-91-01,10,dge1_J23,hg-9-91-01_10
+dge1,J24,alisertib,10,dge1_J24,alisertib_10
+dge1,K01,cabozantinib,0.3,dge1_K01,cabozantinib_0.3
+dge1,K02,gsk1059615,3,dge1_K02,gsk1059615_3
+dge1,K03,metformin,0.3,dge1_K03,metformin_0.3
+dge1,K04,zm-447439,0.3,dge1_K04,zm-447439_0.3
+dge1,K05,plx-4720,3,dge1_K05,plx-4720_3
+dge1,K06,ldn-193189,10,dge1_K06,ldn-193189_10
+dge1,K07,bx-912,1,dge1_K07,bx-912_1
+dge1,K08,torin1,1,dge1_K08,torin1_1
+dge1,K09,gsk1070916,1,dge1_K09,gsk1070916_1
+dge1,K10,zm-447439,3,dge1_K10,zm-447439_3
+dge1,K11,bx-912,3,dge1_K11,bx-912_3
+dge1,K12,dmso,0,dge1_K12,dmso_0
+dge1,K13,bortezomib,0.3,dge1_K13,bortezomib_0.3
+dge1,K14,dmso,0,dge1_K14,dmso_0
+dge1,K15,nvp-tae684,1,dge1_K15,nvp-tae684_1
+dge1,K16,metformin,0.3,dge1_K16,metformin_0.3
+dge1,K17,alisertib,10,dge1_K17,alisertib_10
+dge1,K18,dmso,0,dge1_K18,dmso_0
+dge1,K19,tofacitinib,1,dge1_K19,tofacitinib_1
+dge1,K20,naked dsrna,NA,dge1_K20,naked dsrna_NA
+dge1,K21,r 59949,3,dge1_K21,r 59949_3
+dge1,K22,a443654,3,dge1_K22,a443654_3
+dge1,K23,tofacitinib,3,dge1_K23,tofacitinib_3
+dge1,K24,ldn-193189,0.3,dge1_K24,ldn-193189_0.3
+dge1,L01,(+)-jq1,10,dge1_L01,(+)-jq1_10
+dge1,L02,zm-447439,1,dge1_L02,zm-447439_1
+dge1,L03,alisertib,1,dge1_L03,alisertib_1
+dge1,L04,ldn-193189,0.3,dge1_L04,ldn-193189_0.3
+dge1,L05,chitosan,10,dge1_L05,chitosan_10
+dge1,L06,tofacitinib,0.3,dge1_L06,tofacitinib_0.3
+dge1,L07,bx-912,3,dge1_L07,bx-912_3
+dge1,L08,torin1,10,dge1_L08,torin1_10
+dge1,L10,gsk1059615,3,dge1_L10,gsk1059615_3
+dge1,L11,r 59-022,1,dge1_L11,r 59-022_1
+dge1,L12,gsk1059615,1,dge1_L12,gsk1059615_1
+dge1,L13,dmso,0,dge1_L13,dmso_0
+dge1,L14,pazopanib,0.3,dge1_L14,pazopanib_0.3
+dge1,L15,barasertib,0.3,dge1_L15,barasertib_0.3
+dge1,L16,gsk1070916,0.3,dge1_L16,gsk1070916_0.3
+dge1,L17,brivanib,3,dge1_L17,brivanib_3
+dge1,L18,pazopanib,10,dge1_L18,pazopanib_10
+dge1,L19,plx-4720,10,dge1_L19,plx-4720_10
+dge1,L20,cabozantinib,0.3,dge1_L20,cabozantinib_0.3
+dge1,L21,ruxolitinib,1,dge1_L21,ruxolitinib_1
+dge1,L22,pf04217903,0.3,dge1_L22,pf04217903_0.3
+dge1,L23,a443654,0.3,dge1_L23,a443654_0.3
+dge1,L24,nvp-tae684,1,dge1_L24,nvp-tae684_1
+dge1,M01,gsk1070916,0.3,dge1_M01,gsk1070916_0.3
+dge1,M02,r 59-022,10,dge1_M02,r 59-022_10
+dge1,M03,barasertib,0.3,dge1_M03,barasertib_0.3
+dge1,M04,bortezomib,1,dge1_M04,bortezomib_1
+dge1,M05,metformin,1,dge1_M05,metformin_1
+dge1,M06,nvp-tae684,0.3,dge1_M06,nvp-tae684_0.3
+dge1,M07,kw2449,10,dge1_M07,kw2449_10
+dge1,M08,alisertib,0.3,dge1_M08,alisertib_0.3
+dge1,M09,tofacitinib,0.3,dge1_M09,tofacitinib_0.3
+dge1,M10,pazopanib,3,dge1_M10,pazopanib_3
+dge1,M11,ruxolitinib,10,dge1_M11,ruxolitinib_10
+dge1,M12,r 59949,3,dge1_M12,r 59949_3
+dge1,M13,gsk1070916,0.3,dge1_M13,gsk1070916_0.3
+dge1,M14,hg-9-91-01,3,dge1_M14,hg-9-91-01_3
+dge1,M15,kw2449,3,dge1_M15,kw2449_3
+dge1,M16,zm-447439,3,dge1_M16,zm-447439_3
+dge1,M17,plx-4720,1,dge1_M17,plx-4720_1
+dge1,M18,pf04217903,3,dge1_M18,pf04217903_3
+dge1,M19,sb202190,10,dge1_M19,sb202190_10
+dge1,M20,mg-132,10,dge1_M20,mg-132_10
+dge1,M21,kw2449,0.3,dge1_M21,kw2449_0.3
+dge1,M22,nvp-tae684,3,dge1_M22,nvp-tae684_3
+dge1,M23,metformin,10,dge1_M23,metformin_10
+dge1,M24,ruxolitinib,10,dge1_M24,ruxolitinib_10
+dge1,N01,chitosan,10,dge1_N01,chitosan_10
+dge1,N02,(+)-jq1,3,dge1_N02,(+)-jq1_3
+dge1,N03,mg-132,1,dge1_N03,mg-132_1
+dge1,N04,pazopanib,3,dge1_N04,pazopanib_3
+dge1,N05,plx-4720,1,dge1_N05,plx-4720_1
+dge1,N06,nvp-tae684,10,dge1_N06,nvp-tae684_10
+dge1,N07,torin1,0.3,dge1_N07,torin1_0.3
+dge1,N08,bortezomib,0.3,dge1_N08,bortezomib_0.3
+dge1,N09,barasertib,1,dge1_N09,barasertib_1
+dge1,N10,pazopanib,1,dge1_N10,pazopanib_1
+dge1,N11,alisertib,0.3,dge1_N11,alisertib_0.3
+dge1,N12,alisertib,3,dge1_N12,alisertib_3
+dge1,N13,pf04217903,1,dge1_N13,pf04217903_1
+dge1,N14,pf04217903,0.3,dge1_N14,pf04217903_0.3
+dge1,N15,nvp-tae684,3,dge1_N15,nvp-tae684_3
+dge1,N16,r 59-022,3,dge1_N16,r 59-022_3
+dge1,N17,dmso,0,dge1_N17,dmso_0
+dge1,N18,dmso,0,dge1_N18,dmso_0
+dge1,N19,gsk1059615,0.3,dge1_N19,gsk1059615_0.3
+dge1,N20,r 59-022,0.3,dge1_N20,r 59-022_0.3
+dge1,N21,barasertib,1,dge1_N21,barasertib_1
+dge1,N22,torin1,10,dge1_N22,torin1_10
+dge1,N23,rotenone,1,dge1_N23,rotenone_1
+dge1,N24,torin1,3,dge1_N24,torin1_3
+dge1,O01,torin1,3,dge1_O01,torin1_3
+dge1,O02,ldn-193189,3,dge1_O02,ldn-193189_3
+dge1,O03,barasertib,1,dge1_O03,barasertib_1
+dge1,O04,ruxolitinib,10,dge1_O04,ruxolitinib_10
+dge1,O05,fedratinib,1,dge1_O05,fedratinib_1
+dge1,O06,dmso,0,dge1_O06,dmso_0
+dge1,O07,pha-665752,1,dge1_O07,pha-665752_1
+dge1,O08,bx-912,0.3,dge1_O08,bx-912_0.3
+dge1,O09,dmso,0,dge1_O09,dmso_0
+dge1,O10,fedratinib,3,dge1_O10,fedratinib_3
+dge1,O11,kw2449,0.3,dge1_O11,kw2449_0.3
+dge1,O12,alisertib,1,dge1_O12,alisertib_1
+dge1,O13,gsk1070916,1,dge1_O13,gsk1070916_1
+dge1,O15,plx-4720,0.3,dge1_O15,plx-4720_0.3
+dge1,O16,naked dsrna,NA,dge1_O16,naked dsrna_NA
+dge1,O17,bx-912,10,dge1_O17,bx-912_10
+dge1,O18,pazopanib,0.3,dge1_O18,pazopanib_0.3
+dge1,O19,gsk1070916,3,dge1_O19,gsk1070916_3
+dge1,O20,fedratinib,0.3,dge1_O20,fedratinib_0.3
+dge1,O21,chitosan,10,dge1_O21,chitosan_10
+dge1,O22,metformin,3,dge1_O22,metformin_3
+dge1,O23,pf04217903,3,dge1_O23,pf04217903_3
+dge1,O24,zm-447439,3,dge1_O24,zm-447439_3
+dge1,P01,rotenone,10,dge1_P01,rotenone_10
+dge1,P02,brivanib,1,dge1_P02,brivanib_1
+dge1,P03,alisertib,3,dge1_P03,alisertib_3
+dge1,P04,entinostat,0.3,dge1_P04,entinostat_0.3
+dge1,P05,entinostat,3,dge1_P05,entinostat_3
+dge1,P06,entinostat,1,dge1_P06,entinostat_1
+dge1,P07,ldn-193189,10,dge1_P07,ldn-193189_10
+dge1,P08,cabozantinib,1,dge1_P08,cabozantinib_1
+dge1,P09,bortezomib,3,dge1_P09,bortezomib_3
+dge1,P10,r 59-022,10,dge1_P10,r 59-022_10
+dge1,P12,bx-912,1,dge1_P12,bx-912_1
+dge1,P13,torin1,10,dge1_P13,torin1_10
+dge1,P14,entinostat,10,dge1_P14,entinostat_10
+dge1,P15,plx-4720,3,dge1_P15,plx-4720_3
+dge1,P16,entinostat,3,dge1_P16,entinostat_3
+dge1,P17,plx-4720,3,dge1_P17,plx-4720_3
+dge1,P18,gsk1070916,10,dge1_P18,gsk1070916_10
+dge1,P19,brivanib,10,dge1_P19,brivanib_10
+dge1,P20,lipo control,NA,dge1_P20,lipo control_NA
+dge1,P21,hg-9-91-01,0.3,dge1_P21,hg-9-91-01_0.3
+dge1,P22,entinostat,10,dge1_P22,entinostat_10
+dge1,P23,bx-912,0.3,dge1_P23,bx-912_0.3
+dge1,P24,a443654,1,dge1_P24,a443654_1
+dge2,A01,canertinib,1,dge2_A01,canertinib_1
+dge2,A02,ikk16,10,dge2_A02,ikk16_10
+dge2,A03,vx-702,10,dge2_A03,vx-702_10
+dge2,A04,nintedanib,1,dge2_A04,nintedanib_1
+dge2,A05,vorinostat,1,dge2_A05,vorinostat_1
+dge2,A06,ponatinib,10,dge2_A06,ponatinib_10
+dge2,A07,ponatinib,1,dge2_A07,ponatinib_1
+dge2,A08,tofacitinib (dsrnami),10,dge2_A08,tofacitinib (dsrnami)_10
+dge2,A09,dovitinib,10,dge2_A09,dovitinib_10
+dge2,A10,torin2,1,dge2_A10,torin2_1
+dge2,A11,baricitinib (dsrnami),10,dge2_A11,baricitinib (dsrnami)_10
+dge2,A12,dasatinib,1,dge2_A12,dasatinib_1
+dge2,A13,xmd16-144,10,dge2_A13,xmd16-144_10
+dge2,A14,azd-1480,10,dge2_A14,azd-1480_10
+dge2,A15,imatinib,10,dge2_A15,imatinib_10
+dge2,A16,gefitinib,10,dge2_A16,gefitinib_10
+dge2,A17,imatinib,10,dge2_A17,imatinib_10
+dge2,A18,afatinib,10,dge2_A18,afatinib_10
+dge2,A19,pf-06463922,1,dge2_A19,pf-06463922_1
+dge2,A20,staurosporine aglycone,1,dge2_A20,staurosporine aglycone_1
+dge2,A21,palbociclib,10,dge2_A21,palbociclib_10
+dge2,A22,baricitinib,10,dge2_A22,baricitinib_10
+dge2,A23,vx-702,1,dge2_A23,vx-702_1
+dge2,A24,erlotinib,1,dge2_A24,erlotinib_1
+dge2,B01,jwe-035,1,dge2_B01,jwe-035_1
+dge2,B02,crizotinib,1,dge2_B02,crizotinib_1
+dge2,B03,azd1480 (lipo),10,dge2_B03,azd1480 (lipo)_10
+dge2,B04,axitinib,10,dge2_B04,axitinib_10
+dge2,B05,canertinib,1,dge2_B05,canertinib_1
+dge2,B06,pelitinib,10,dge2_B06,pelitinib_10
+dge2,B07,dmso,0,dge2_B07,dmso_0
+dge2,B08,baricitinib,1,dge2_B08,baricitinib_1
+dge2,B09,pelitinib,1,dge2_B09,pelitinib_1
+dge2,B10,tofacitinib (lipo),10,dge2_B10,tofacitinib (lipo)_10
+dge2,B11,ibrutinib,10,dge2_B11,ibrutinib_10
+dge2,B12,baricitinib,1,dge2_B12,baricitinib_1
+dge2,B13,pelitinib,1,dge2_B13,pelitinib_1
+dge2,B14,afatinib,1,dge2_B14,afatinib_1
+dge2,B15,nilotinib,10,dge2_B15,nilotinib_10
+dge2,B16,imatinib,10,dge2_B16,imatinib_10
+dge2,B17,xl019 (dsrnami),10,dge2_B17,xl019 (dsrnami)_10
+dge2,B18,dactolisib,1,dge2_B18,dactolisib_1
+dge2,B19,ikk16,1,dge2_B19,ikk16_1
+dge2,B20,vorinostat,10,dge2_B20,vorinostat_10
+dge2,B21,mrt67307,1,dge2_B21,mrt67307_1
+dge2,B22,crizotinib,10,dge2_B22,crizotinib_10
+dge2,B23,palbociclib,1,dge2_B23,palbociclib_1
+dge2,B24,ponatinib,10,dge2_B24,ponatinib_10
+dge2,C01,torin2,1,dge2_C01,torin2_1
+dge2,C02,xmd16-144,10,dge2_C02,xmd16-144_10
+dge2,C03,vandetanib,1,dge2_C03,vandetanib_1
+dge2,C04,xl019 (dsrnami),10,dge2_C04,xl019 (dsrnami)_10
+dge2,C05,nintedanib,10,dge2_C05,nintedanib_10
+dge2,C06,dasatinib,10,dge2_C06,dasatinib_10
+dge2,C07,torin2,1,dge2_C07,torin2_1
+dge2,C08,otssp167,10,dge2_C08,otssp167_10
+dge2,C09,celastrol,10,dge2_C09,celastrol_10
+dge2,C10,lapatinib,1,dge2_C10,lapatinib_1
+dge2,C11,palbociclib,1,dge2_C11,palbociclib_1
+dge2,C12,y-27632,10,dge2_C12,y-27632_10
+dge2,C13,plx-4720,1,dge2_C13,plx-4720_1
+dge2,C14,gefitinib,1,dge2_C14,gefitinib_1
+dge2,C15,kin001-111,10,dge2_C15,kin001-111_10
+dge2,C16,otssp167,1,dge2_C16,otssp167_1
+dge2,C17,jwe-035,1,dge2_C17,jwe-035_1
+dge2,C18,ceritinib,1,dge2_C18,ceritinib_1
+dge2,C19,ponatinib,1,dge2_C19,ponatinib_1
+dge2,C20,resveratrol,1,dge2_C20,resveratrol_1
+dge2,C21,lapatinib,10,dge2_C21,lapatinib_10
+dge2,C22,gefitinib,1,dge2_C22,gefitinib_1
+dge2,C23,ceritinib,10,dge2_C23,ceritinib_10
+dge2,C24,ikk16,1,dge2_C24,ikk16_1
+dge2,D01,jwe-035,10,dge2_D01,jwe-035_10
+dge2,D02,nilotinib,1,dge2_D02,nilotinib_1
+dge2,D03,ruxolitinib (dsrnami),10,dge2_D03,ruxolitinib (dsrnami)_10
+dge2,D04,erlotinib,10,dge2_D04,erlotinib_10
+dge2,D05,dmso,0,dge2_D05,dmso_0
+dge2,D06,nilotinib,10,dge2_D06,nilotinib_10
+dge2,D07,dactolisib,1,dge2_D07,dactolisib_1
+dge2,D08,at9283,1,dge2_D08,at9283_1
+dge2,D09,fedratinib (lipo),1,dge2_D09,fedratinib (lipo)_1
+dge2,D10,vorinostat,1,dge2_D10,vorinostat_1
+dge2,D11,ruxolitinib (dsrnami),10,dge2_D11,ruxolitinib (dsrnami)_10
+dge2,D12,ceritinib,10,dge2_D12,ceritinib_10
+dge2,D13,gefitinib,10,dge2_D13,gefitinib_10
+dge2,D14,azd-1480,1,dge2_D14,azd-1480_1
+dge2,D15,regorafenib,1,dge2_D15,regorafenib_1
+dge2,D16,erlotinib,1,dge2_D16,erlotinib_1
+dge2,D17,ly2090314,10,dge2_D17,ly2090314_10
+dge2,D18,bix 02565,1,dge2_D18,bix 02565_1
+dge2,D19,bix 02565,1,dge2_D19,bix 02565_1
+dge2,D20,xl019 (lipo),10,dge2_D20,xl019 (lipo)_10
+dge2,D21,azd1480 (dsrnami),10,dge2_D21,azd1480 (dsrnami)_10
+dge2,D22,azd1480 (lipo),10,dge2_D22,azd1480 (lipo)_10
+dge2,D23,dovitinib,1,dge2_D23,dovitinib_1
+dge2,D24,tofacitinib,10,dge2_D24,tofacitinib_10
+dge2,E01,dsrnami,NA,dge2_E01,dsrnami_NA
+dge2,E02,tofacitinib,1,dge2_E02,tofacitinib_1
+dge2,E03,ibrutinib,1,dge2_E03,ibrutinib_1
+dge2,E04,belinostat,10,dge2_E04,belinostat_10
+dge2,E05,afatinib,10,dge2_E05,afatinib_10
+dge2,E06,xmd16-144,1,dge2_E06,xmd16-144_1
+dge2,E07,pelitinib,10,dge2_E07,pelitinib_10
+dge2,E08,regorafenib,10,dge2_E08,regorafenib_10
+dge2,E09,ruxolitinib,10,dge2_E09,ruxolitinib_10
+dge2,E10,sorafenib,10,dge2_E10,sorafenib_10
+dge2,E11,pf-06463922,10,dge2_E11,pf-06463922_10
+dge2,E12,neratinib,10,dge2_E12,neratinib_10
+dge2,E13,dactolisib,10,dge2_E13,dactolisib_10
+dge2,E14,dmso,0,dge2_E14,dmso_0
+dge2,E15,mrt67307,10,dge2_E15,mrt67307_10
+dge2,E16,h89,10,dge2_E16,h89_10
+dge2,E17,dovitinib,10,dge2_E17,dovitinib_10
+dge2,E18,h89,1,dge2_E18,h89_1
+dge2,E19,ponatinib,10,dge2_E19,ponatinib_10
+dge2,E20,bosutinib,10,dge2_E20,bosutinib_10
+dge2,E21,kw2449,1,dge2_E21,kw2449_1
+dge2,E22,ruxolitinib (lipo),10,dge2_E22,ruxolitinib (lipo)_10
+dge2,E23,xmd16-144,1,dge2_E23,xmd16-144_1
+dge2,E24,tofacitinib,10,dge2_E24,tofacitinib_10
+dge2,F01,regorafenib,1,dge2_F01,regorafenib_1
+dge2,F02,otssp167,10,dge2_F02,otssp167_10
+dge2,F03,xl019 (lipo),10,dge2_F03,xl019 (lipo)_10
+dge2,F04,vorinostat,10,dge2_F04,vorinostat_10
+dge2,F05,ly2090314,1,dge2_F05,ly2090314_1
+dge2,F06,canertinib,10,dge2_F06,canertinib_10
+dge2,F07,dabrafenib,10,dge2_F07,dabrafenib_10
+dge2,F08,sunitinib,10,dge2_F08,sunitinib_10
+dge2,F09,dmso,0,dge2_F09,dmso_0
+dge2,F10,az-628,10,dge2_F10,az-628_10
+dge2,F11,ibrutinib,1,dge2_F11,ibrutinib_1
+dge2,F12,crizotinib,1,dge2_F12,crizotinib_1
+dge2,F13,y-27632,1,dge2_F13,y-27632_1
+dge2,F14,fedratinib,10,dge2_F14,fedratinib_10
+dge2,F15,crizotinib,1,dge2_F15,crizotinib_1
+dge2,F16,canertinib,10,dge2_F16,canertinib_10
+dge2,F17,rucaparib,1,dge2_F17,rucaparib_1
+dge2,F18,rucaparib,10,dge2_F18,rucaparib_10
+dge2,F19,axitinib,10,dge2_F19,axitinib_10
+dge2,F20,resveratrol,1,dge2_F20,resveratrol_1
+dge2,F21,dasatinib,10,dge2_F21,dasatinib_10
+dge2,F22,pelitinib,10,dge2_F22,pelitinib_10
+dge2,F23,at9283,1,dge2_F23,at9283_1
+dge2,F24,az-628,1,dge2_F24,az-628_1
+dge2,G01,fedratinib,10,dge2_G01,fedratinib_10
+dge2,G02,vandetanib,10,dge2_G02,vandetanib_10
+dge2,G03,enzastaurin,10,dge2_G03,enzastaurin_10
+dge2,G04,sorafenib,10,dge2_G04,sorafenib_10
+dge2,G05,baricitinib (lipo),1,dge2_G05,baricitinib (lipo)_1
+dge2,G06,dactolisib,10,dge2_G06,dactolisib_10
+dge2,G07,vandetanib,1,dge2_G07,vandetanib_1
+dge2,G08,fedratinib,1,dge2_G08,fedratinib_1
+dge2,G09,tofacitinib (lipo),10,dge2_G09,tofacitinib (lipo)_10
+dge2,G10,belinostat,10,dge2_G10,belinostat_10
+dge2,G11,baricitinib (dsrnami),10,dge2_G11,baricitinib (dsrnami)_10
+dge2,G12,az-628,1,dge2_G12,az-628_1
+dge2,G13,baricitinib,10,dge2_G13,baricitinib_10
+dge2,G14,lapatinib,1,dge2_G14,lapatinib_1
+dge2,G15,nintedanib,1,dge2_G15,nintedanib_1
+dge2,G16,azd-1480,10,dge2_G16,azd-1480_10
+dge2,G17,ceritinib,1,dge2_G17,ceritinib_1
+dge2,G18,neratinib,10,dge2_G18,neratinib_10
+dge2,G19,dasatinib,10,dge2_G19,dasatinib_10
+dge2,G20,tofacitinib,10,dge2_G20,tofacitinib_10
+dge2,G21,celastrol,10,dge2_G21,celastrol_10
+dge2,G22,staurosporine aglycone,10,dge2_G22,staurosporine aglycone_10
+dge2,G23,jwe-035,1,dge2_G23,jwe-035_1
+dge2,G24,crizotinib,10,dge2_G24,crizotinib_10
+dge2,H01,sunitinib,1,dge2_H01,sunitinib_1
+dge2,H02,belinostat,10,dge2_H02,belinostat_10
+dge2,H03,belinostat,1,dge2_H03,belinostat_1
+dge2,H04,bosutinib,10,dge2_H04,bosutinib_10
+dge2,H05,torin2,10,dge2_H05,torin2_10
+dge2,H06,dovitinib,1,dge2_H06,dovitinib_1
+dge2,H07,azd1480 (dsrnami),10,dge2_H07,azd1480 (dsrnami)_10
+dge2,H08,staurosporine aglycone,1,dge2_H08,staurosporine aglycone_1
+dge2,H09,at9283,10,dge2_H09,at9283_10
+dge2,H10,xl019,10,dge2_H10,xl019_10
+dge2,H11,palbociclib,1,dge2_H11,palbociclib_1
+dge2,H12,crizotinib,10,dge2_H12,crizotinib_10
+dge2,H13,axitinib,1,dge2_H13,axitinib_1
+dge2,H14,nilotinib,10,dge2_H14,nilotinib_10
+dge2,H15,tofacitinib,1,dge2_H15,tofacitinib_1
+dge2,H16,dabrafenib,10,dge2_H16,dabrafenib_10
+dge2,H17,dovitinib,1,dge2_H17,dovitinib_1
+dge2,H18,sunitinib,10,dge2_H18,sunitinib_10
+dge2,H19,pelitinib,1,dge2_H19,pelitinib_1
+dge2,H20,ruxolitinib,1,dge2_H20,ruxolitinib_1
+dge2,H21,tofacitinib (lipo),10,dge2_H21,tofacitinib (lipo)_10
+dge2,H22,neratinib,10,dge2_H22,neratinib_10
+dge2,H23,dmso,0,dge2_H23,dmso_0
+dge2,H24,celastrol,1,dge2_H24,celastrol_1
+dge2,I01,vandetanib,10,dge2_I01,vandetanib_10
+dge2,I02,otssp167,1,dge2_I02,otssp167_1
+dge2,I03,az-628,1,dge2_I03,az-628_1
+dge2,I04,bosutinib,1,dge2_I04,bosutinib_1
+dge2,I05,plx-4720,1,dge2_I05,plx-4720_1
+dge2,I06,vandetanib,10,dge2_I06,vandetanib_10
+dge2,I07,h89,1,dge2_I07,h89_1
+dge2,I08,at9283,1,dge2_I08,at9283_1
+dge2,I09,baricitinib,1,dge2_I09,baricitinib_1
+dge2,I10,xl019,10,dge2_I10,xl019_10
+dge2,I11,otssp167,1,dge2_I11,otssp167_1
+dge2,I12,mrt67307,1,dge2_I12,mrt67307_1
+dge2,I13,ikk16,10,dge2_I13,ikk16_10
+dge2,I14,xmd16-144,1,dge2_I14,xmd16-144_1
+dge2,I15,dactolisib,10,dge2_I15,dactolisib_10
+dge2,I16,baricitinib (lipo),10,dge2_I16,baricitinib (lipo)_10
+dge2,I17,kw2449,10,dge2_I17,kw2449_10
+dge2,I18,regorafenib,10,dge2_I18,regorafenib_10
+dge2,I19,rucaparib,10,dge2_I19,rucaparib_10
+dge2,I20,baricitinib (lipo),10,dge2_I20,baricitinib (lipo)_10
+dge2,I21,regorafenib,10,dge2_I21,regorafenib_10
+dge2,I22,staurosporine aglycone,10,dge2_I22,staurosporine aglycone_10
+dge2,I23,dabrafenib,1,dge2_I23,dabrafenib_1
+dge2,I24,sunitinib,1,dge2_I24,sunitinib_1
+dge2,J01,pf-06463922,1,dge2_J01,pf-06463922_1
+dge2,J02,ruxolitinib,10,dge2_J02,ruxolitinib_10
+dge2,J03,rucaparib,10,dge2_J03,rucaparib_10
+dge2,J04,azd-1480,1,dge2_J04,azd-1480_1
+dge2,J05,palbociclib,10,dge2_J05,palbociclib_10
+dge2,J06,fedratinib (lipo),1,dge2_J06,fedratinib (lipo)_1
+dge2,J07,dmso,0,dge2_J07,dmso_0
+dge2,J08,lapatinib,1,dge2_J08,lapatinib_1
+dge2,J09,resveratrol,1,dge2_J09,resveratrol_1
+dge2,J10,sorafenib,1,dge2_J10,sorafenib_1
+dge2,J11,vorinostat,1,dge2_J11,vorinostat_1
+dge2,J12,nilotinib,1,dge2_J12,nilotinib_1
+dge2,J13,ceritinib,1,dge2_J13,ceritinib_1
+dge2,J14,tofacitinib (dsrnami),10,dge2_J14,tofacitinib (dsrnami)_10
+dge2,J15,kw2449,10,dge2_J15,kw2449_10
+dge2,J16,afatinib,1,dge2_J16,afatinib_1
+dge2,J17,ruxolitinib (dsrnami),10,dge2_J17,ruxolitinib (dsrnami)_10
+dge2,J18,ponatinib,1,dge2_J18,ponatinib_1
+dge2,J19,erlotinib,10,dge2_J19,erlotinib_10
+dge2,J20,vx-702,1,dge2_J20,vx-702_1
+dge2,J21,ibrutinib,10,dge2_J21,ibrutinib_10
+dge2,J22,baricitinib (dsrnami),10,dge2_J22,baricitinib (dsrnami)_10
+dge2,J23,xl019,1,dge2_J23,xl019_1
+dge2,J24,staurosporine aglycone,10,dge2_J24,staurosporine aglycone_10
+dge2,K01,bix 02565,1,dge2_K01,bix 02565_1
+dge2,K02,kin001-111,1,dge2_K02,kin001-111_1
+dge2,K03,sorafenib,1,dge2_K03,sorafenib_1
+dge2,K04,plx-4720,1,dge2_K04,plx-4720_1
+dge2,K05,sunitinib,1,dge2_K05,sunitinib_1
+dge2,K06,canertinib,10,dge2_K06,canertinib_10
+dge2,K07,nintedanib,1,dge2_K07,nintedanib_1
+dge2,K08,az-628,10,dge2_K08,az-628_10
+dge2,K09,kw2449,1,dge2_K09,kw2449_1
+dge2,K10,enzastaurin,1,dge2_K10,enzastaurin_1
+dge2,K11,fedratinib,10,dge2_K11,fedratinib_10
+dge2,K12,dasatinib,1,dge2_K12,dasatinib_1
+dge2,K13,bosutinib,1,dge2_K13,bosutinib_1
+dge2,K14,vx-702,10,dge2_K14,vx-702_10
+dge2,K15,jwe-035,10,dge2_K15,jwe-035_10
+dge2,K16,enzastaurin,1,dge2_K16,enzastaurin_1
+dge2,K17,fedratinib,1,dge2_K17,fedratinib_1
+dge2,K18,azd-1480,1,dge2_K18,azd-1480_1
+dge2,K19,ikk16,1,dge2_K19,ikk16_1
+dge2,K20,belinostat,1,dge2_K20,belinostat_1
+dge2,K21,xl019,1,dge2_K21,xl019_1
+dge2,K22,celastrol,10,dge2_K22,celastrol_10
+dge2,K23,nilotinib,1,dge2_K23,nilotinib_1
+dge2,K24,mrt67307,1,dge2_K24,mrt67307_1
+dge2,L01,xl019 (lipo),10,dge2_L01,xl019 (lipo)_10
+dge2,L02,tofacitinib,1,dge2_L02,tofacitinib_1
+dge2,L03,azd-1480,10,dge2_L03,azd-1480_10
+dge2,L04,y-27632,10,dge2_L04,y-27632_10
+dge2,L05,ruxolitinib (lipo),10,dge2_L05,ruxolitinib (lipo)_10
+dge2,L06,vx-702,10,dge2_L06,vx-702_10
+dge2,L07,dmso,0,dge2_L07,dmso_0
+dge2,L08,belinostat,1,dge2_L08,belinostat_1
+dge2,L09,axitinib,1,dge2_L09,axitinib_1
+dge2,L10,gefitinib,10,dge2_L10,gefitinib_10
+dge2,L11,ly2090314,1,dge2_L11,ly2090314_1
+dge2,L12,h89,10,dge2_L12,h89_10
+dge2,L13,ibrutinib,1,dge2_L13,ibrutinib_1
+dge2,L14,dasatinib,1,dge2_L14,dasatinib_1
+dge2,L15,tofacitinib (dsrnami),10,dge2_L15,tofacitinib (dsrnami)_10
+dge2,L16,kin001-111,1,dge2_L16,kin001-111_1
+dge2,L17,enzastaurin,1,dge2_L17,enzastaurin_1
+dge2,L18,celastrol,1,dge2_L18,celastrol_1
+dge2,L19,bix 02565,10,dge2_L19,bix 02565_10
+dge2,L20,dactolisib,1,dge2_L20,dactolisib_1
+dge2,L21,enzastaurin,10,dge2_L21,enzastaurin_10
+dge2,L22,ly2090314,1,dge2_L22,ly2090314_1
+dge2,L23,dabrafenib,10,dge2_L23,dabrafenib_10
+dge2,L24,jwe-035,10,dge2_L24,jwe-035_10
+dge2,M01,nintedanib,10,dge2_M01,nintedanib_10
+dge2,M02,kin001-111,1,dge2_M02,kin001-111_1
+dge2,M03,dsrnami,NA,dge2_M03,dsrnami_NA
+dge2,M04,lapatinib,10,dge2_M04,lapatinib_10
+dge2,M05,afatinib,1,dge2_M05,afatinib_1
+dge2,M06,lapatinib,10,dge2_M06,lapatinib_10
+dge2,M07,regorafenib,1,dge2_M07,regorafenib_1
+dge2,M08,dmso,0,dge2_M08,dmso_0
+dge2,M09,palbociclib,10,dge2_M09,palbociclib_10
+dge2,M10,dmso,0,dge2_M10,dmso_0
+dge2,M11,vx-702,1,dge2_M11,vx-702_1
+dge2,M12,vorinostat,10,dge2_M12,vorinostat_10
+dge2,M13,rucaparib,1,dge2_M13,rucaparib_1
+dge2,M14,axitinib,10,dge2_M14,axitinib_10
+dge2,M15,otssp167,10,dge2_M15,otssp167_10
+dge2,M16,sorafenib,1,dge2_M16,sorafenib_1
+dge2,M17,ibrutinib,10,dge2_M17,ibrutinib_10
+dge2,M18,xmd16-144,10,dge2_M18,xmd16-144_10
+dge2,M19,neratinib,1,dge2_M19,neratinib_1
+dge2,M20,azd1480 (lipo),10,dge2_M20,azd1480 (lipo)_10
+dge2,M21,dsrnami,NA,dge2_M21,dsrnami_NA
+dge2,M22,neratinib,1,dge2_M22,neratinib_1
+dge2,M23,at9283,10,dge2_M23,at9283_10
+dge2,M24,y-27632,10,dge2_M24,y-27632_10
+dge2,N01,rucaparib,1,dge2_N01,rucaparib_1
+dge2,N02,ruxolitinib,1,dge2_N02,ruxolitinib_1
+dge2,N03,azd1480 (dsrnami),10,dge2_N03,azd1480 (dsrnami)_10
+dge2,N04,bix 02565,10,dge2_N04,bix 02565_10
+dge2,N05,celastrol,1,dge2_N05,celastrol_1
+dge2,N06,dmso,0,dge2_N06,dmso_0
+dge2,N07,staurosporine aglycone,1,dge2_N07,staurosporine aglycone_1
+dge2,N08,neratinib,1,dge2_N08,neratinib_1
+dge2,N09,ikk16,10,dge2_N09,ikk16_10
+dge2,N10,resveratrol,10,dge2_N10,resveratrol_10
+dge2,N11,kin001-111,10,dge2_N11,kin001-111_10
+dge2,N12,enzastaurin,10,dge2_N12,enzastaurin_10
+dge2,N13,fedratinib,1,dge2_N13,fedratinib_1
+dge2,N14,fedratinib (dsrnami),1,dge2_N14,fedratinib (dsrnami)_1
+dge2,N15,imatinib,1,dge2_N15,imatinib_1
+dge2,N16,kw2449,1,dge2_N16,kw2449_1
+dge2,N17,dabrafenib,1,dge2_N17,dabrafenib_1
+dge2,N18,imatinib,1,dge2_N18,imatinib_1
+dge2,N19,xl019,1,dge2_N19,xl019_1
+dge2,N20,dabrafenib,1,dge2_N20,dabrafenib_1
+dge2,N21,fedratinib (lipo),1,dge2_N21,fedratinib (lipo)_1
+dge2,N22,az-628,10,dge2_N22,az-628_10
+dge2,N23,torin2,10,dge2_N23,torin2_10
+dge2,N24,erlotinib,10,dge2_N24,erlotinib_10
+dge2,O01,gefitinib,1,dge2_O01,gefitinib_1
+dge2,O02,plx-4720,10,dge2_O02,plx-4720_10
+dge2,O03,mrt67307,10,dge2_O03,mrt67307_10
+dge2,O04,bosutinib,1,dge2_O04,bosutinib_1
+dge2,O05,baricitinib,10,dge2_O05,baricitinib_10
+dge2,O06,fedratinib (dsrnami),1,dge2_O06,fedratinib (dsrnami)_1
+dge2,O07,canertinib,1,dge2_O07,canertinib_1
+dge2,O08,kw2449,10,dge2_O08,kw2449_10
+dge2,O09,xl019,10,dge2_O09,xl019_10
+dge2,O10,ly2090314,10,dge2_O10,ly2090314_10
+dge2,O11,pf-06463922,10,dge2_O11,pf-06463922_10
+dge2,O12,axitinib,1,dge2_O12,axitinib_1
+dge2,O13,sunitinib,10,dge2_O13,sunitinib_10
+dge2,O14,afatinib,10,dge2_O14,afatinib_10
+dge2,O15,baricitinib (lipo),10,dge2_O15,baricitinib (lipo)_10
+dge2,O16,baricitinib (lipo),1,dge2_O16,baricitinib (lipo)_1
+dge2,O17,xl019 (dsrnami),10,dge2_O17,xl019 (dsrnami)_10
+dge2,O18,at9283,10,dge2_O18,at9283_10
+dge2,O19,baricitinib (lipo),1,dge2_O19,baricitinib (lipo)_1
+dge2,O20,y-27632,1,dge2_O20,y-27632_1
+dge2,O21,imatinib,1,dge2_O21,imatinib_1
+dge2,O22,ruxolitinib,1,dge2_O22,ruxolitinib_1
+dge2,O23,sorafenib,10,dge2_O23,sorafenib_10
+dge2,O24,plx-4720,10,dge2_O24,plx-4720_10
+dge2,P01,h89,10,dge2_P01,h89_10
+dge2,P02,resveratrol,10,dge2_P02,resveratrol_10
+dge2,P03,dovitinib,10,dge2_P03,dovitinib_10
+dge2,P04,ruxolitinib (lipo),10,dge2_P04,ruxolitinib (lipo)_10
+dge2,P05,ly2090314,10,dge2_P05,ly2090314_10
+dge2,P06,nintedanib,10,dge2_P06,nintedanib_10
+dge2,P07,erlotinib,1,dge2_P07,erlotinib_1
+dge2,P08,h89,1,dge2_P08,h89_1
+dge2,P09,mrt67307,10,dge2_P09,mrt67307_10
+dge2,P10,torin2,10,dge2_P10,torin2_10
+dge2,P11,dmso,0,dge2_P11,dmso_0
+dge2,P12,dmso,0,dge2_P12,dmso_0
+dge2,P13,bosutinib,10,dge2_P13,bosutinib_10
+dge2,P14,ruxolitinib,10,dge2_P14,ruxolitinib_10
+dge2,P15,ceritinib,10,dge2_P15,ceritinib_10
+dge2,P16,kin001-111,10,dge2_P16,kin001-111_10
+dge2,P17,pf-06463922,1,dge2_P17,pf-06463922_1
+dge2,P18,plx-4720,10,dge2_P18,plx-4720_10
+dge2,P19,resveratrol,10,dge2_P19,resveratrol_10
+dge2,P20,pf-06463922,10,dge2_P20,pf-06463922_10
+dge2,P21,fedratinib (dsrnami),1,dge2_P21,fedratinib (dsrnami)_1
+dge2,P22,bix 02565,10,dge2_P22,bix 02565_10
+dge2,P23,vandetanib,1,dge2_P23,vandetanib_1
+dge2,P24,y-27632,1,dge2_P24,y-27632_1
