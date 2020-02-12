@@ -1,7 +1,8 @@
 figures = figures/Fig1.pdf figures/Fig2.pdf figures/Fig3.pdf \
 	figures/Fig4.pdf figures/Fig5.pdf
 
-supplement = figures/Suppl1.pdf figures/Suppl2.pdf figures/Suppl3.pdf
+supplement = figures/Suppl1.pdf figures/Suppl2.pdf figures/Suppl3.pdf \
+	figures/Suppl4.pdf
 
 common = figures/results.R figures/plot.R
 
