@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx}
+\usepackage[labelformat=empty]{caption}
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+%% Supplemental Figure 1
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=7.5in]{figures/Suppl1.pdf}
+  \end{center}
+  \caption*{\textbf{Supplementary Fig. 1: Performance of predictors trained on randomly-selected sets of genes plotted as a function of the set size.} Performance was evaluated through leave-pair-out cross-validation and displayed as area under the ROC curve (AUC). The three panels correspond to binary classification tasks comparing early (“A”), intermediate (“B”) and late (“C”) disease stages. The color scheme, as introduced in Fig. 1b, denotes the dataset and brain region (specified as Brodmann Area) of samples used in each analysis.}
+\end{figure}
+
+%% Supplemental Figure 2
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=7.25in]{figures/Suppl2.pdf}
+  \end{center}
+\caption*{\textbf{Supplementary Fig. 2: Concordance of treatment replicates across the two 3’-DGE experiments.} Shown are log-fold change values for all genes that were significantly (FDR < 0.05) perturbed in both 3’-DGE experiments. Spearman correlation between the two experiments is displayed in the bottom right corner of each panel.}
+\end{figure}
+
+%% Supplemental Figure 3
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=7.5in]{figures/Suppl3.pdf}
+  \end{center}
+  \caption*{\textbf{Supplementary Fig. 3: Assessment of compound toxicity.} Nuclei counts estimated by the Deep-Dye-Drop assay (x-axis) are plotted against mRNA abundance (y-axis). The mRNA abundance was computed as the total number of transcripts in the post-perturbational gene expression profile of the corresponding compound. Marginal distributions presented on the top and the right-hand side exhibit bi-modality, suggesting natural thresholds for determining compound neurotoxicity. A vertical dashed line is used to classify compounds into Toxic and Non-Toxic categories for Fig. 3.}
+\end{figure}
+
+%% Supplemental Figure 4
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=7.25in]{figures/Suppl4.pdf}
+  \end{center}
+  \caption*{\textbf{Supplementary Fig. 4: Raw expression values of selected interferon-stimulated genes.} Each panel shows normalized transcript counts for a single interferon-stimulated gene (ISG). Individual points correspond to compounds that have a strong (TAS=1) or weak (TAS=2,3) binding to TYK2.}
+\end{figure}
+
+
+\end{document}

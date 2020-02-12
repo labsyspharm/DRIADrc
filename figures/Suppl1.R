@@ -42,6 +42,8 @@ pl <- ggplot( BK, aes(x=nFeats) ) + theme_bw() + theme_bold() +
 ## va <- c(0.1, 0.0.5)
 ## reduce2( nSD, va, f, .init=pl )
 
-pl + ggsave( str_c("FigS1-",Sys.Date(),".pdf"), width=9, height=3 ) +
-    ggsave( str_c("FigS1-",Sys.Date(),".png"), width=9, height=3 )
+## Compose the filename or extract it from the command line
+cmd <- commandArgs( trailingOnly=TRUE )
+fnOut <- `if`( length(cmd) > 0, cmd[1], str_c("Suppl1-", Sys.Date(), ".pdf") )
+ggsave( fnOut, pl, width=9, height=3 )
 
