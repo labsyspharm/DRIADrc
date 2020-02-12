@@ -2,11 +2,14 @@
 
 This repository is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
 
-Ensure that you have LaTeX, R and the following R packages installed: `tidyverse`, `ggridges`, `cowplot`, `ggrepel`, `ggthemes`, `grConvert`, `grImport2`, `pheatmap`, `synapser` and [`synExtra`](https://github.com/ArtemSokolov/synExtra). To reproduce figures from the manuscript, run the following from the command line:
+Create a [synapse.org](https://www.synapse.org/) account, if you don't have one already. Ensure that you have LaTeX and R  installed. To reproduce figures from the manuscript, run the following from the command line:
 
 ``` sh
-make figures.pdf
+Rscript setup.R
+make
 ```
+
+This will generate `figures.pdf` and `supplement.pdf`.
 
 ## Funding
 
