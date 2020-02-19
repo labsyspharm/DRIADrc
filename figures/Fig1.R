@@ -44,7 +44,7 @@ panelC <- function()
                      data=R, color="darkgray", lwd=2 ) +
         geom_text( aes(y=as.numeric(Name)+0.75, label=Label, hjust=0),
                   x=0.85, hjust=0, data=R, size=4 ) +
-        scale_y_discrete( name="Gene Set Scored" ) + coord_cartesian(clip="off") +
+        scale_y_discrete( name="Gene List Scored" ) + coord_cartesian(clip="off") +
         scale_fill_manual( values=dsPal(), guide=FALSE ) 
     ##        theme( axis.text=etxt(12), axis.title=etxt(14) )
 }
