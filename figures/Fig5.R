@@ -255,9 +255,9 @@ panelB <- function( target_combo_significance_aggregated, target_combos,
     # Add effect labels on y-axis
     {
         labels <- list(
-            grid::textGrob("synergistic", rot = 90, gp = gpar(fontsize = 12)),
+            grid::textGrob("positive", rot = 90, gp = gpar(fontsize = 12)),
             grid::textGrob("neutral", rot = 90, gp = gpar(fontsize = 12)),
-            grid::textGrob("antagonistic", rot = 90, gp = gpar(fontsize = 12))
+            grid::textGrob("negative", rot = 90, gp = gpar(fontsize = 12))
         ) %>%
             map(
                 ~ggplot2:::add_margins(

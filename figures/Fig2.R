@@ -17,14 +17,12 @@ panelB <- function()
     
     ## Load all the results
     load( here("results","results-2019-10-06.RData") )
-    load( here("results","MAYO-2019-10-10.RData") )
 
     ## Isolate the slice corresponding to:
     ##   1. NVP-TAE684 (DGE1) - HMSL10024
     ##   2. Ruxolitinib (DGE2) - HMSL10138
-    X1 <- allRes %>% filter(Task == "AC") %>% mutate(nFeats = map_int(Feats, length), Feats=NULL)
-    X2 <- mayoRes %>% filter(Task == "AC")
-    XX <- bind_rows( X1, X2 ) %>% rename( LINCSID=Drug ) %>% inner_join(R, by="LINCSID") %>%
+    XX <- allRes %>% filter(Task == "AC") %>% mutate(nFeats = map_int(Feats, length), Feats=NULL) %>%
+        rename( LINCSID=Drug ) %>% inner_join(R, by="LINCSID") %>%
         mutate_at( "Target", recode, JAK1 = "JAK1/2" ) %>%
         filter( (Drug == "ruxolitinib" & Plate=="DGE2") | Drug == "nvp-tae684" ) %>%
         select( -Task, -LINCSID, -Plate, -nFeats ) %>%
