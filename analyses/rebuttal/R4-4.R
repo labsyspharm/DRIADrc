@@ -27,4 +27,4 @@ ggplot( bind_rows(nn1, nn2), aes(x=nn) ) + theme_bw() +
     scale_x_continuous( breaks=c(0, 300, 1000, 2000, 3000) ) +
     xlab( "Number of diff. expressed genes with FDR < 0.05" ) +
     ylab( "Number of drugs" ) +
-    ggsave( "4-6.png", width=8, height=4 )
+    ggsave( "R4-4.png", width=8, height=4 )
