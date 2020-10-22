@@ -12,7 +12,9 @@ panelB <- function()
     max_rank = max(R$Rank)
 
     ## Load TAS information
-    TAS <- TASvalues() %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
+    TAS <- read_csv(here("results", "TAS-values.csv.gz"),
+                    col_types = "icciciiii") %>%
+        select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
 
     ## Combine with TAS data and isolate JAK targets
     vJAK <- c("JAK1", "JAK2", "JAK3", "TYK2")
