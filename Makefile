@@ -6,13 +6,14 @@ supplement = figures/Suppl1.pdf figures/Suppl2.pdf figures/Suppl3.pdf \
 
 common = figures/plot.R
 
-all : figures.pdf supplement.pdf
+all : output/figures.pdf output/supplement.pdf
 	rm -f *.aux *.log Rplots.pdf
 
-figures.pdf : figures.tex $(figures)
+output/figures.pdf : figures.tex $(figures)
 	pdflatex $<
+	cp figures.pdf output/
 
-supplement.pdf : supplement.tex $(supplement)
+output/supplement.pdf : supplement.tex $(supplement)
 	pdflatex $<
 
 figures/%.pdf : figures/%.R $(common) schematics/%A.pdf schematics/%B.pdf
