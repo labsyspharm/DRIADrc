@@ -1,0 +1,385 @@
+Well,Drug,Concentration
+A01,canertinib,1
+A02,IKK16,10
+A03,VX-702,10
+A04,Nintedanib,1
+A05,Vorinostat,1
+A06,Ponatinib,10
+A07,Ponatinib,1
+A08,Tofacitinib (dsRNAmi),10
+A09,Dovitinib,10
+A10,Torin2,1
+A11,Baricitinib (dsRNAmi),10
+A12,Dasatinib,1
+A13,XMD16-144,10
+A14,AZD-1480,10
+A15,Imatinib,10
+A16,Gefitinib,10
+A17,Imatinib,10
+A18,Afatinib,10
+A19,pf-06463922,1
+A20,Staurosporine aglycone,1
+A21,Palbociclib,10
+A22,Baricitinib,10
+A23,VX-702,1
+A24,Erlotinib,1
+B01,JWE-035,1
+B02,Crizotinib,1
+B03,AZD1480 (Lipo),10
+B04,Axitinib,10
+B05,canertinib,1
+B06,Pelitinib,10
+B07,DMSO,NA
+B08,Baricitinib,1
+B09,Pelitinib,1
+B10,Tofacitinib (Lipo),10
+B11,Ibrutinib,10
+B12,Baricitinib,1
+B13,Pelitinib,1
+B14,Afatinib,1
+B15,Nilotinib,10
+B16,Imatinib,10
+B17,XL019 (dsRNAmi),10
+B18,Dactolisib,1
+B19,IKK16,1
+B20,Vorinostat,10
+B21,MRT67307,1
+B22,Crizotinib,10
+B23,Palbociclib,1
+B24,Ponatinib,10
+C01,Torin2,1
+C02,XMD16-144,10
+C03,Vandetanib,1
+C04,XL019 (dsRNAmi),10
+C05,Nintedanib,10
+C06,Dasatinib,10
+C07,Torin2,1
+C08,OTSSP167,10
+C09,Celastrol,10
+C10,Lapatinib,1
+C11,Palbociclib,1
+C12,y-27632,10
+C13,PLX-4720,1
+C14,Gefitinib,1
+C15,KIN001-111,10
+C16,OTSSP167,1
+C17,JWE-035,1
+C18,Ceritinib,1
+C19,Ponatinib,1
+C20,Resveratrol,1
+C21,Lapatinib,10
+C22,Gefitinib,1
+C23,Ceritinib,10
+C24,IKK16,1
+D01,JWE-035,10
+D02,Nilotinib,1
+D03,Ruxolitinib (dsRNAmi),10
+D04,Erlotinib,10
+D05,DMSO,NA
+D06,Nilotinib,10
+D07,Dactolisib,1
+D08,at9283,1
+D09,Fedratinib (Lipo),1
+D10,Vorinostat,1
+D11,Ruxolitinib (dsRNAmi),10
+D12,Ceritinib,10
+D13,Gefitinib,10
+D14,AZD-1480,1
+D15,Regorafenib,1
+D16,Erlotinib,1
+D17,LY2090314,10
+D18,BIX 02565,1
+D19,BIX 02565,1
+D20,XL019 (Lipo),10
+D21,AZD1480 (dsRNAmi),10
+D22,AZD1480 (Lipo),10
+D23,Dovitinib,1
+D24,Tofacitinib,10
+E01,dsRNAmi,NA
+E02,Tofacitinib,1
+E03,Ibrutinib,1
+E04,Belinostat,10
+E05,Afatinib,10
+E06,XMD16-144,1
+E07,Pelitinib,10
+E08,Regorafenib,10
+E09,Ruxolitinib,10
+E10,Sorafenib,10
+E11,pf-06463922,10
+E12,Neratinib,10
+E13,Dactolisib,10
+E14,DMSO,NA
+E15,MRT67307,10
+E16,H89,10
+E17,Dovitinib,10
+E18,H89,1
+E19,Ponatinib,10
+E20,Bosutinib,10
+E21,KW2449,1
+E22,Ruxolitinib (Lipo),10
+E23,XMD16-144,1
+E24,Tofacitinib,10
+F01,Regorafenib,1
+F02,OTSSP167,10
+F03,XL019 (Lipo),10
+F04,Vorinostat,10
+F05,LY2090314,1
+F06,canertinib,10
+F07,Dabrafenib,10
+F08,Sunitinib,10
+F09,DMSO,NA
+F10,AZ-628,10
+F11,Ibrutinib,1
+F12,Crizotinib,1
+F13,y-27632,1
+F14,Fedratinib,10
+F15,Crizotinib,1
+F16,canertinib,10
+F17,Rucaparib,1
+F18,Rucaparib,10
+F19,Axitinib,10
+F20,Resveratrol,1
+F21,Dasatinib,10
+F22,Pelitinib,10
+F23,at9283,1
+F24,AZ-628,1
+G01,Fedratinib,10
+G02,Vandetanib,10
+G03,Enzastaurin,10
+G04,Sorafenib,10
+G05,Baricitinib (Lipo),1
+G06,Dactolisib,10
+G07,Vandetanib,1
+G08,Fedratinib,1
+G09,Tofacitinib (Lipo),10
+G10,Belinostat,10
+G11,Baricitinib (dsRNAmi),10
+G12,AZ-628,1
+G13,Baricitinib,10
+G14,Lapatinib,1
+G15,Nintedanib,1
+G16,AZD-1480,10
+G17,Ceritinib,1
+G18,Neratinib,10
+G19,Dasatinib,10
+G20,Tofacitinib,10
+G21,Celastrol,10
+G22,Staurosporine aglycone,10
+G23,JWE-035,1
+G24,Crizotinib,10
+H01,Sunitinib,1
+H02,Belinostat,10
+H03,Belinostat,1
+H04,Bosutinib,10
+H05,Torin2,10
+H06,Dovitinib,1
+H07,AZD1480 (dsRNAmi),10
+H08,Staurosporine aglycone,1
+H09,at9283,10
+H10,XL019,10
+H11,Palbociclib,1
+H12,Crizotinib,10
+H13,Axitinib,1
+H14,Nilotinib,10
+H15,Tofacitinib,1
+H16,Dabrafenib,10
+H17,Dovitinib,1
+H18,Sunitinib,10
+H19,Pelitinib,1
+H20,Ruxolitinib,1
+H21,Tofacitinib (Lipo),10
+H22,Neratinib,10
+H23,DMSO,NA
+H24,Celastrol,1
+I01,Vandetanib,10
+I02,OTSSP167,1
+I03,AZ-628,1
+I04,Bosutinib,1
+I05,PLX-4720,1
+I06,Vandetanib,10
+I07,H89,1
+I08,at9283,1
+I09,Baricitinib,1
+I10,XL019,10
+I11,OTSSP167,1
+I12,MRT67307,1
+I13,IKK16,10
+I14,XMD16-144,1
+I15,Dactolisib,10
+I16,Baricitinib (Lipo),10
+I17,KW2449,10
+I18,Regorafenib,10
+I19,Rucaparib,10
+I20,Baricitinib (Lipo),10
+I21,Regorafenib,10
+I22,Staurosporine aglycone,10
+I23,Dabrafenib,1
+I24,Sunitinib,1
+J01,pf-06463922,1
+J02,Ruxolitinib,10
+J03,Rucaparib,10
+J04,AZD-1480,1
+J05,Palbociclib,10
+J06,Fedratinib (Lipo),1
+J07,DMSO,NA
+J08,Lapatinib,1
+J09,Resveratrol,1
+J10,Sorafenib,1
+J11,Vorinostat,1
+J12,Nilotinib,1
+J13,Ceritinib,1
+J14,Tofacitinib (dsRNAmi),10
+J15,KW2449,10
+J16,Afatinib,1
+J17,Ruxolitinib (dsRNAmi),10
+J18,Ponatinib,1
+J19,Erlotinib,10
+J20,VX-702,1
+J21,Ibrutinib,10
+J22,Baricitinib (dsRNAmi),10
+J23,XL019,1
+J24,Staurosporine aglycone,10
+K01,BIX 02565,1
+K02,KIN001-111,1
+K03,Sorafenib,1
+K04,PLX-4720,1
+K05,Sunitinib,1
+K06,canertinib,10
+K07,Nintedanib,1
+K08,AZ-628,10
+K09,KW2449,1
+K10,Enzastaurin,1
+K11,Fedratinib,10
+K12,Dasatinib,1
+K13,Bosutinib,1
+K14,VX-702,10
+K15,JWE-035,10
+K16,Enzastaurin,1
+K17,Fedratinib,1
+K18,AZD-1480,1
+K19,IKK16,1
+K20,Belinostat,1
+K21,XL019,1
+K22,Celastrol,10
+K23,Nilotinib,1
+K24,MRT67307,1
+L01,XL019 (Lipo),10
+L02,Tofacitinib,1
+L03,AZD-1480,10
+L04,y-27632,10
+L05,Ruxolitinib (Lipo),10
+L06,VX-702,10
+L07,DMSO,NA
+L08,Belinostat,1
+L09,Axitinib,1
+L10,Gefitinib,10
+L11,LY2090314,1
+L12,H89,10
+L13,Ibrutinib,1
+L14,Dasatinib,1
+L15,Tofacitinib (dsRNAmi),10
+L16,KIN001-111,1
+L17,Enzastaurin,1
+L18,Celastrol,1
+L19,BIX 02565,10
+L20,Dactolisib,1
+L21,Enzastaurin,10
+L22,LY2090314,1
+L23,Dabrafenib,10
+L24,JWE-035,10
+M01,Nintedanib,10
+M02,KIN001-111,1
+M03,dsRNAmi,NA
+M04,Lapatinib,10
+M05,Afatinib,1
+M06,Lapatinib,10
+M07,Regorafenib,1
+M08,DMSO,NA
+M09,Palbociclib,10
+M10,DMSO,NA
+M11,VX-702,1
+M12,Vorinostat,10
+M13,Rucaparib,1
+M14,Axitinib,10
+M15,OTSSP167,10
+M16,Sorafenib,1
+M17,Ibrutinib,10
+M18,XMD16-144,10
+M19,Neratinib,1
+M20,AZD1480 (Lipo),10
+M21,dsRNAmi,NA
+M22,Neratinib,1
+M23,at9283,10
+M24,y-27632,10
+N01,Rucaparib,1
+N02,Ruxolitinib,1
+N03,AZD1480 (dsRNAmi),10
+N04,BIX 02565,10
+N05,Celastrol,1
+N06,DMSO,NA
+N07,Staurosporine aglycone,1
+N08,Neratinib,1
+N09,IKK16,10
+N10,Resveratrol,10
+N11,KIN001-111,10
+N12,Enzastaurin,10
+N13,Fedratinib,1
+N14,Fedratinib (dsRNAmi),1
+N15,Imatinib,1
+N16,KW2449,1
+N17,Dabrafenib,1
+N18,Imatinib,1
+N19,XL019,1
+N20,Dabrafenib,1
+N21,Fedratinib (Lipo),1
+N22,AZ-628,10
+N23,Torin2,10
+N24,Erlotinib,10
+O01,Gefitinib,1
+O02,PLX-4720,10
+O03,MRT67307,10
+O04,Bosutinib,1
+O05,Baricitinib,10
+O06,Fedratinib (dsRNAmi),1
+O07,canertinib,1
+O08,KW2449,10
+O09,XL019,10
+O10,LY2090314,10
+O11,pf-06463922,10
+O12,Axitinib,1
+O13,Sunitinib,10
+O14,Afatinib,10
+O15,Baricitinib (Lipo),10
+O16,Baricitinib (Lipo),1
+O17,XL019 (dsRNAmi),10
+O18,at9283,10
+O19,Baricitinib (Lipo),1
+O20,y-27632,1
+O21,Imatinib,1
+O22,Ruxolitinib,1
+O23,Sorafenib,10
+O24,PLX-4720,10
+P01,H89,10
+P02,Resveratrol,10
+P03,Dovitinib,10
+P04,Ruxolitinib (Lipo),10
+P05,LY2090314,10
+P06,Nintedanib,10
+P07,Erlotinib,1
+P08,H89,1
+P09,MRT67307,10
+P10,Torin2,10
+P11,DMSO,NA
+P12,DMSO,NA
+P13,Bosutinib,10
+P14,Ruxolitinib,10
+P15,Ceritinib,10
+P16,KIN001-111,10
+P17,pf-06463922,1
+P18,PLX-4720,10
+P19,Resveratrol,10
+P20,pf-06463922,10
+P21,Fedratinib (dsRNAmi),1
+P22,BIX 02565,10
+P23,Vandetanib,1
+P24,y-27632,1

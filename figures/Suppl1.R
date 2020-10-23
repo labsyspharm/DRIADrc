@@ -4,7 +4,6 @@
 
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
 load( here("results","MAYO-2019-10-10.RData") )

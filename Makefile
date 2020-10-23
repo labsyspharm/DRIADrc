@@ -15,6 +15,7 @@ output/figures.pdf : figures.tex $(figures)
 
 output/supplement.pdf : supplement.tex $(supplement)
 	pdflatex $<
+	cp supplement.pdf output/
 
 figures/%.pdf : figures/%.R $(common) schematics/%A.pdf schematics/%B.pdf
 	Rscript $< $@

@@ -1,0 +1,382 @@
+Well,Drug,Concentration
+A01,bx-912,0.3
+A02,hg-9-91-01,10
+A03,pha-665752,0.3
+A04,Chitosan,1
+A05,bortezomib,1
+A06,(+)-jq1,0.3
+A07,brivanib,1
+A08,MG-132,10
+A09,torin1,0.3
+A10,bx-912,1
+A11,tofacitinib,10
+A12,fedratinib,1
+A13,kw2449,10
+A14,sb202190,0.3
+A15,(+)-jq1,1
+A16,ldn-193189,10
+A17,zm-447439,10
+A18,kw2449,3
+A19,a443654,10
+A20,r 59-022,0.3
+A21,pha-665752,10
+A22,dsRNA +lipo,NA
+A23,dsRNA +lipo,NA
+A24,rotenone,1
+B01,gsk1059615,1
+B02,tofacitinib,10
+B03,fccp,1
+B04,cabozantinib,1
+B05,brivanib,3
+B06,metformin,0.3
+B07,gsk1059615,10
+B08,tofacitinib,0.3
+B09,sb202190,10
+B10,pf04217903,10
+B11,ruxolitinib,1
+B12,ruxolitinib,10
+B13,plx-4720,0.3
+B14,tofacitinib,1
+B15,pazopanib,1
+B16,alisertib,1
+B17,plx-4720,10
+B18,barasertib,3
+B19,cabozantinib,3
+B20,bortezomib,10
+B21,gsk1070916,3
+B22,nvp-tae684,0.3
+B23,(+)-jq1,0.3
+B24,gsk1059615,3
+C01,plx-4720,10
+C02,gsk1059615,0.3
+C03,torin1,1
+C04,pf04217903,1
+C05,LPS,NA
+C06,barasertib,10
+C07,alisertib,0.3
+C08,hg-9-91-01,3
+C09,r 59949,1
+C10,MG-132,10
+C11,ruxolitinib,3
+C12,sb202190,3
+C13,r 59949,0.3
+C14,r 59949,10
+C15,r 59949,10
+C16,pf04217903,10
+C17,ldn-193189,1
+C18,LPS,NA
+C19,r 59949,1
+C20,brivanib,3
+C21,r 59-022,1
+C22,MG-132,1
+C23,barasertib,3
+C24,pazopanib,3
+D01,barasertib,10
+D02,rotenone,10
+D03,brivanib,10
+D04,fccp,1
+D05,a443654,0.3
+D06,nvp-tae684,0.3
+D07,bx-912,3
+D08,cabozantinib,3
+D09,torin1,3
+D10,ruxolitinib,10
+D11,a443654,1
+D12,metformin,3
+D13,barasertib,10
+D14,fedratinib,0.3
+D15,tofacitinib,3
+D16,cabozantinib,3
+D17,r 59949,1
+D18,kw2449,0.3
+D19,pha-665752,3
+D20,metformin,1
+D21,barasertib,3
+D22,brivanib,10
+D23,(+)-jq1,1
+D24,naked dsRNA,NA
+E01,metformin,10
+E02,pha-665752,1
+E03,hg-9-91-01,0.3
+E04,(+)-jq1,0.3
+E05,plx-4720,0.3
+E06,zm-447439,0.3
+E07,bx-912,10
+E08,bortezomib,1
+E09,brivanib,1
+E10,fedratinib,1
+E11,gsk1070916,10
+E12,hg-9-91-01,1
+E13,LPS,NA
+E14,a443654,0.3
+E15,tofacitinib,1
+E16,r 59-022,1
+E17,rotenone,10
+E18,entinostat,1
+E19,ruxolitinib,10
+E20,r 59-022,3
+E21,sb202190,1
+E22,fccp,10
+E23,sb202190,10
+E24,a443654,10
+F01,ruxolitinib,3
+F02,zm-447439,10
+F03,pha-665752,0.3
+F04,gsk1059615,1
+F05,cabozantinib,0.3
+F06,kw2449,3
+F07,hg-9-91-01,1
+F08,(+)-jq1,3
+F09,zm-447439,1
+F10,ldn-193189,1
+F11,Drug control,NA
+F12,r 59949,0.3
+F13,r 59949,0.3
+F14,rotenone,1
+F15,hg-9-91-01,0.3
+F16,alisertib,10
+F17,(+)-jq1,1
+F18,gsk1070916,1
+F19,r 59-022,3
+F20,fccp,10
+F21,r 59-022,0.3
+F22,hg-9-91-01,1
+F23,pf04217903,0.3
+F24,MG-132,1
+G01,sb202190,1
+G02,bx-912,10
+G03,r 59949,3
+G04,gsk1070916,10
+G05,entinostat,1
+G06,r 59-022,10
+G07,sb202190,0.3
+G08,bortezomib,3
+G09,sb202190,3
+G10,hg-9-91-01,10
+G11,metformin,1
+G12,entinostat,10
+G13,fedratinib,3
+G14,cabozantinib,10
+G15,Lipo control,NA
+G16,a443654,10
+G17,gsk1059615,0.3
+G18,tofacitinib,10
+G19,bortezomib,10
+G20,tofacitinib,3
+G21,pf04217903,10
+G22,pha-665752,3
+G23,pazopanib,10
+G24,Drug control,NA
+H01,sb202190,1
+H02,nvp-tae684,1
+H03,fedratinib,10
+H04,alisertib,3
+H05,a443654,3
+H06,metformin,3
+H07,pha-665752,3
+H08,brivanib,0.3
+H09,Drug control,NA
+H10,pf04217903,1
+H11,zm-447439,1
+H12,ruxolitinib,3
+H13,ruxolitinib,1
+H14,bortezomib,3
+H15,metformin,10
+H16,r 59949,10
+H17,entinostat,0.3
+H18,bortezomib,0.3
+H19,gsk1059615,10
+H20,ldn-193189,1
+H21,cabozantinib,10
+H22,fedratinib,3
+H23,entinostat,0.3
+H24,a443654,1
+I01,cabozantinib,10
+I02,kw2449,1
+I03,brivanib,0.3
+I04,nvp-tae684,3
+I05,gsk1070916,3
+I06,brivanib,0.3
+I07,torin1,0.3
+I08,pha-665752,0.3
+I09,barasertib,0.3
+I10,sb202190,3
+I11,kw2449,1
+I12,fccp,1
+I13,ldn-193189,3
+I14,ldn-193189,3
+I15,(+)-jq1,10
+I16,nvp-tae684,10
+I17,entinostat,3
+I18,nvp-tae684,10
+I19,a443654,3
+I20,cabozantinib,1
+I21,bortezomib,10
+I22,ldn-193189,0.3
+I23,fedratinib,10
+I24,pazopanib,0.3
+J01,pha-665752,1
+J02,plx-4720,1
+J03,dsRNA +lipo,NA
+J04,hg-9-91-01,3
+J05,fedratinib,0.3
+J06,kw2449,1
+J07,sb202190,0.3
+J08,zm-447439,0.3
+J09,Chitosan,1
+J10,gsk1059615,10
+J11,Chitosan,1
+J12,(+)-jq1,3
+J13,pf04217903,3
+J14,pha-665752,10
+J15,pha-665752,10
+J16,kw2449,10
+J17,pazopanib,10
+J18,fedratinib,10
+J19,zm-447439,10
+J20,pazopanib,1
+J21,fccp,10
+J22,torin1,1
+J23,hg-9-91-01,10
+J24,alisertib,10
+K01,cabozantinib,0.3
+K02,gsk1059615,3
+K03,metformin,0.3
+K04,zm-447439,0.3
+K05,plx-4720,3
+K06,ldn-193189,10
+K07,bx-912,1
+K08,torin1,1
+K09,gsk1070916,1
+K10,zm-447439,3
+K11,bx-912,3
+K12,Drug control,NA
+K13,bortezomib,0.3
+K14,Drug control,NA
+K15,nvp-tae684,1
+K16,metformin,0.3
+K17,alisertib,10
+K18,Drug control,NA
+K19,tofacitinib,1
+K20,naked dsRNA,NA
+K21,r 59949,3
+K22,a443654,3
+K23,tofacitinib,3
+K24,ldn-193189,0.3
+L01,(+)-jq1,10
+L02,zm-447439,1
+L03,alisertib,1
+L04,ldn-193189,0.3
+L05,Chitosan,10
+L06,tofacitinib,0.3
+L07,bx-912,3
+L08,torin1,10
+L10,gsk1059615,3
+L11,r 59-022,1
+L12,gsk1059615,1
+L13,Drug control,NA
+L14,pazopanib,0.3
+L15,barasertib,0.3
+L16,gsk1070916,0.3
+L17,brivanib,3
+L18,pazopanib,10
+L19,plx-4720,10
+L20,cabozantinib,0.3
+L21,ruxolitinib,1
+L22,pf04217903,0.3
+L23,a443654,0.3
+L24,nvp-tae684,1
+M01,gsk1070916,0.3
+M02,r 59-022,10
+M03,barasertib,0.3
+M04,bortezomib,1
+M05,metformin,1
+M06,nvp-tae684,0.3
+M07,kw2449,10
+M08,alisertib,0.3
+M09,tofacitinib,0.3
+M10,pazopanib,3
+M11,ruxolitinib,10
+M12,r 59949,3
+M13,gsk1070916,0.3
+M14,hg-9-91-01,3
+M15,kw2449,3
+M16,zm-447439,3
+M17,plx-4720,1
+M18,pf04217903,3
+M19,sb202190,10
+M20,MG-132,10
+M21,kw2449,0.3
+M22,nvp-tae684,3
+M23,metformin,10
+M24,ruxolitinib,10
+N01,Chitosan,10
+N02,(+)-jq1,3
+N03,MG-132,1
+N04,pazopanib,3
+N05,plx-4720,1
+N06,nvp-tae684,10
+N07,torin1,0.3
+N08,bortezomib,0.3
+N09,barasertib,1
+N10,pazopanib,1
+N11,alisertib,0.3
+N12,alisertib,3
+N13,pf04217903,1
+N14,pf04217903,0.3
+N15,nvp-tae684,3
+N16,r 59-022,3
+N17,Drug control,NA
+N18,Drug control,NA
+N19,gsk1059615,0.3
+N20,r 59-022,0.3
+N21,barasertib,1
+N22,torin1,10
+N23,rotenone,1
+N24,torin1,3
+O01,torin1,3
+O02,ldn-193189,3
+O03,barasertib,1
+O04,ruxolitinib,10
+O05,fedratinib,1
+O06,Drug control,NA
+O07,pha-665752,1
+O08,bx-912,0.3
+O09,Drug control,NA
+O10,fedratinib,3
+O11,kw2449,0.3
+O12,alisertib,1
+O13,gsk1070916,1
+O15,plx-4720,0.3
+O16,naked dsRNA,NA
+O17,bx-912,10
+O18,pazopanib,0.3
+O19,gsk1070916,3
+O20,fedratinib,0.3
+O21,Chitosan,10
+O22,metformin,3
+O23,pf04217903,3
+O24,zm-447439,3
+P01,rotenone,10
+P02,brivanib,1
+P03,alisertib,3
+P04,entinostat,0.3
+P05,entinostat,3
+P06,entinostat,1
+P07,ldn-193189,10
+P08,cabozantinib,1
+P09,bortezomib,3
+P10,r 59-022,10
+P12,bx-912,1
+P13,torin1,10
+P14,entinostat,10
+P15,plx-4720,3
+P16,entinostat,3
+P17,plx-4720,3
+P18,gsk1070916,10
+P19,brivanib,10
+P20,Lipo control,NA
+P21,hg-9-91-01,0.3
+P22,entinostat,10
+P23,bx-912,0.3
+P24,a443654,1

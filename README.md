@@ -1,15 +1,20 @@
-# DRIADfigs: scripts to fully reproduce manuscript figures
+# DRIADrc: full reproducibility of manuscript figures
 
-This repository is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
+This is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
 
-Create a [synapse.org](https://www.synapse.org/) account, if you don't have one already. Ensure that you have LaTeX and R  installed. To reproduce figures from the manuscript, run the following from the command line:
+* Primary DRIAD repository: https://github.com/labsyspharm/DRIAD
+* DRIAD as a webapp: https://labsyspharm.shinyapps.io/DRIAD/
+* Pre-print: https://www.biorxiv.org/content/10.1101/2020.05.15.098749v1
 
-``` sh
-Rscript setup.R
-make
+## Reproducing the figures
+
+All scripts and data needed to fully reproduce the figures are encapsulated inside a Docker container. Ensure that you have [Docker installed](https://docs.docker.com/get-docker/). The run the following command:
+
+```
+docker run -v "$PWD":/output/ --rm labsyspharm/driadrc make
 ```
 
-This will generate `figures.pdf` and `supplement.pdf`.
+This will generate `figures.pdf` and `supplement.pdf` in your current directory.
 
 ## Funding
 
