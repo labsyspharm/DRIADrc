@@ -2,6 +2,8 @@
 ##
 ## by Artem Sokolov
 
+suppressMessages(library( tidyverse ))
+
 ## Composes a grob from an imported .pdf
 pdfGrob <- function( fnPdf )
 {

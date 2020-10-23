@@ -1,10 +1,7 @@
 suppressMessages(library(tidyverse))
 library(here)
 library(ggbeeswarm)
-library(synapser)
-library(synExtra)
 
-source(here("figures", "results.R"))
 source(here("figures", "plot.R"))
 
 # Compound name <-> LSP id map
