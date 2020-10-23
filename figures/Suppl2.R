@@ -4,18 +4,19 @@
 
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
-f <- function( synid, colid )
+f <- function( fn, colid )
 {
-    syn_csv( synid ) %>% mutate_at( "Drug", str_to_lower ) %>%
+    here( "results", fn ) %>%
+        read_csv( col_types=cols() ) %>%
+        mutate_at( "Drug", str_to_lower ) %>%
         filter( FDR <= 0.05 ) %>%
         select( Drug, Gene, !!rlang::ensym(colid) := logFC )
 }
 
-DFX1 <- f( "syn18145776", logFC1 ) 
-DFX2 <- f( "syn17167348", logFC2 )
+DFX1 <- f( "DGE1-dfx.csv.gz", logFC1 ) 
+DFX2 <- f( "DGE2-dfx.csv.gz", logFC2 )
 DFX <- inner_join(DFX1, DFX2, by=c("Drug","Gene"))
 CR <- DFX %>% group_by( Drug ) %>% summarize( R=cor(logFC1, logFC2, method="sp") ) %>%
     mutate( Lbl=str_c(round(R,3), "  \n") )

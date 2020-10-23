@@ -4,7 +4,6 @@
 
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
 theme_noaxes <- function() {
@@ -12,13 +11,18 @@ theme_noaxes <- function() {
           axis.ticks=element_blank()) }
 
 ## Download the nuclei count data and compute summary statistics
-TX <- syn_csv( "syn18496657" ) %>% rename(Drug=`Fluid name`)
+TX <- here( "results", "deep-dye-drop.csv" ) %>%
+    read_csv( col_types=cols() ) %>%
+    rename(Drug=`Fluid name`)
 TXm <- TX %>% group_by(Drug) %>% summarize_at( "Nuclei counts", median ) %>%
     mutate_at( "Drug", str_to_lower )
 
 ## Load the counts data from both DGE experiments, and the matching metadata
-XY <- list(DGE1="syn20820769", DGE1Y="syn20820771",
-           DGE2="syn20820825", DGE2Y="syn20820826") %>% map( syn_csv )
+XY <- list(DGE1  = "DGE1-counts.csv.gz",
+           DGE1Y = "DGE1-meta.csv",
+           DGE2  = "DGE2-counts.csv.gz",
+           DGE2Y = "DGE2-meta.csv") %>%
+    map( ~here("results", .x) ) %>% map( read_csv, col_types=cols() )
     
 ## Compute total counts per well and map the values to the corresponding drugs
 DGE <- map( XY[c("DGE1","DGE2")], summarize_at, vars(-HUGO), sum ) %>%
