@@ -1,4 +1,4 @@
-# DRIADrc: fully reproducibility of manuscript figures
+# DRIADrc: full reproducibility of manuscript figures
 
 This is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
 
