@@ -1,18 +1,20 @@
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
 panelB <- function()
 {
     ## Load drug ranking combining scores across plates
-    R <- DGEcomposite() %>% group_by( Drug, LINCSID, Approval ) %>%
+    R <- read_csv(here("results","DGE-composite.csv"), col_types=cols()) %>%
+        group_by( Drug, LINCSID, Approval ) %>%
         summarize( HMP=exp(mean(log(HMP))) ) %>% ungroup() %>%
         arrange( HMP ) %>% mutate( Rank=1:n() )
     max_rank = max(R$Rank)
 
     ## Load TAS information
-    TAS <- TASvalues() %>% select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
+    TAS <- read_csv(here("results", "TAS-values.csv.gz"),
+                    col_types = "icciciiii") %>%
+        select( LINCSID=compound_id, Target=entrez_symbol, TAS=tas )
 
     ## Combine with TAS data and isolate JAK targets
     vJAK <- c("JAK1", "JAK2", "JAK3", "TYK2")

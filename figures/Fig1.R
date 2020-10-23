@@ -4,7 +4,6 @@
 
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
 panelC <- function()
@@ -18,7 +17,7 @@ panelC <- function()
     f <- function(id) { str_split(id, "-") %>% map_chr(~str_c(.x[1], " (",.x[2],")")) }
     
     ## Look in the original set definitions for keywords
-    V <- here("analyses","predict","genesets","prev-ampad.gmt" ) %>% read_lines() %>%
+    V <- here("results","prev-ampad.gmt" ) %>% read_lines() %>%
         str_split( "\t" ) %>% map( ~set_names(.x[2], .x[1]) ) %>%
         unlist %>% enframe( "Set", "Description" )
 

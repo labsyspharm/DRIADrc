@@ -6,14 +6,14 @@
 
 library( here )
 
-source( here("figures","results.R") )
 source( here("figures","plot.R") )
 
 panelB <- function()
 {
     suppressMessages(library( ggridges ))
 
-    R <- DGEcomposite() %>% select( LINCSID, Drug, Target ) %>% distinct
+    R <- read_csv(here("results","DGE-composite.csv"), col_types=cols()) %>%
+        select( LINCSID, Drug, Target ) %>% distinct
     
     ## Load all the results
     load( here("results","results-2019-10-06.RData") )

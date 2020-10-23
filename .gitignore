@@ -44,6 +44,8 @@ rsconnect/
 *.svg
 figures.aux
 figures.log
+supplement.aux
+supplement.log
 
 # Gene sets
 *.gmt

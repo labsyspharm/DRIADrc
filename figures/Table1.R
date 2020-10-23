@@ -2,6 +2,7 @@
 ##
 ## by Artem Sokolov
 
-source( "results.R" )
+library( tidyverse )
 
-DGEcomposite() %>% write_csv("Table1.csv")
+read_csv(here("results","DGE-composite.csv"), col_types=cols()) %>%
+    write_csv("Table1.csv")
