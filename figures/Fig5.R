@@ -57,7 +57,7 @@ drug_set_venns <- function() {
   combined <- gTree(children = gList(c1, c2, m), name = "venn")
 
   pal <- ggthemes::few_pal()(3)
-  
+
   venn_configs <- list(
     "s1_and_s2" = c(circle_1 = "white", circle_2 = "white", intersection = pal[1]),
     "s1_xor_s2" = c(circle_1 = "red", circle_2 = "red", intersection = "white"),
@@ -100,7 +100,7 @@ plot_single_drug_combo_density <- function(target_combos, targets) {
     TXT <- drug_sets %>% select( Drug_Set ) %>%
         distinct() %>% mutate( Lbl = as.character(Drug_Set) ) %>%
         mutate_at( "Lbl", map_chr, gsub, pattern=" AND ", replacement=" AND\n" )
-    
+
     ggplot(drug_sets, aes(Rank)) + theme_bw() +
         geom_density(aes(y = stat(scaled), color = Drug_Set, fill = Drug_Set), alpha = .8) +
         geom_tile(aes(y = -0.05, x = Rank, fill = Drug_Set), width = 0.80, height = 0.1) +
@@ -122,7 +122,7 @@ panelA <- function() {
     for( j in grep("axis-b", gt$layout$name) )
         pluck( gt, "grobs", j, "children", 2, "grobs", 2, "children", 1, "hjust" ) <- hj
 
-    
+
     ## Add venn diagrams
     vns <- drug_set_venns()[c(1L, 3L, 4L)]
     gtl <- gtable::gtable_filter( gt$grobs[[24]]$grobs[[1]], "key", invert=TRUE ) %>%
@@ -162,13 +162,15 @@ panelB <- function( target_combo_significance_aggregated, target_combos,
               fct_inorder() ) %>%
     unnest(data)
 
-  # browser()
 
   effect_color_map <- c(
     "synergistic" = "#f6f9fc",
     "antagonistic" = "#fcf9f6",
     "neutral" = "#f9f9f9"
   )
+
+  effect_color_map_dark <- effect_color_map %>%
+    map_chr(colorspace::darken, amount = 0.2)
 
   density_plot <- plot_data %>%
     ggplot(aes(Rank)) +
@@ -220,18 +222,20 @@ panelB <- function( target_combo_significance_aggregated, target_combos,
       legend.spacing = unit(0, "pt"),
       legend.box = "vertical",
       legend.box.margin = margin(2, 2, 2, 2, "pt"),
-      legend.box.spacing = unit(0, "pt")
+      legend.box.spacing = unit(0, "pt"),
+      axis.title.y.right = element_text(margin = margin(l = 5))
     ) +
     scale_y_continuous(
       breaks = NULL,
       minor_breaks = NULL,
-      limits = c(-0.2, 1.1)
+      limits = c(-0.2, 1.1),
+      position = "right"
     ) +
     scale_x_continuous(breaks = c(1, 20, 40, 60, 77)) +
     coord_cartesian(xlim = c(1, 77), expand = FALSE) +
     labs(
       x = "Drug rank",
-      y = ""
+      y = "Normalized density estimate"
     )
 
   # Add shaded background
@@ -239,18 +243,18 @@ panelB <- function( target_combo_significance_aggregated, target_combos,
     ggplotGrob() %>%
     # Synergistic
     gtable::gtable_add_grob(
-      grid::rectGrob(gp = grid::gpar(fill = effect_color_map[["synergistic"]], col = NA)),
-      7, 5, 11, 28, z = 0.5
+      grid::rectGrob(gp = grid::gpar(col = effect_color_map_dark[["synergistic"]], fill = effect_color_map[["synergistic"]], lwd = 3)),
+      7, 5, 11, 27, z = 0.5
     ) %>%
     # Neutral
     gtable::gtable_add_grob(
-      grid::rectGrob(gp = grid::gpar(fill = effect_color_map[["neutral"]], col = NA)),
-      15, 5, 15, 28, z = 0.5
+      grid::rectGrob(gp = grid::gpar(col = effect_color_map_dark[["neutral"]], fill = effect_color_map[["neutral"]], lwd = 3)),
+      15, 5, 15, 27, z = 0.5
     ) %>%
     # Antagonistic
     gtable::gtable_add_grob(
-      grid::rectGrob(gp = grid::gpar(fill = effect_color_map[["antagonistic"]], col = NA)),
-      19, 5, 23, 28, z = 0.5
+      grid::rectGrob(gp = grid::gpar(col = effect_color_map_dark[["antagonistic"]], fill = effect_color_map[["antagonistic"]], lwd = 3)),
+      19, 5, 23, 27, z = 0.5
     ) %>%
     # Add effect labels on y-axis
     {
