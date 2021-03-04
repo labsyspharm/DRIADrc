@@ -2,13 +2,13 @@
 
 This is a companion to Drug Repurposing In Alzheimer's Disease (DRIAD), a machine learning framework for quantifying potential associations between drugs and Alzheimer's Disease.
 
+* Nature communications article: https://www.nature.com/articles/s41467-021-21330-0
 * Primary DRIAD repository: https://github.com/labsyspharm/DRIAD
 * DRIAD as a webapp: https://labsyspharm.shinyapps.io/DRIAD/
-* Pre-print: https://www.biorxiv.org/content/10.1101/2020.05.15.098749v1
 
 ## Reproducing the figures
 
-All scripts and data needed to fully reproduce the figures are encapsulated inside a Docker container. Ensure that you have [Docker installed](https://docs.docker.com/get-docker/). The run the following command:
+All scripts and data needed to fully reproduce the figures are encapsulated inside a Docker container. Ensure that you have [Docker installed](https://docs.docker.com/get-docker/). Then run the following command:
 
 ```
 docker run -v "$PWD":/output/ --rm labsyspharm/driadrc make
